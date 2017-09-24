@@ -1,0 +1,26 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/platform-for-testing/back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/platform-for-testing/back/issues"
+  },
+  "homepage": "https://github.com/platform-for-testing/back#readme",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "mongodb": "^2.2.31"
+  }
+}
