@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,9 @@
   "dependencies": {
     "koa": "^2.3.0",
     "mongodb": "^2.2.31"
+  },
+  "engines": {
+    "node": "8.5.0",
+    "npm": "5.4.2"
   }
 }
