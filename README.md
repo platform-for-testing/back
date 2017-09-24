@@ -1,5 +1,7 @@
 # back
 
+[![Build Status](https://travis-ci.org/platform-for-testing/back.svg?branch=develop)](https://travis-ci.org/platform-for-testing/back)
+
 ## Dev env
 
 ```
