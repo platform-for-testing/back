@@ -2,6 +2,7 @@ const Koa = require('koa');
 const app = module.exports = new Koa();
 const MongoClient = require('mongodb').MongoClient; 
 
+const mongo_uri = ENV['MONGODB_URI'] || 'mongodb://localhost:27017/test';
 const url = 'mongodb://localhost:27017/test';
 
 MongoClient.connect(url, function(err, db) {
