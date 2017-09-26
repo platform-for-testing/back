@@ -4,9 +4,6 @@ const MongoClient = require('mongodb').MongoClient;
 
 const url = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/test';
 
-console.log({ env: process.env });
-console.log({ url });
-
 MongoClient.connect(url, function(err, db) {
   console.log('err', err);
   console.log("Connected correctly to server.");
@@ -16,10 +13,8 @@ MongoClient.connect(url, function(err, db) {
     name: 'test'
   }, (err, res) => {
     console.log({err, res});
-    app.listen(process.env.PORP || 3000);
-  });
-
-  
+    app.listen(process.env.PORT || 3000);
+  });  
 });
 
 app.use(async function(ctx) {
