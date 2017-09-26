@@ -2,8 +2,10 @@ const Koa = require('koa');
 const app = module.exports = new Koa();
 const MongoClient = require('mongodb').MongoClient; 
 
-const mongo_uri = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/test';
-const url = 'mongodb://localhost:27017/test';
+const url = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/test';
+
+console.log({ env: process.env });
+console.log({ uri: mongo_uri })
 
 MongoClient.connect(url, function(err, db) {
   console.log('err', err);
@@ -19,8 +21,6 @@ MongoClient.connect(url, function(err, db) {
 
   
 });
-
-
 
 app.use(async function(ctx) {
   ctx.body = 'Hello World';
