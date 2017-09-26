@@ -5,7 +5,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/test';
 
 console.log({ env: process.env });
-console.log({ uri: mongo_uri })
+console.log({ url });
 
 MongoClient.connect(url, function(err, db) {
   console.log('err', err);
