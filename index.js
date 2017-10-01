@@ -1,24 +1,14 @@
 const Koa = require('koa');
-const app = module.exports = new Koa();
-const MongoClient = require('mongodb').MongoClient; 
+const bodyParser = require('koa-body');
+const routes = require('./routes.js');
+const app = new Koa();
 
-const url = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/test';
+app.use(bodyParser({
+    formidable:{uploadDir: './uploads'},
+    multipart: true,
+    urlencoded: true
+}));
 
-MongoClient.connect(url, function(err, db) {
-  console.log('err', err);
-  console.log("Connected correctly to server.");
-  // db.close();
+app.use(routes.routes());
 
-  db.collection('restaurants').insertOne({
-    name: 'test'
-  }, (err, res) => {
-    console.log({err, res});
-    app.listen(process.env.PORT || 3000);
-  });  
-});
-
-app.use(async function(ctx) {
-  ctx.body = 'Hello World';
-});
-
-// if (!module.parent) app.listen(3000);
+app.listen(3000);
