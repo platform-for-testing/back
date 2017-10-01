@@ -21,11 +21,15 @@
   },
   "homepage": "https://github.com/platform-for-testing/back#readme",
   "dependencies": {
+    "bunyan": "^1.8.12",
+    "convict": "^4.0.1",
     "koa": "^2.3.0",
     "koa-body": "^2.4.0",
     "koa-mongo": "^1.2.1",
     "koa-router": "^7.2.1",
-    "mongodb": "^2.2.31"
+    "mongodb": "^2.2.31",
+    "should": "^13.1.0",
+    "supertest": "^3.0.0"
   },
   "engines": {
     "node": "8.5.0",
