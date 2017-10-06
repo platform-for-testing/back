@@ -23,11 +23,13 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "convict": "^4.0.1",
+    "joi": "^11.1.1",
     "koa": "^2.3.0",
     "koa-body": "^2.4.0",
     "koa-mongo": "^1.2.1",
     "koa-router": "^7.2.1",
     "mongodb": "^2.2.31",
+    "promisify-node": "^0.4.0",
     "should": "^13.1.0",
     "supertest": "^3.0.0"
   },
