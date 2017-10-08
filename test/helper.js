@@ -2,18 +2,17 @@ const Db = require('../lib/db');
 const config = require('../lib/config');
 const bunyan = require('bunyan');
 const logger = bunyan.createLogger({name: config.get('helper')});
-
+const db = new Db(config, logger);;
 
 async function init() {
-    db = new Db(config, logger);
     await db.init();
-    setupRespondents(db);
+    await setupRespondents();
     await  db.closeConnection();
 }
 
-function setupRespondents(db) {
+async function setupRespondents() {
     logger.info('setupRespondents');
-    db.create("respondents", {
+    db.create("respondent", {
         'user': {
             'userName': 'thirdUserNAme',
             'userDescription': 'thirdUserNAme description',
@@ -29,7 +28,7 @@ function setupRespondents(db) {
         'points': '32',
         'time': '11:25'
     });
-    db.create("respondents", {
+    db.create("respondent", {
         'user': {
             'userName': 'secondUserNAme',
             'userDescription': 'secondUserNAme description',
@@ -45,7 +44,7 @@ function setupRespondents(db) {
         'points': '32',
         'time': '11:25'
     });
-    db.create("respondents", {
+    db.create("respondent", {
         'user': {
             'userName': 'firstUserNAme',
             'userDescription': 'firstUserNAme description',
