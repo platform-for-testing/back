@@ -14,11 +14,22 @@ describe('Respondents', function () {
     });
 
 
-    describe('# test', function () {
+    describe('# Respondents', function () {
 
-        it('should get respondents', (done) => {
+        it('should get all respondents', (done) => {
             request
                 .get('/respondents')
+                .expect(200, function (err, res) {
+                    console.log('err', err);
+                    console.log('res', res.body);
+                    done();
+                });
+        });
+
+        it('should post respondent', (done) => {
+            request
+                .post('/respondents')
+                .send({name:'qwe'})
                 .expect(200, function (err, res) {
                     console.log('err', err);
                     console.log('res', res.body);
