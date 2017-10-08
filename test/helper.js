@@ -2,7 +2,7 @@ const Db = require('../lib/db');
 const config = require('../lib/config');
 const bunyan = require('bunyan');
 const logger = bunyan.createLogger({name: config.get('helper')});
-const db = new Db(config, logger);;
+const db = new Db(config, logger);
 
 async function init() {
     await db.init();
