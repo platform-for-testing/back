@@ -26,7 +26,7 @@ async function setupRespondents() {
         },
         'tryCount': '2',
         'points': '32',
-        'time': '11:25'
+        'time': '123'
     });
     db.create("respondent", {
         'user': {
@@ -42,7 +42,7 @@ async function setupRespondents() {
         },
         'tryCount': '2',
         'points': '32',
-        'time': '11:25'
+        'time': '123213'
     });
     db.create("respondent", {
         'user': {
@@ -58,7 +58,7 @@ async function setupRespondents() {
         },
         'tryCount': '2',
         'points': '32',
-        'time': '11:25'
+        'time': '123213'
     });
 }
 
