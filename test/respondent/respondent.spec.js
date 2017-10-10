@@ -1,7 +1,8 @@
 const {
     app,
     init
-} = require('../lib/index');
+} = require('../../lib/index');
+const {initHelper}=require('./helper');
 const assert = require('assert');
 const superTest = require('supertest');
 require('should');
@@ -10,8 +11,13 @@ describe('Respondents', function () {
     let request;
 
     before(async () => {
+        await initHelper();
         await init();
         request = superTest.agent(app.listen());
+    });
+
+    after(async () => {
+       //TODO need cleaning db
     });
 
     describe('Respondents promises tests', function () {
@@ -95,7 +101,7 @@ describe('Respondents', function () {
             });
         });
     });
-    xdescribe('Respondents callback tests', function () {
+    describe('Respondents callback tests', function () {
         describe('Respondents get', function () {
             it('should send code 200', (done) => {
                 request
