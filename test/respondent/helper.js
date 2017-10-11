@@ -10,6 +10,17 @@ async function initHelper() {
     await  db.closeConnection();
 }
 
+async function cleanHelper() {
+    await db.init();
+    await removeCollection('respondent');
+    await  db.closeConnection();
+}
+
+async function removeCollection(collection) {
+    logger.info('removeRespondents');
+    db.removeCollection(collection);
+}
+
 async function setupRespondents() {
     logger.info('setupRespondents');
     db.create("respondent", {
@@ -68,5 +79,6 @@ async function setupRespondents() {
 // });
 
 module.exports = {
-    initHelper
+    initHelper,
+    cleanHelper
 };

@@ -2,7 +2,10 @@ const {
     app,
     init
 } = require('../../lib/index');
-const {initHelper}=require('./helper');
+const {
+    initHelper,
+    cleanHelper
+} =require('./helper');
 const assert = require('assert');
 const superTest = require('supertest');
 require('should');
@@ -17,7 +20,7 @@ describe('Respondents', function () {
     });
 
     after(async () => {
-       //TODO need cleaning db
+        await cleanHelper();
     });
 
     describe('Respondents promises tests', function () {
