@@ -5,7 +5,11 @@ const {
 const {
     initHelper,
     cleanHelper
-} =require('./helper');
+} = require('./helper');
+
+const {
+    respondentSample
+} = require('./respondent-test-data');
 const assert = require('assert');
 const superTest = require('supertest');
 require('should');
@@ -51,7 +55,7 @@ describe('Respondents', function () {
                     .then(response => {
                         let respondent = (response.body.slice(0, 1))[0];
                         delete respondent['_id'];
-                        assert.equal(JSON.stringify(respondent), `{"user":{"userName":"thirdUserNAme","userDescription":"thirdUserNAme description","lastVisited":"25.09","lastTested":"21.09"},"testName":{"name":"Тест по Git. Начальный уровень","lastEdited":"12","numberOfQuestions":"123"},"tryCount":"2","points":"32","time":"123"}`);
+                        assert.deepEqual(respondent, respondentSample);
                     })
                     .catch(err => {
                         console.log(err);
@@ -141,7 +145,7 @@ describe('Respondents', function () {
                         assert.equal(res.body.length, 4);
                         let respondent = (res.body.slice(0, 1))[0];
                         delete respondent['_id'];
-                        assert.equal(JSON.stringify(respondent), `{"user":{"userName":"thirdUserNAme","userDescription":"thirdUserNAme description","lastVisited":"25.09","lastTested":"21.09"},"testName":{"name":"Тест по Git. Начальный уровень","lastEdited":"12","numberOfQuestions":"123"},"tryCount":"2","points":"32","time":"123"}`);
+                        assert.deepEqual(respondent, respondentSample);
                         if (err) {
                             console.log('err', err);
                             console.log('res', res.body);
