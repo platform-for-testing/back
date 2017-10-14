@@ -1,53 +1,46 @@
-const {
-    app,
-    init
-} = require('../../lib/index');
-const {
-    initHelper,
-    cleanHelper
-} = require('./helper');
-
-const {
-    respondentSample
-} = require('./respondent-test-data');
+const PftServer = require('../../lib/index');
+const { initHelper, cleanHelper } = require('./helper');
+const { respondentSample } = require('./respondent-test-data');
 const assert = require('assert');
 const superTest = require('supertest');
+
 require('should');
 
 describe('Respondents', function () {
     let request;
+    let pftInstance;
 
-    before(async () => {
+    before(async() => {
         await initHelper();
-        await init();
-        request = superTest.agent(app.listen());
+        pftInstance = new PftServer();
+        await pftInstance.start();
+
+        request = superTest(pftInstance.server);
     });
 
-    after(async () => {
+    after(async() => {
         await cleanHelper();
+        await pftInstance.stop();
     });
 
-    describe('Respondents promises tests', function () {
-        describe('Respondents get', function () {
-            it('should send code 200', function () {
-                return request
+    describe('Respondents promises tests', () => {
+        describe('Respondents get', () => {
+            it('should send code 200', async () => {
+                await request
                     .get('/respondents')
                     .set('Accept', 'application/json')
                     .expect(200);
             });
-            it('should send 3 objects of respondents', function () {
-                return request
+            it('should send 3 objects of respondents', async () => {
+                await request
                     .get('/respondents')
                     .set('Accept', 'application/json')
                     .expect(200)
                     .then(response => {
                         assert.equal(response.body.length, 3);
                     })
-                    .catch(err => {
-                        console.log(err);
-                    });
             });
-            it('should get respondents which equal sample', function () {
+            it('should get respondents which equal sample', async () => {
                 return request
                     .get('/respondents')
                     .set('Accept', 'application/json')
@@ -57,22 +50,21 @@ describe('Respondents', function () {
                         delete respondent['_id'];
                         assert.deepEqual(respondent, respondentSample);
                     })
-                    .catch(err => {
-                        console.log(err);
-                    });
             });
         });
-        describe('Respondents post', function () {
+        describe('Respondents post', () => {
 
-            it('should return status code 400 if object not valid', function () {
+            it('should return status code 400 if object not valid', async () => {
                 return request
                     .post('/respondents')
-                    .send({name: 'qwe'})
+                    .send({
+                        name: 'qwe'
+                    })
                     .expect(400);
             });
 
 
-            it('should return status code 200 if object valid', function () {
+            it('should return status code 200 if object valid', async () => {
                 return request
                     .post('/respondents')
                     .send({
@@ -94,19 +86,15 @@ describe('Respondents', function () {
                     .expect(200);
             });
 
-            it('should send 4 objects of respondents', function () {
+            it('should send 4 objects of respondents', async () => {
                 return request
                     .get('/respondents')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .then(response => {
                         assert.equal(response.body.length, 4);
-                    })
-                    .catch(err => {
-                        console.log(err);
                     });
             });
         });
     });
 });
-

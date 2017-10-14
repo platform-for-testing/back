@@ -7,13 +7,16 @@ require('should');
 
 describe.skip('Blog', function () {
     let request;
-
+    let server;
     before(async() => {
         await init();
-        request = superTest.agent(app.listen());
+        server = app.listen('3000');
+        request = superTest.agent(server);
     })
 
-
+    after(() => {
+        server.close();
+    })
     describe('# test', function () {
         before(async() => {
             //TODO create quize in db for test

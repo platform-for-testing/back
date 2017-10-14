@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "NODE_ENV=test node_modules/mocha/bin/_mocha --recursive test",
+    "test": "LOG_LEVEL=fatal NODE_ENV=test node_modules/mocha/bin/_mocha --recursive test",
     "start": "node index"
   },
   "repository": {
@@ -29,10 +29,10 @@
     "koa-body": "^2.4.0",
     "koa-mongo": "^1.2.1",
     "koa-router": "^7.2.1",
+    "mocha": "^4.0.0",
     "mongodb": "^2.2.31",
     "should": "^13.1.0",
-    "supertest": "^3.0.0",
-    "mocha": "^4.0.0"
+    "supertest": "^3.0.0"
   },
   "engines": {
     "node": "8.5.0",
