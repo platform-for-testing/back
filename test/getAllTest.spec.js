@@ -5,7 +5,7 @@ const {
 const superTest = require('supertest');
 require('should');
 
-describe('Blog', function () {
+describe.skip('Blog', function () {
     let request;
 
     before(async() => {
