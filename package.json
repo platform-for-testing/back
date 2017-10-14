@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified , need DB\" && exit 0",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "start": "node index"
   },
   "repository": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/platform-for-testing/back#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "bunyan": "^1.8.12",
     "convict": "^4.0.1",
     "joi": "^11.3.0",
