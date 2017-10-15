@@ -67,22 +67,7 @@ describe('Respondents', function () {
             it('should return status code 200 if object valid', async () => {
                 return request
                     .post('/respondents')
-                    .send({
-                        user: {
-                            userName: "thirdUserNAme",
-                            userDescription: "thirdUserNAme description",
-                            lastVisited: "25.09",
-                            lastTested: "21.09"
-                        },
-                        testName: {
-                            name: "Тест по Git. Начальный уровень",
-                            lastEdited: "12",
-                            numberOfQuestions: "123"
-                        },
-                        tryCount: "2",
-                        points: "32",
-                        time: "132"
-                    })
+                    .send(respondentSample)
                     .expect(200);
             });
 

@@ -1,13 +1,30 @@
 const respondentSample = {
     user: {
-        userName: "thirdUserNAme",
-        userDescription: "thirdUserNAme description",
-        lastVisited: "25.09",
-        lastTested: "21.09"
+        userFirstName: "thirdUserNAme",
+        userSecondName: "userSecondName",
+        lastVisited: "25-09-2017",
+        lastTested: "21-09-2017"
     },
     testName: {
-        name: "Тест по Git. Начальный уровень",
-        lastEdited: "12",
+        title: "Тест по Git. Начальный уровень",
+        description: "description",
+        questions: [
+            {
+                type: "1",
+                points: "2",
+                question: "what is your name",
+                description: "description",
+                answers:  ["Vasya","Petya","Sidor"]
+            },
+            {
+                type: "1",
+                points: "2",
+                question: "what is your sname",
+                description: "description",
+                answers: ["Ivanov","Petrov","Sidorov"]
+            }
+        ],
+        lastEdited: "27-09-2017",
         numberOfQuestions: "123"
     },
     tryCount: "2",

@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "LOG_LEVEL=fatal NODE_ENV=test node_modules/mocha/bin/_mocha --recursive test",
+    "test": "LOG_LEVEL=info NODE_ENV=test node_modules/mocha/bin/_mocha --recursive test",
     "start": "node index"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "bunyan": "^1.8.12",
     "convict": "^4.0.1",
     "joi": "^11.3.0",
+    "joi-date-extensions": "^1.1.0",
     "koa": "^2.3.0",
     "koa-body": "^2.4.0",
     "koa-mongo": "^1.2.1",
