@@ -78,10 +78,6 @@ async function setupRespondents() {
 }
 
 
-// initHelper().catch(err => {
-//     logger.error(err);
-// });
-
 module.exports = {
     initHelper,
     cleanHelper
