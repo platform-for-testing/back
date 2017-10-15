@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "LOG_LEVEL=fatal NODE_ENV=test node_modules/mocha/bin/_mocha --recursive test",
     "start": "node index"
   },
   "repository": {
@@ -24,11 +24,12 @@
     "bluebird": "^3.5.1",
     "bunyan": "^1.8.12",
     "convict": "^4.0.1",
-    "joi": "^11.1.1",
+    "joi": "^11.3.0",
     "koa": "^2.3.0",
     "koa-body": "^2.4.0",
     "koa-mongo": "^1.2.1",
     "koa-router": "^7.2.1",
+    "mocha": "^4.0.0",
     "mongodb": "^2.2.31",
     "should": "^13.1.0",
     "supertest": "^3.0.0"
