@@ -29,15 +29,32 @@ async function setupRespondents() {
     logger.info('setupRespondents');
     db.create("respondent", {
         'user': {
-            'userName': 'thirdUserNAme',
-            'userDescription': 'thirdUserNAme description',
-            'lastVisited': '25.09',
-            'lastTested': '21.09'
+            'userFirstName': 'thirdUserNAme',
+            'userSecondName': 'userSecondName',
+            'lastVisited': '25-09-2017',
+            'lastTested': '21-09-2017'
         },
         'testName': {
-            'name': 'Тест по Git. Начальный уровень',
-            'lastEdited': '12',
-            'numberOfQuestions': '123'
+            'title': 'Тест по Git. Начальный уровень',
+            'description': 'description',
+            'questions': [
+                {
+                    'type': '1',
+                    'points': '2',
+                    'question': 'what is your name',
+                    'description': 'description',
+                    'answers': ["Vasya", "Petya", "Sidor"]
+                },
+                {
+                    'type': '1',
+                    'points': '2',
+                    'question': 'what is your sname',
+                    'description': 'description',
+                    'answers': ["Ivanov", "Petrov", "Sidorov"]
+                }
+            ],
+            'lastEdited': '27-09-2017',
+            'numberOfQuestions': '123',
         },
         'tryCount': '2',
         'points': '32',
@@ -45,42 +62,72 @@ async function setupRespondents() {
     });
     db.create("respondent", {
         'user': {
-            'userName': 'secondUserNAme',
-            'userDescription': 'secondUserNAme description',
-            'lastVisited': '23.09',
-            'lastTested': '23.09'
+            'userFirstName': 'thirdUserNAme',
+            'userSecondName': 'userSecondName',
+            'lastVisited': '25-09-2017',
+            'lastTested': '21-09-2017'
         },
         'testName': {
-            'name': 'Тест по JS на тему: "Основы. Часть 05',
-            'lastEdited': '5',
-            'numberOfQuestions': '25'
+            'title': 'Тест по Git. Начальный уровень',
+            'description': 'description',
+            'questions': [
+                {
+                    'type': '1',
+                    'points': '2',
+                    'question': 'what is your name',
+                    'description': 'description',
+                    'answers': ["Vasya", "Petya", "Sidor"]
+                },
+                {
+                    'type': '1',
+                    'points': '2',
+                    'question': 'what is your sname',
+                    'description': 'description',
+                    'answers': ["Ivanov", "Petrov", "Sidorov"]
+                }
+            ],
+            'lastEdited': '27-09-2017',
+            'numberOfQuestions': '123',
         },
         'tryCount': '2',
         'points': '32',
-        'time': '123213'
+        'time': '123'
     });
     db.create("respondent", {
         'user': {
-            'userName': 'firstUserNAme',
-            'userDescription': 'firstUserNAme description',
-            'lastVisited': '27.09',
-            'lastTested': '20.09'
+            'userFirstName': 'thirdUserNAme',
+            'userSecondName': 'userSecondName',
+            'lastVisited': '25-09-2017',
+            'lastTested': '21-09-2017'
         },
         'testName': {
-            'name': 'Тест по HTML. Средний уровень',
-            'lastEdited': '33',
-            'numberOfQuestions': '123'
+            'title': 'Тест по Git. Начальный уровень',
+            'description': 'description',
+            'questions': [
+                {
+                    'type': '1',
+                    'points': '2',
+                    'question': 'what is your name',
+                    'description': 'description',
+                    'answers': ["Vasya", "Petya", "Sidor"]
+                },
+                {
+                    'type': '1',
+                    'points': '2',
+                    'question': 'what is your sname',
+                    'description': 'description',
+                    'answers': ["Ivanov", "Petrov", "Sidorov"]
+                }
+            ],
+            'lastEdited': '27-09-2017',
+            'numberOfQuestions': '123',
         },
         'tryCount': '2',
         'points': '32',
-        'time': '123213'
+        'time': '123'
     });
 }
 
-
-// initHelper().catch(err => {
-//     logger.error(err);
-// });
 
 module.exports = {
     initHelper,

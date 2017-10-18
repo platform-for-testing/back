@@ -1,8 +1,9 @@
 const PftServer = require('../../lib/index');
-const { initHelper, cleanHelper } = require('./helper');
-const { respondentSample } = require('./respondent-test-data');
+const {initHelper, cleanHelper} = require('./helper');
 const assert = require('assert');
 const superTest = require('supertest');
+const fs = require('fs');
+const respondentSample =JSON.parse( fs.readFileSync('test/respondent/respondent-test-data.json', 'utf8'));
 
 require('should');
 
@@ -10,7 +11,7 @@ describe('Respondents', function () {
     let request;
     let pftInstance;
 
-    before(async() => {
+    before(async () => {
         await initHelper();
         pftInstance = new PftServer();
         await pftInstance.start();
@@ -18,7 +19,7 @@ describe('Respondents', function () {
         request = superTest(pftInstance.server);
     });
 
-    after(async() => {
+    after(async () => {
         await cleanHelper();
         await pftInstance.stop();
     });
@@ -67,22 +68,7 @@ describe('Respondents', function () {
             it('should return status code 200 if object valid', async () => {
                 return request
                     .post('/respondents')
-                    .send({
-                        user: {
-                            userName: "thirdUserNAme",
-                            userDescription: "thirdUserNAme description",
-                            lastVisited: "25.09",
-                            lastTested: "21.09"
-                        },
-                        testName: {
-                            name: "Тест по Git. Начальный уровень",
-                            lastEdited: "12",
-                            numberOfQuestions: "123"
-                        },
-                        tryCount: "2",
-                        points: "32",
-                        time: "132"
-                    })
+                    .send(respondentSample)
                     .expect(200);
             });
 
