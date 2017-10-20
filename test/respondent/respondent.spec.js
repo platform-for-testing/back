@@ -62,7 +62,6 @@ describe('Respondents', function () {
                         let respondent = (response.body.slice(0, 1))[0];
                         id = respondent['_id'];
                     });
-                console.log('id=' + id);
                 return request
                     .get('/respondent/' + id)
                     .set('Accept', 'application/json')
@@ -72,6 +71,13 @@ describe('Respondents', function () {
                         delete respondent['_id'];
                         assert.deepEqual(respondent, respondentSample);
                     });
+            });
+
+            it('should return 500 if id is wrong', async () => {
+                return request
+                    .get('/respondent/123')
+                    .set('Accept', 'application/json')
+                    .expect(404);
             });
         });
         describe('Respondents post', () => {
