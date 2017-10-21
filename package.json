@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "LOG_LEVEL=fatal NODE_ENV=test node_modules/mocha/bin/_mocha --recursive test",
+    "test": "LOG_LEVEL=fatal NODE_ENV=test node ./node_modules/mocha/bin/mocha --recursive test",
+    "test:win": "set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test",
     "start": "node index"
   },
   "repository": {
