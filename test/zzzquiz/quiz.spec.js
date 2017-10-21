@@ -57,19 +57,21 @@ describe.only('Quiz', () => {
             // arrange
 
             // act
-            const created = await request
+            let created;
+            
+            await request
                 .post('/tests')
                 .set('Accept', 'application/json')
                 .send(quizOne)
                 .expect(200)
-                .then(response => console.log('Test created'));
+                .then(response => created = response.body[0]);
 
             // assert
             await request
                 .get(`/tests/${created._id}`)
                 .set('Accept', 'application/json')
                 .then(response => {
-                    const quiz = Object.assign({}, response.body[0]);
+                    const quiz = Object.assign({}, response.body);
                     delete quiz._id;
                     assert.deepEqual(quiz, quizOne);
                 });
