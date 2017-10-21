@@ -2,7 +2,7 @@ const superTest = require('supertest');
 const assert = require('assert');
 require('should');
 
-const PftServer = require('../lib/index');
+const PftServer = require('../../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
 
 describe('Quiz', () => {
