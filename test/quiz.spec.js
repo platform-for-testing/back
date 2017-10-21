@@ -68,7 +68,7 @@ describe('Quiz', () => {
                 .get('/tests')
                 .set('Accept', 'application/json')
                 .then(response => {
-                    const quiz = Object.assign({}, response.body[0]);
+                    const quiz = response.body[0];
                     delete quiz._id;
                     assert.deepEqual(quiz, quizOne);
                 });
