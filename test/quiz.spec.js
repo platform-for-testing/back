@@ -2,21 +2,27 @@ const superTest = require('supertest');
 const assert = require('assert');
 require('should');
 
-const { app, init, db, server } = require('../lib/index');
+const PftServer = require('../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
 
 describe('Quiz', () => {
     let request;
     const collection = 'quizes';
+    let pftServer;
 
     before(async () => {
-        await init();
-        request = superTest.agent(app.listen());
+        pftServer = new PftServer();
+        await pftServer.start();
+        request = superTest(pftServer.server);
     });
 
     beforeEach(async () => {
-        await db.removeCollection(collection);
+        await pftServer.db.removeCollection(collection);
     });
+
+    after(async () => {
+        await pftServer.stop();
+    })
 
     describe('POST /tests', () => {
 
