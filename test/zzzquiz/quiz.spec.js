@@ -5,7 +5,7 @@ require('should');
 const PftServer = require('../../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
 
-describe.skip('Quiz', () => {
+describe.only('Quiz', () => {
     let request;
     const collection = 'quizes';
     let pftServer;
@@ -16,21 +16,17 @@ describe.skip('Quiz', () => {
         request = superTest(pftServer.server);
     });
 
-    beforeEach(async () => {
-        await pftServer.db.removeCollection(collection);
-    });
-
     after(async () => {
         await pftServer.stop();
-    })
+    });
 
     describe('POST /tests', () => {
 
-        it('should return 200 if sent quiz is valid', () => {
+        it('should return 200 if sent quiz is valid', async () => {
             // arrange
 
             // act
-            request
+            await request
                 .post('/tests')
                 .set('Accept', 'application/json')
                 .send(quizTwo)
@@ -38,31 +34,30 @@ describe.skip('Quiz', () => {
                 .expect(200);
         });
 
-        it('should return creted object', () => {
+        it('should return creted object', async () => {
             // arrange
 
             // act
-            request
+            await request
                 .post('/tests')
                 .set('Accept', 'application/json')
                 .send(quizTwo)
                 .expect(200)
                 .then(response => {
-                    const quiz = response.body[0];
+                    const quiz = Object.assign({}, response.body[0]);
                     delete quiz._id;
                     // assert
 
                     assert.deepEqual(quiz, quizTwo);
-                })
-                .catch(error => console.error(error));
+                });
 
         });
 
-        it('should create object in collection', () => {
+        it('should create object in collection', async () => {
             // arrange
 
             // act
-            request
+            await request
                 .post('/tests')
                 .set('Accept', 'application/json')
                 .send(quizOne)
@@ -70,28 +65,27 @@ describe.skip('Quiz', () => {
                 .then(response => console.log('Test created'));
 
             // assert
-            request
+            await request
                 .get('/tests')
                 .set('Accept', 'application/json')
                 .then(response => {
-                    const quiz = response.body[0];
+                    const quiz = Object.assign({}, response.body[0]);
                     delete quiz._id;
                     assert.deepEqual(quiz, quizOne);
                 });
         });
 
-        it('shoold return code 400 if data is invalid', () => {
+        it('shoold return code 400 if data is invalid', async () => {
             // arrange
 
             // act
-            request
+            await request
                 .post('/tests')
                 .set('Accept', 'application/json')
                 .send({questions: [questionTwo]})
-                .expect(400)
-                .then(response => console.log('Test created'))
                 // assert
-                .catch(error => console.log(error));
+                .expect(400)
+                .then(response => console.log('Test created'));
         });
     });
 });
