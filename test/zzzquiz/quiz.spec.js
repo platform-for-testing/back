@@ -57,7 +57,7 @@ describe.only('Quiz', () => {
             // arrange
 
             // act
-            await request
+            const created = await request
                 .post('/tests')
                 .set('Accept', 'application/json')
                 .send(quizOne)
@@ -66,7 +66,7 @@ describe.only('Quiz', () => {
 
             // assert
             await request
-                .get('/tests')
+                .get(`/tests/${created._id}`)
                 .set('Accept', 'application/json')
                 .then(response => {
                     const quiz = Object.assign({}, response.body[0]);
