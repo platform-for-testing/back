@@ -27,13 +27,13 @@ describe.only('Activations', function () {
         describe('/activations get', () => {
             it('should send code 200', async () => {
                 await request
-                    .get('/activation')
+                    .get('/activations')
                     .set('Accept', 'application/json')
                     .expect(200);
             });
             it('should send 3 objects of activations', async () => {
                 await request
-                    .get('/activation')
+                    .get('/activations')
                     .set('Accept', 'application/json')
                     .expect(200)
                     .then(response => {
@@ -42,7 +42,7 @@ describe.only('Activations', function () {
             });
             it('should get activation which equal sample', async () => {
                 return request
-                    .get('/activation')
+                    .get('/activations')
                     .set('Accept', 'application/json')
                     .expect(200)
                     .then(response => {
@@ -56,7 +56,7 @@ describe.only('Activations', function () {
 
             it('should return status code 400 if object not valid', async () => {
                 return request
-                    .post('/activation')
+                    .post('/activations')
                     .send({
                         name: 'qwe'
                     })
@@ -65,14 +65,14 @@ describe.only('Activations', function () {
 
             it('should return status code 200 if object valid', async () => {
                 return request
-                    .post('/activation')
+                    .post('/activations')
                     .send(activationSample)
                     .expect(200);
             });
 
             it('should send 4 objects of activations', async () => {
                 return request
-                    .get('/respondent')
+                    .get('/activations')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .then(response => {
