@@ -1,6 +1,7 @@
 const Db = require('../../lib/db/index');
 const config = require('../../lib/config');
 const bunyan = require('bunyan');
+const fs = require('fs');
 const logger = bunyan.createLogger({
     name: config.get('helper'),
     level: config.get('loggerLevel')
@@ -19,7 +20,7 @@ async function initHelper() {
 
 async function cleanHelper() {
     await db.init();
-    await removeCollection();
+    await removeActivation();
     await  db.closeConnection();
 }
 
@@ -30,6 +31,8 @@ async function removeActivation() {
 
 async function setupActivation() {
     logger.info('setupActivation');
+    db.create(collectionName, collectionJson);
+    db.create(collectionName, collectionJson);
     db.create(collectionName, collectionJson);
 }
 
