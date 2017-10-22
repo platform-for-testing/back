@@ -26,15 +26,15 @@
     "bunyan": "^1.8.12",
     "convict": "^4.0.1",
     "fs": "0.0.1-security",
-    "joi": "^11.3.0",
     "joi-date-extensions": "^1.1.0",
+    "joi": "^11.3.4",
     "koa": "^2.3.0",
-    "koa-body": "^2.4.0",
+    "koa-body": "^2.5.0",
     "koa-mongo": "^1.2.1",
     "koa-router": "^7.2.1",
     "mocha": "^4.0.0",
     "mongodb": "^2.2.31",
-    "should": "^13.1.0",
+    "should": "^13.1.2",
     "supertest": "^3.0.0"
   },
   "engines": {
