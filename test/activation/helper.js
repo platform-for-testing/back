@@ -7,6 +7,8 @@ const logger = bunyan.createLogger({
 });
 const collectionName = "Activations";
 
+const collectionJson = JSON.parse(fs.readFileSync('test/activation/activation-test-data.json', 'utf8'));
+
 const db = new Db(config, logger);
 
 async function initHelper() {
