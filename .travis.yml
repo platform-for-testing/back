@@ -4,11 +4,11 @@ rvm:
   - 2.1
 addons:
   ssh_known_hosts: 95.85.54.211
-before_install:
-  - bash /home/deploy/scripts/install.sh
 language: node_js
 node_js:
 - 8.5.0
 before_install:
 - openssl aes-256-cbc -K $encrypted_5ba5e73ad74f_key -iv $encrypted_5ba5e73ad74f_iv
   -in id_rsa.enc -out id_rsa -d
+script:
+- bash /home/deploy/scripts/install.sh
