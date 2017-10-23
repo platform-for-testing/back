@@ -16,7 +16,7 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: - scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+  script: scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
 
 env:
   global:
