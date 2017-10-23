@@ -11,12 +11,11 @@ before_deploy:
 - chmod 600 id_rsa
 - ssh-add id_rsa
 - mkdir build
-- rsync -av --progress $TRAVIS_BUILD_DIR /build --exclude build
+- rsync -av --progress $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/build --exclude build
 - tar -czf package.tgz build
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+- scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+- ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
   on:
     branch: deployToDO
 env:
