@@ -2,9 +2,6 @@ sudo: required
 language: node_js
 node_js:
 - 8.5.0
-addons:
-  ssh_known_hosts:
-   - $DEPLOY_HOST
 before_deploy:
 - echo -e "Host $DEPLOY_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - mkdir build
