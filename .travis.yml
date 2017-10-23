@@ -6,6 +6,7 @@ addons:
   ssh_known_hosts:
    - $DEPLOY_HOST
 before_deploy:
+- echo -e "Host $DEPLOY_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - mkdir build
 - rsync -av --progress $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/build --exclude build
 - tar -czf package.tgz build
