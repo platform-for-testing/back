@@ -8,4 +8,4 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_5ba5e73ad74f_key -iv $encrypted_5ba5e73ad74f_iv
   -in id_rsa.enc -out id_rsa -d
 script:
-- bash deploy@95.85.54.211/home/deploy/scripts/install.sh
+- bash deploy@95.85.54.211:/home/deploy/scripts/install.sh
