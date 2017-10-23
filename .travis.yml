@@ -1,7 +1,4 @@
 sudo: required
-language: ruby
-rvm:
-  - 2.1
 addons:
   ssh_known_hosts: 95.85.54.211
 language: node_js
