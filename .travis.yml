@@ -2,9 +2,12 @@ sudo: required
 deploy:
   provider: heroku
   api_key:
-    develop: "eba7f85a-1a3c-4e5d-b464-644c4074fc55"
+    develop: eba7f85a-1a3c-4e5d-b464-644c4074fc55
   app:
     develop: platform-for-testing-back
 language: node_js
 node_js:
-  - "8.5.0"
+- 8.5.0
+before_install:
+- openssl aes-256-cbc -K $encrypted_5ba5e73ad74f_key -iv $encrypted_5ba5e73ad74f_iv
+  -in id_rsa.enc -out id_rsa -d
