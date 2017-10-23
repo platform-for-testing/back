@@ -3,7 +3,8 @@ language: node_js
 node_js:
 - 8.5.0
 addons:
-  ssh_known_hosts: $DEPLOY_HOST
+  ssh_known_hosts:
+   - $DEPLOY_HOST
 before_deploy:
 - mkdir build
 - rsync -av --progress $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/build --exclude build
