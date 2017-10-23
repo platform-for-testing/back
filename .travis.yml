@@ -14,10 +14,10 @@ before_deploy:
 - rsync -av --progress $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/build --exclude build
 - tar -czf package.tgz build
 deploy:
-- scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
-- ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
+- provider: script
+  script: scripts/deploy.sh
   on:
-    branch: deployToDO
+   branch: deployToDO
 env:
   global:
   - secure: TVVckmz1dJqPntmIHembMx6E3OSW+N4A9lp6Te48y4X/14WX/yFUk5nSQR2A8ijN0Ykl/hIERYSEAQ4KUbiW2qrIIFUpYXGTaIk2DoV6R2l5hU6tqG6BXb5RnIxjzO+cIElYJ1EWj35CVnH1s5PA/g2nU4sfc5inS1D57P0nzK5pzPUNuZaNvUv3Tru/BqVa9TZaUo3NBpvsKN0BUOhYIHv9XEXSVmtiPCD6tJIBKmBqV+n1FUfDqbfZMZtvYSAVktO9p1uKRaNQ/uvL2EnhYTy/WNWXK12ZyrpwjJqvijgc7p3RqE3fmha4rEvdT7nVBvgvDmW2OIawIOLlsK8XcwFQ4Gbh1jgIFpWnMSz1desD8eTgdTWxFALXrTCDhhLLoV7j9T3Q2qXuDtAaY0iirjGwnDC2+6Jzcb222STscvCG1lG24rxI7fJwnpStMF9mh0UR8kO8BadxlDjBCR7yH3ad2IYqUgwdOhyzP1TrrouJae4ILK3FKD7gkyUZ7IwFiQ5sprsCaIyiXILj8fBXQLEP0H135uLewHQRTG/ZHb+TlUzDwFJVc2iSACywhy1/O3AIm7o7O6szoteIG7WUK0xaIKdQH+BKcsHALQXHOA+GLiiySv1qllVzrSj2GOiRq250/HiJXYmxAVobsebcoNgribQFwi5+StXYYhIHV6Y=
