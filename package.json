@@ -11,7 +11,8 @@
     "test:win": "set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test",
     "start:prod": "PORT=3001 node index",
     "start:dev": "PORT=3002 node index",
-    "start": "node index"
+    "start": "node index",
+    "stop": "./lib/stopServer.js"
   },
   "repository": {
     "type": "git",
