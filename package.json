@@ -9,10 +9,10 @@
   "scripts": {
     "test": "LOG_LEVEL=fatal NODE_ENV=test node ./node_modules/mocha/bin/mocha --recursive test",
     "test:win": "set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test",
-    "start:prod": "PORT=3001 node index",
-    "start:dev": "PORT=3002 node index",
+    "start:prod": "PORT=3001 forever start --minUptime 1000 --spinSleepTime 1000 index.js",
+    "start:dev": "PORT=3002 forever start --minUptime 1000 --spinSleepTime 1000 index.js",
     "start": "node index",
-    "stop": "./lib/stopServer.js"
+    "stop": "forever stop index.js"
   },
   "repository": {
     "type": "git",
@@ -28,9 +28,10 @@
     "bluebird": "^3.5.1",
     "bunyan": "^1.8.12",
     "convict": "^4.0.1",
+    "forever": "^0.15.3",
     "fs": "0.0.1-security",
-    "joi-date-extensions": "^1.1.0",
     "joi": "^11.3.4",
+    "joi-date-extensions": "^1.1.0",
     "koa": "^2.3.0",
     "koa-body": "^2.5.0",
     "koa-mongo": "^1.2.1",
