@@ -1,24 +1,6 @@
-const Koa = require('koa');
-const app = module.exports = new Koa();
-const MongoClient = require('mongodb').MongoClient; 
+const PftServer = require('./lib');
 
-const url = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/test';
-
-MongoClient.connect(url, function(err, db) {
-  console.log('err', err);
-  console.log("Connected correctly to server.");
-  // db.close();
-
-  db.collection('restaurants').insertOne({
-    name: 'test'
-  }, (err, res) => {
-    console.log({err, res});
-    app.listen(process.env.PORT || 3000);
-  });  
+const pftInstance = new PftServer();
+pftInstance.start().catch(err => {
+    logger.error(err, 'Error during server start');
 });
-
-app.use(async function(ctx) {
-  ctx.body = 'Hello World';
-});
-
-// if (!module.parent) app.listen(3000);
