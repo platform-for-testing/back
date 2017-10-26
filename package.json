@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "LOG_LEVEL=fatal NODE_ENV=test node ./node_modules/mocha/bin/mocha --recursive test",
+	"test": "npm run lint && LOG_LEVEL=info NODE_ENV=test node ./node_modules/mocha/bin/mocha --recursive test",
+	"lint": "node_modules/eslint/bin/eslint.js lib",
     "test:win": "set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test",
     "start": "node index"
   },
@@ -41,5 +42,10 @@
   "engines": {
     "node": "8.5.0",
     "npm": "5.4.2"
+  },
+  "devDependencies": {
+	"eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
   }
 }

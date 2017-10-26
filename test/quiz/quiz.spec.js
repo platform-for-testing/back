@@ -58,7 +58,7 @@ describe('Quiz', () => {
 
             // act
             let created;
-            
+
             await request
                 .post('/tests')
                 .set('Accept', 'application/json')
