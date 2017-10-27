@@ -5,7 +5,7 @@ require('should');
 const PftServer = require('../../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
 
-describe('Quiz', () => {
+describe.only('Quiz', () => {
 	let request;
 	let pftServer;
 
@@ -28,7 +28,7 @@ describe('Quiz', () => {
 				.post('/tests')
 				.set('Accept', 'application/json')
 				.send(quizTwo)
-			// assert
+				// assert
 				.expect(200);
 		});
 
@@ -61,7 +61,7 @@ describe('Quiz', () => {
 				.set('Accept', 'application/json')
 				.send(quizOne)
 				.expect(200)
-				.then(response => created = response.body[0]);
+				.then(response => [created] = response.body);
 
 			// assert
 			await request
@@ -74,7 +74,7 @@ describe('Quiz', () => {
 				});
 		});
 
-		it('shoold return code 400 if data is invalid', async () => {
+		it('should return code 400 if data is invalid', async () => {
 			// arrange
 
 			// act
@@ -82,9 +82,8 @@ describe('Quiz', () => {
 				.post('/tests')
 				.set('Accept', 'application/json')
 				.send({ questions: [questionTwo] })
-			// assert
-				.expect(400)
-				.then(response => console.log('Test created'));
+				// assert
+				.expect(400);
 		});
 	});
 });
