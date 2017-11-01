@@ -1,3 +1,9 @@
+const fs = require('fs');
+
+const respondentSampleFirst = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data.json', 'utf8'));
+const respondentSampleSecond = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data-second.json', 'utf8'));
+const respondentSampleThird = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data-third.json', 'utf8'));
+
 class Helper {
 	constructor(db, logger) {
 		this.db = db;
@@ -19,105 +25,9 @@ class Helper {
 
 	async setupRespondents() {
 		this.logger.info('setupRespondents');
-		const a = await this.db.create("respondent", {
-			'user': {
-				'userFirstName': 'thirdUserNAme',
-				'userSecondName': 'userSecondName',
-				'lastVisited': '25-09-2017',
-				'lastTested': '21-09-2017'
-			},
-			'testName': {
-				'title': 'Тест по Git. Начальный уровень',
-				'description': 'description',
-				'questions': [
-					{
-						'type': '1',
-						'points': '2',
-						'question': 'what is your name',
-						'description': 'description',
-						'answers': ["Vasya", "Petya", "Sidor"]
-					},
-					{
-						'type': '1',
-						'points': '2',
-						'question': 'what is your sname',
-						'description': 'description',
-						'answers': ["Ivanov", "Petrov", "Sidorov"]
-					}
-				],
-				'lastEdited': '27-09-2017',
-				'numberOfQuestions': '123',
-			},
-			'tryCount': '2',
-			'points': '32',
-			'time': '123'
-		});
-		await this.db.create("respondent", {
-			'user': {
-				'userFirstName': 'thirdUserNAme',
-				'userSecondName': 'userSecondName',
-				'lastVisited': '25-09-2017',
-				'lastTested': '21-09-2017'
-			},
-			'testName': {
-				'title': 'Тест по Git. Начальный уровень',
-				'description': 'description',
-				'questions': [
-					{
-						'type': '1',
-						'points': '2',
-						'question': 'what is your name',
-						'description': 'description',
-						'answers': ["Vasya", "Petya", "Sidor"]
-					},
-					{
-						'type': '1',
-						'points': '2',
-						'question': 'what is your sname',
-						'description': 'description',
-						'answers': ["Ivanov", "Petrov", "Sidorov"]
-					}
-				],
-				'lastEdited': '27-09-2017',
-				'numberOfQuestions': '123',
-			},
-			'tryCount': '2',
-			'points': '32',
-			'time': '123'
-		});
-		await this.db.create("respondent", {
-			'user': {
-				'userFirstName': 'thirdUserNAme',
-				'userSecondName': 'userSecondName',
-				'lastVisited': '25-09-2017',
-				'lastTested': '21-09-2017'
-			},
-			'testName': {
-				'title': 'Тест по Git. Начальный уровень',
-				'description': 'description',
-				'questions': [
-					{
-						'type': '1',
-						'points': '2',
-						'question': 'what is your name',
-						'description': 'description',
-						'answers': ["Vasya", "Petya", "Sidor"]
-					},
-					{
-						'type': '1',
-						'points': '2',
-						'question': 'what is your sname',
-						'description': 'description',
-						'answers': ["Ivanov", "Petrov", "Sidorov"]
-					}
-				],
-				'lastEdited': '27-09-2017',
-				'numberOfQuestions': '123',
-			},
-			'tryCount': '2',
-			'points': '32',
-			'time': '123'
-		});
+		await this.db.create('respondent', respondentSampleFirst);
+		await this.db.create('respondent', respondentSampleSecond);
+		await this.db.create('respondent', respondentSampleThird);
 	}
 }
 

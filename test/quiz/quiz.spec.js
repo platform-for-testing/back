@@ -5,7 +5,7 @@ require('should');
 const PftServer = require('../../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
 
-describe.only('Quiz', () => {
+describe('Quiz', () => {
 	let request;
 	let pftServer;
 
