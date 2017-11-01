@@ -87,51 +87,6 @@ describe('Quiz', () => {
 				.expect(400);
 		});
 	});
-describe('DELETE /tests', () => {
-    /*it('should get quiz by id', async() => {
-        let id;
-        await request
-            .post('/respondent')
-            .send(respondentSample)
-            .expect(200)
-            .then(response => {
-                let respondent = (response.body.slice(0, 1))[0];
-                id = respondent['_id'];
-            });
-        return request
-            .get('/respondent/' + id)
-            .set('Accept', 'application/json')
-            .expect(200)
-            .then(response => {
-                let respondent = (response.body.slice(0, 1))[0];
-                delete respondent['_id'];
-                assert.deepEqual(respondent, respondentSample);
-            });
-    });*/
-
-	it('should return deleted quiz', async () => {
-		// arrange
-
-		//act
-		await request
-			.delete('/tests')
-			.send("59f597d73aa21a10ac0ddcbd")
-			.expect(200)
-			.then(response => {
-				let quiz = (response.body.slice(0, 1))[0];
-				id = quiz['_id'];
-			});
-		return request
-			.get('/tests/' + id)
-			.set('Accept', 'application/json')
-			.expect(200)
-			.then(response => {
-				let test = (response.body.slice(0, 1))[0];
-				delete quiz['_id'];
-				assert.deepEquel(quiz, deleteIdSample);
-			});
-	});
-});
 });
 
 
