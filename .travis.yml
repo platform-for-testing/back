@@ -13,6 +13,7 @@ before_deploy:
 - chmod 600 id_rsa
 - ssh-add id_rsa
 - scp package.tgz deploy@95.85.54.211:/home/deploy/back-dev/package/
+- scp scripts/deploy.sh deploy@95.85.54.211:/home/deploy/back-dev/package/
 deploy:
 - provider: script
   script: scripts/deploy.sh
