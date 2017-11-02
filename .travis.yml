@@ -18,4 +18,4 @@ deploy:
 - provider: script
   script: scripts/startDeploy.sh
   on:
-    branch: deployToDO
+    branch: develop
