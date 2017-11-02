@@ -3,7 +3,7 @@ language: node_js
 node_js:
 - 8.5.0
 before_deploy:
-- echo -e "Host $DEPLOY_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host 95.85.54.211\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - mkdir build
 - rsync -av $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/build --exclude=build --exclude=scripts
 - tar -czf package.tgz build
@@ -12,14 +12,9 @@ before_deploy:
 - eval "$(ssh-agent -s)"
 - chmod 600 id_rsa
 - ssh-add id_rsa
-- scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+- scp package.tgz deploy@95.85.54.211:/home/deploy/back-dev/package/
 deploy:
 - provider: script
   script: scripts/deploy.sh
   on:
-    branch: develop
-env:
-  global:
-  - secure: d+SbO0hQeBGCatdVIwf8YAl7u8qahKd3RMTKCMCbraQHsmorerhMecsklydu7DHVY+J0AsOla+4n89p2BkydbZMId9epQUPoA8XUE+/ERIo02kU8k/0bDWiSvnDxSbLFuLF0EsFGMkqC/vbkgXQv7XrUjkBY//uTaa7oOhm4K27IWb/IB1vpa8lQXT7b0j9mDUClAdi1qTqPXIoaHbc0+tt+quFr4ZgVNi8P52QPTdfnDuveuEzAcn5QYTSvS6hJ0jhoDYBH95Ii5jH94S5RdaJfpTvjwLtiIGdknDCJS4dRqKyNJeAoWuJ7Z4VZe8rmmoGzyE3B3EbR5YLwpaA7B5cB4Zava6W0HO168svyVpgRdyN4sfU2BLIw4o9WMAQqXJco16Fo8iLbLw4bSjtxz7UYkNvMbEEsvkZsPbUkAbT65H5TYemHNdCfgmxp7ScnjDDo9yoFGTWFJvF9X1fCagy9fx4m8jw31teqyXr1EAEMEgc1AEHjDL+RI+nb9ZxyVrzb+429i3y5GCIjABCI6xHWldF4dYK/LHmI3Ionec14vAEv9DNhMLICFaHetpIQHIhVTF8P/F1iRlpVDCLtGAshwqNxmOolVUt4/DxQZgPhEYuGtnu4ORb2zy0iS4OE6PBuClR5p35RKDQ810IHStgqL6woM3iBYwhTThwShOk=
-  - secure: Horp4Ym1XMDDGyRkDlNqpqsWthNQqYqYA1Ev++1I3CdAQ2lHsHkDtea73XkxJTx5fV6nX7gsJFk8se7O4AUVTeZmx0Kr54WaK9fmpAuOxuutH+fP51qmJ/AMyWdRbmZMd7yAFZLFuDSssX7IDPD/qma8mLuR/GYjsI0b73+I3BEUrIEr8E6AENVsSka62mgP5aIZAOX8+M/s2TEY92wAecOJWk19l+wWLXfqTz84TMBqiIlR8fUD5cfjcOFd5EPBN7unh/UHexf5YX8tCmFWNcUt5Yy8oYeEod4HYw5Oe4jOu2EJRism7dTY7jEQJKT0c8FX4cP7pDd5qYqrHj8hNFTmKwAmD1Cli9kFRSQKasCnLAPT264kjR9PQpV7tmQnKvE2MTb+3GHShFurN14RH/XrktYxggZ4DKBD3DPe0QMfrX0deOGEwywWQYNnysYt3CkMRDLPvc2qrCNLPcoMmT3IiBbMQOFUzByDf3mlH8Pao5ogsRhGmmqrgqkea3b7E7ZyUPbKUwqKs6BCqrWJDa4Zop8uWedlGNCjH7G8ElUkcpx7+wPr878NFfnOvVdj2NnjG6yQUD03iTFtGVgW8MzfIVPwCntjL4XT7vNi+hz4Ht9A20sdPKJDtibAiH3paRp+TEMxKbS7VBMtic1r80snm2DYfb4FxScrEjyY/fI=
-  - secure: ltxXhNKmZXQfbWPEWqj34ONX3PbjYjH+3zgowyMdka3DWeTzwZeMJpp7qFuOhwKeJ8ojBW/ZcrFJEGffdPyM/iHjj7RitNeWrhVi36pgUNaR5wyKmDhncEG27Oz7DEkfhiQQMZsSPUQvcMQSCIFJTODnLj+DQEibDZ9NoH2CDjg0gS+gUPHe1uU1lggjqMkipBYPRKRb6jVE1y0+wl5b+EdEDxeLQQEVBZD31Z3chDwVQ8a/t3osjmGTTVzpkvCMLIcBv1fFPnB15MEuahhZUUoTQPhJknXzDJeQOtTxtKwQCB21dH2AhSVpPShuqY7fOWh6X3nNQ7AhllyPNhk3gkjuLAJd2oahKO6sszyXQ9CGDAo+5s7cYDHshE9FCex9RkYyHdUlMrPE6VyAfTmfHulDPxBBl8mD95La1uX95jtn/99t7O41hRbzSQ2mM9S4S7mmZrDFDum2206vt7tVYamgqfgHXzkk8KHSEWSdOJ5xwA1LDBNxJYWyAy0gu1xWKhy86EbMB8zJeGbe4y4r7jSf4xrB4rZwTM3cOeKuQsGDQEvWdHsc2C6JEcOoQfc1QxFtjZ5idwv5eSpPpTVLd4Dmhbc817s7sX48myQAS5RvA5OljAzgoVR5mzZK8VVAUqr09UTq91F+LmusZtH0b+23ZjvAdiwfG9GO2oiZe9U=
+    branch: deployToDO

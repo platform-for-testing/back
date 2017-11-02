@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-ssh $DEPLOY_USER@$DEPLOY_HOST sh $DEPLOY_PATH/deploy.sh
+ssh deploy@95.85.54.211 sh /home/deploy/back-dev/package/deploy.sh
