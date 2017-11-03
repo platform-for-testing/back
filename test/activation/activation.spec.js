@@ -1,5 +1,5 @@
 const PftServer = require('../../lib/index');
-const {initHelper, cleanHelper} = require('./helper');
+const Helper = require('./helper');
 const assert = require('assert');
 const superTest = require('supertest');
 const fs = require('fs');
@@ -10,18 +10,21 @@ require('should');
 describe.only('Activations', function () {
     let request;
     let pftInstance;
-
-    before(async () => {
-        await initHelper();
-        pftInstance = new PftServer();
-        await pftInstance.start();
-        request = superTest(pftInstance.server);
-    });
-
-    after(async () => {
-        await cleanHelper();
-        await pftInstance.stop();
-    });
+	let helper;
+	
+	
+	before(async () => {
+		pftInstance = new PftServer();
+		await pftInstance.start();
+		helper = new Helper(pftInstance.db, pftInstance.logger);
+		await helper.initHelper();
+		request = superTest(pftInstance.server);
+	});
+	
+	after(async () => {
+		await helper.cleanHelper();
+		await pftInstance.stop();
+	});
 
     describe('/activations tests', () => {
         describe('/activations get', () => {
@@ -76,7 +79,7 @@ describe.only('Activations', function () {
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .then(response => {
-                        assert.equal(response.body.length, 5);
+                        assert.equal(response.body.length, 4);
                     });
             });
         });

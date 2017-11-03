@@ -1,42 +1,34 @@
-const Db = require('../../lib/db/index');
-const config = require('../../lib/config');
-const bunyan = require('bunyan');
 const fs = require('fs');
-const logger = bunyan.createLogger({
-    name: config.get('helper'),
-    level: config.get('loggerLevel')
-});
-const collectionName = "Activations";
 
-const collectionJson = JSON.parse(fs.readFileSync('test/activation/activation-test-data.json', 'utf8'));
+const activationsSample = JSON.parse(fs.readFileSync('test/activation/activation-test-data.json', 'utf8'));
+const activationsSampleSecond = JSON.parse(fs.readFileSync('test/activation/activation-test-data-second.json', 'utf8'));
+const activationsSampleThird = JSON.parse(fs.readFileSync('test/activation/activation-test-data-third.json', 'utf8'));
 
-const db = new Db(config, logger);
-
-async function initHelper() {
-    await db.init();
-    await setupActivation();
-    await  db.closeConnection();
+class Helper {
+	constructor(db, logger) {
+		this.db = db;
+		this.logger = logger;
+	}
+	
+	async initHelper() {
+		await this.setupActivations();
+	}
+	
+	async cleanHelper() {
+		await this.removeCollection('activations');
+	}
+	
+	async removeCollection(collection) {
+		this.logger.info('remove ' + collection);
+		await this.db.removeCollection(collection);
+	}
+	
+	async setupActivations() {
+		this.logger.info('setupActivations');
+		await this.db.create('activations', activationsSample);
+		await this.db.create('activations', activationsSampleSecond);
+		await this.db.create('activations', activationsSampleThird);
+	}
 }
 
-async function cleanHelper() {
-    await db.init();
-    await removeActivation();
-    await  db.closeConnection();
-}
-
-async function removeActivation() {
-    logger.info('removeActivation');
-    db.removeCollection(collectionName);
-}
-
-async function setupActivation() {
-    logger.info('setupActivation');
-    db.create(collectionName, collectionJson);
-    db.create(collectionName, collectionJson);
-    db.create(collectionName, collectionJson);
-}
-
-module.exports = {
-    initHelper,
-    cleanHelper
-};
+module.exports = Helper;
