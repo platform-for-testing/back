@@ -7,7 +7,7 @@ const activationSample = JSON.parse(fs.readFileSync('test/activation/activation-
 
 require('should');
 
-describe.only('Activations', function () {
+describe('Activations', function () {
     let request;
     let pftInstance;
 	let helper;
