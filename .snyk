@@ -1,0 +1,16 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:timespan:20170907':
+    - forever > timespan:
+        reason: None updates available
+        expires: '2017-11-24T12:49:19.217Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - koa-mongo > debug:
+        patched: '2017-10-25T12:46:21.111Z'
+  'npm:ms:20170412':
+    - koa-mongo > debug > ms:
+        patched: '2017-10-25T12:46:21.111Z'
