@@ -12,14 +12,14 @@
       {
         "type": "1",
         "points": "2",
-        "question": "what is your name",
+        "title": "what is your name",
         "description": "description",
         "answers":  ["Vasya","Petya","Sidor"]
       },
       {
         "type": "1",
         "points": "2",
-        "question": "what is your sname",
+        "title": "what is your sname",
         "description": "description",
         "answers": ["Ivanov","Petrov","Sidorov"]
       }
