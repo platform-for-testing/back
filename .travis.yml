@@ -3,6 +3,8 @@ language: node_js
 node_js:
 - 8.5.0
 before_deploy:
+- openssl aes-256-cbc -K $encrypted_e4348d6134f0_key -iv $encrypted_e4348d6134f0_iv
+  -in development.json.enc -out config/development.json -d
 - echo -e "Host 95.85.54.211\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - mkdir build
 - rsync -av $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/build --exclude=build --exclude=scripts
@@ -14,9 +16,6 @@ before_deploy:
 - ssh-add id_rsa
 - scp package.tgz deploy@95.85.54.211:/home/deploy/back-dev/package/
 - scp scripts/deploy.sh deploy@95.85.54.211:/home/deploy/back-dev/package/
-- openssl aes-256-cbc -K $encrypted_e4348d6134f0_key -iv $encrypted_e4348d6134f0_iv
-  -in development.json.enc -out config/development.json -d
-
 deploy:
 - provider: script
   script: scripts/startDeploy.sh
