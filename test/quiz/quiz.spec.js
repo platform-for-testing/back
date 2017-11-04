@@ -42,7 +42,7 @@ describe('Quiz', () => {
 				.send(quizTwo)
 				.expect(200)
 				.then((response) => {
-					const quiz = Object.assign({}, response.body[0]);
+					const quiz = Object.assign({}, response.body);
 					delete quiz._id;
 					// assert
 
@@ -61,7 +61,9 @@ describe('Quiz', () => {
 				.set('Accept', 'application/json')
 				.send(quizOne)
 				.expect(200)
-				.then(response => [created] = response.body);
+				.then((response) => {
+					created = response.body;
+				});
 
 			// assert
 			await request
