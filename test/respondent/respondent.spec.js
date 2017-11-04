@@ -60,7 +60,7 @@ describe('Respondents', () => {
 					.send(respondentSample)
 					.expect(200)
 					.then((response) => {
-						const respondent = (response.body.slice(0, 1))[0];
+						const respondent = response.body;
 						id = respondent._id;
 					});
 				return request

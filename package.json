@@ -40,6 +40,7 @@
     "koa-body": "^2.5.0",
     "koa-mongo": "^1.2.1",
     "koa-router": "^7.2.1",
+    "koa2-cors": "^2.0.3",
     "mocha": "^4.0.1",
     "mongodb": "^2.2.31",
     "should": "^13.1.2",
