@@ -20,4 +20,4 @@ deploy:
 - provider: script
   script: scripts/startDeploy.sh
   on:
-    branch: fixdeploy
+    branch: develop
