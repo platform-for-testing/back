@@ -18,7 +18,7 @@ deploy:
 - provider: script
   script: scripts/startDeploy.sh
   on:
-    branch: develop
+    branch: fixdeploy
 env:
   global:
   - secure: wgF4mx5CiKJbbG8cwF1P7I3u6TKkjorUrw7SDXDg7Ih8i8H4ZgxCruN3btI7XQKQpSn7pnu6JB9Fu1qoQy3n+DmF6ZmfuvA993d62sfaU1ddnTv0rbI6poxjbQr1JzVcSwOufy8WVws2FSyR4FVFaOZfTScSM6GK2iwLeTSG2Uov6XtXLP93HvKfm9PavozvdgYn840I8fAtyebmfhenb37FfN8DofJlZyd90Xv+Jh58nRd1iW0B81DXvLULP/7ypmEa2BAPhJFFDpno+5usMyAfWbDAdXgIFYx+Z0Lri6XgxjDKzEfuOks73aftdfws1c51B8dXE+vEWrGrpRYLxTEOR/obzxoEGS+rCfavT6A8J4v/AcdJDTwYBjwIsxilX23R5TDyJBaOhPp3hFFE++tGH6O3CY1+ZD2NX11X8lbZctwyNzvlLCTfygQRV/rBLosTZ1jxBi18nQDz0WJ/QG+IeghMdEJflrNu0vZ4yHoyBZwLZ3+GwVLlRsu5vSvqRjusDK9ZWdz27/gMTzp9ZD6mW9eQsajdxrX7+5+HJZNuUAmW2ERFAUWsTzOLMAMKd5EuwS4K4zQOVghX0TiVj8IKLRLByL/HiTQpLVB6mN/D1QpZwT7mlzda1t66rCi6Wm5MUVXPQfqg/YwCmMjpK6NoEgYoNfsm7ktvCEvnZAs=
