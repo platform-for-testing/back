@@ -1,5 +1,5 @@
 {
     "db": {
-        "uri": "mongodb://backuser:backPass@ds127375.mlab.com:27375/testplatformdev"
+        "uri": "mongodb://USER:PASS@ds127375.mlab.com:27375/testplatformdev"
     }
 }
