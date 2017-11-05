@@ -36,16 +36,22 @@
     "fs": "0.0.1-security",
     "joi": "^11.3.4",
     "joi-date-extensions": "^1.1.0",
+    "jsonwebtoken": "^8.1.0",
     "koa": "^2.3.0",
     "koa-body": "^2.5.0",
+    "koa-jwt": "^3.2.2",
     "koa-mongo": "^1.2.1",
+    "koa-passport": "^4.0.1",
     "koa-router": "^7.2.1",
     "koa2-cors": "^2.0.3",
     "mocha": "^4.0.1",
     "mongodb": "^2.2.31",
+    "mongoose": "^4.13.0",
+    "passport-facebook-token": "^3.3.0",
     "should": "^13.1.2",
+    "snyk": "^1.45.0",
     "supertest": "^3.0.0",
-    "snyk": "^1.45.0"
+    "uuid4": "^1.0.0"
   },
   "engines": {
     "node": "8.5.0",
