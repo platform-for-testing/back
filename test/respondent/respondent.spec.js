@@ -4,11 +4,11 @@ const assert = require('assert');
 const superTest = require('supertest');
 const fs = require('fs');
 
-const respondentSample = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data.json', 'utf8'));
+const respondentSample = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data-first.json', 'utf8'));
 
 require('should');
 
-describe('Respondents', () => {
+xdescribe('Respondents', () => {
 	let request;
 	let pftInstance;
 	let helper;
@@ -35,6 +35,8 @@ describe('Respondents', () => {
 					.expect(200);
 			});
 			it('should send 3 objects of respondents', async () => {
+
+
 				await request
 					.get('/respondents')
 					.set('Accept', 'application/json')

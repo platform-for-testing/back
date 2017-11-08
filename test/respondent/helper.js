@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const respondentSampleFirst = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data.json', 'utf8'));
+const respondentSampleFirst = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data-first.json', 'utf8'));
 const respondentSampleSecond = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data-second.json', 'utf8'));
 const respondentSampleThird = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data-third.json', 'utf8'));
 
