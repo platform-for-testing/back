@@ -4,8 +4,9 @@ require('should');
 
 const PftServer = require('../../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
+const deleteIdSample = "59f597d73aa21a10ac0ddcbd";
 
-describe.only('Quiz', () => {
+describe('Quiz', () => {
 	let request;
 	let pftServer;
 
@@ -42,7 +43,7 @@ describe.only('Quiz', () => {
 				.send(quizTwo)
 				.expect(200)
 				.then((response) => {
-					const quiz = Object.assign({}, response.body[0]);
+					const quiz = Object.assign({}, response.body);
 					delete quiz._id;
 					// assert
 
@@ -61,7 +62,9 @@ describe.only('Quiz', () => {
 				.set('Accept', 'application/json')
 				.send(quizOne)
 				.expect(200)
-				.then(response => [created] = response.body);
+				.then((response) => {
+					created = response.body;
+				});
 
 			// assert
 			await request
@@ -87,3 +90,8 @@ describe.only('Quiz', () => {
 		});
 	});
 });
+
+
+
+
+
