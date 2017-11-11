@@ -44,7 +44,9 @@
     "mongoose": "^4.13.0",
     "mongoose-validators": "^0.1.0",
     "should": "^13.1.2",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "uuid": "^3.1.0",
+    "uuid4": "^1.0.0"
   },
   "engines": {
     "node": "8.5.0",
