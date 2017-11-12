@@ -35,8 +35,6 @@ xdescribe('Respondents', () => {
 					.expect(200);
 			});
 			it('should send 3 objects of respondents', async () => {
-
-
 				await request
 					.get('/respondents')
 					.set('Accept', 'application/json')
