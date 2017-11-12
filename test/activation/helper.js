@@ -9,20 +9,20 @@ class Helper {
 		this.db = db;
 		this.logger = logger;
 	}
-	
+
 	async initHelper() {
 		await this.setupActivations();
 	}
-	
+
 	async cleanHelper() {
 		await this.removeCollection('activations');
 	}
-	
+
 	async removeCollection(collection) {
-		this.logger.info('remove ' + collection);
+		this.logger.info(`remove ${collection}`);
 		await this.db.removeCollection(collection);
 	}
-	
+
 	async setupActivations() {
 		this.logger.info('setupActivations');
 		await this.db.create('activations', activationsSample);
