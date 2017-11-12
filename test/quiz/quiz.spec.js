@@ -85,7 +85,7 @@ describe('Quiz', () => {
 				});
 		});
 
-		xit('should return code 400 if data is invalid', async () => {
+		it('should return code 400 if data is invalid', async () => {
 			// arrange
 
 			// act
