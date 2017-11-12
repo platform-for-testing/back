@@ -9,7 +9,7 @@
   "scripts": {
     "test": "npm run lint && LOG_LEVEL=info NODE_ENV=test node ./node_modules/mocha/bin/mocha --recursive test",
     "lint": "node ./node_modules/eslint/bin/eslint.js lib test",
-    "test:win": "npm run lint& set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test",
+    "test:win": "(npm run lint) && (set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test)",
     "start:prod": "PORT=3001 forever start --minUptime 1000 --spinSleepTime 1000 -o /home/deploy/back-prod/log/out.log -e /home/deploy/back-prod/log/err.log index.js",
     "start:dev": "NODE_ENV=development PORT=3002 forever start --minUptime 1000 --spinSleepTime 1000 -o /home/deploy/back-dev/log/out.log -e /home/deploy/back-dev/log/err.log index.js",
     "start": "node index",
