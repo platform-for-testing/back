@@ -1,33 +1,27 @@
 const PftServer = require('../../lib/index');
-const Helper = require('./helper');
 const assert = require('assert');
 const superTest = require('supertest');
-const fs = require('fs');
 
-const respondentSample = JSON.parse(fs.readFileSync('test/respondent/respondent-test-data-first.json', 'utf8'));
 
 require('should');
 
-xdescribe('Respondents', () => {
+describe('Respondents', () => {
 	let request;
 	let pftInstance;
-	let helper;
 
 	before(async () => {
 		pftInstance = new PftServer();
 		await pftInstance.start();
-		helper = new Helper(pftInstance.db, pftInstance.logger);
-		await helper.initHelper();
 		request = superTest(pftInstance.server);
 	});
 
 	after(async () => {
-		await helper.cleanHelper();
+		await pftInstance.db.removeCollection('respondent');
 		await pftInstance.stop();
 	});
 
 	describe('Respondents promises tests', () => {
-		describe('Respondents get', () => {
+		xdescribe('Respondents get', () => {
 			it('should send code 200', async () => {
 				await request
 					.get('/respondents')
@@ -80,7 +74,7 @@ xdescribe('Respondents', () => {
 				.expect(404));
 		});
 		describe('Respondents post', () => {
-			it('should return status code 400 if object not valid', async () => request
+			it.only('should return status code 400 if object not valid', async () => request
 				.post('/respondents')
 				.send({
 					name: 'qwe',
