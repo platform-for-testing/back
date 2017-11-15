@@ -5,7 +5,7 @@ const superTest = require('supertest');
 
 require('should');
 
-describe('Respondents', () => {
+xdescribe('Respondents', () => {
 	let request;
 	let pftInstance;
 
@@ -74,7 +74,7 @@ describe('Respondents', () => {
 				.expect(404));
 		});
 		describe('Respondents post', () => {
-			it.only('should return status code 400 if object not valid', async () => request
+			it('should return status code 400 if object not valid', async () => request
 				.post('/respondents')
 				.send({
 					name: 'qwe',
