@@ -1,11 +1,11 @@
 const PftServer = require('../../lib/index');
 const assert = require('assert');
 const superTest = require('supertest');
-
+const { respondentOne } = require('./respondent-test-data');
 
 require('should');
 
-xdescribe('Respondents', () => {
+describe('Respondents', () => {
 	let request;
 	let pftInstance;
 
@@ -21,51 +21,71 @@ xdescribe('Respondents', () => {
 	});
 
 	describe('Respondents promises tests', () => {
-		xdescribe('Respondents get', () => {
+		describe('Respondents get', () => {
 			it('should send code 200', async () => {
 				await request
 					.get('/respondents')
 					.set('Accept', 'application/json')
 					.expect(200);
 			});
-			it('should send 3 objects of respondents', async () => {
+			it('should send 1 object of respondents', async () => {
+				await request
+					.post('/respondents')
+					.send(respondentOne)
+					.expect(200);
+
 				await request
 					.get('/respondents')
 					.set('Accept', 'application/json')
 					.expect(200)
 					.then((response) => {
-						assert.equal(response.body.length, 3);
+						assert.equal(response.body.length, 1);
 					});
-			});
-			it('should get respondents which equal sample', async () => request
-				.get('/respondents')
-				.set('Accept', 'application/json')
-				.expect(200)
-				.then((response) => {
-					const respondent = (response.body.slice(0, 1))[0];
-					delete respondent._id;
-					assert.deepEqual(respondent, respondentSample);
-				}));
 
-			it('should get respondent by id', async () => {
-				let id;
+				await pftInstance.db.removeCollection('respondent');
+			});
+			it('should get respondents which equal sample', async () => {
 				await request
 					.post('/respondents')
-					.send(respondentSample)
-					.expect(200)
-					.then((response) => {
-						const respondent = response.body;
-						id = respondent._id;
-					});
-				return request
-					.get(`/respondents/${id}`)
+					.send(respondentOne)
+					.expect(200);
+
+				await request
+					.get('/respondents')
 					.set('Accept', 'application/json')
 					.expect(200)
 					.then((response) => {
-						const respondent = Object.assign({}, response.body);
+						const respondent = (response.body.slice(0, 1))[0];
 						delete respondent._id;
-						assert.deepEqual(respondent, respondentSample);
+						delete respondent.id;
+						delete respondent.__v;
+						assert.deepEqual(respondent, respondentOne);
 					});
+				await pftInstance.db.removeCollection('respondent');
+			});
+
+			it('should get respondent by id', async () => {
+				let idObject;
+				await request
+					.post('/respondents')
+					.send(respondentOne)
+					.expect(200)
+					.then((response) => {
+						const respondent = response.body;
+						idObject = respondent.id;
+					});
+				await request
+					.get(`/respondents/${idObject}`)
+					.set('Accept', 'application/json')
+					.expect(200)
+					.then((response) => {
+						const respondent = Object.assign({}, response.body[0]);
+						delete respondent._id;
+						delete respondent.id;
+						delete respondent.__v;
+						assert.deepEqual(respondent, respondentOne);
+					});
+				await pftInstance.db.removeCollection('respondent');
 			});
 
 			it('should return 500 if id is wrong', async () => request
@@ -84,16 +104,8 @@ xdescribe('Respondents', () => {
 
 			it('should return status code 200 if object valid', async () => request
 				.post('/respondents')
-				.send(respondentSample)
+				.send(respondentOne)
 				.expect(200));
-
-			it('should send 4 objects of respondents', async () => request
-				.get('/respondents')
-				.expect('Content-Type', /json/)
-				.expect(200)
-				.then((response) => {
-					assert.equal(response.body.length, 5);
-				}));
 		});
 	});
 });
