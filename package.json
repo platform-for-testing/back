@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "npm run lint && LOG_LEVEL=info NODE_ENV=test node ./node_modules/mocha/bin/mocha --recursive test",
-    "lint": "node_modules/eslint/bin/eslint.js lib",
-    "test:win": "set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test",
+    "lint": "node ./node_modules/eslint/bin/eslint.js lib test",
+    "test:win": "(npm run lint) && (set LOG_LEVEL=fatal& set NODE_ENV=test& node ./node_modules/mocha/bin/mocha --recursive test)",
     "start:prod": "PORT=3001 forever start --minUptime 1000 --spinSleepTime 1000 -o /home/deploy/back-prod/log/out.log -e /home/deploy/back-prod/log/err.log index.js",
     "start:dev": "NODE_ENV=development PORT=3002 forever start --minUptime 1000 --spinSleepTime 1000 -o /home/deploy/back-dev/log/out.log -e /home/deploy/back-dev/log/err.log index.js",
     "start": "node index",
@@ -32,7 +32,7 @@
     "convict": "^4.0.1",
     "forever": "^0.15.3",
     "fs": "0.0.1-security",
-    "joi": "^11.3.4",
+    "joi": "^11.4.0",
     "joi-date-extensions": "^1.1.0",
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.3.0",
@@ -45,9 +45,11 @@
     "mocha": "^4.0.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.13.0",
+    "mongoose-validators": "^0.1.0",
     "passport-facebook-token": "^3.3.0",
     "should": "^13.1.2",
     "supertest": "^3.0.0",
+    "uuid": "^3.1.0",
     "uuid4": "^1.0.0"
   },
   "engines": {

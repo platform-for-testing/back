@@ -3,7 +3,11 @@ const questionOne = {
 	points: 20,
 	title: 'What is life?',
 	description: 'Short description for this question',
-	answers: ['life', 'Who nows', 'death'],
+	answers: [
+		{ title: 'life', isCorrect: true },
+		{ title: 'Who nows', isCorrect: false },
+		{ title: 'death', isCorrect: false },
+	],
 };
 
 const questionTwo = {
@@ -11,20 +15,34 @@ const questionTwo = {
 	points: 10,
 	title: 'Where is Canada?',
 	description: 'tricky question',
-	answers: ['in the Africa', 'in London', 'pass'],
+	answers: [
+		{ title: 'in the Africa', isCorrect: true },
+		{ title: 'in London', isCorrect: false },
+		{ title: 'pass', isCorrect: false },
+	],
 };
 
 const questionTree = {
 	type: 0,
 	points: 1,
 	title: 'What is your name?',
+	answers: [
+		{ title: 'Alex', isCorrect: true },
+		{ title: 'Bob', isCorrect: true },
+		{ title: 'Blob', isCorrect: false },
+	],
 };
 
 const questionFour = {
 	type: 2,
 	points: 15,
 	title: 'How old are you?',
-	answers: ['< 20', '20 - 40', '40 - 60', '>60'],
+	answers: [
+		{ title: '< 20', isCorrect: true },
+		{ title: '20 - 40', isCorrect: true },
+		{ title: '40 - 60', isCorrect: false },
+		{ title: '>60', isCorrect: false },
+	],
 };
 
 const quizOne = {
