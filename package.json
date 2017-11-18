@@ -14,7 +14,6 @@
     "start:dev": "NODE_ENV=development PORT=3002 forever start --minUptime 1000 --spinSleepTime 1000 -o /home/deploy/back-dev/log/out.log -e /home/deploy/back-dev/log/err.log index.js",
     "start": "node index",
     "stop": "forever stop index.js",
-    "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
   "repository": {
@@ -49,7 +48,6 @@
     "mongoose": "^4.13.0",
     "passport-facebook-token": "^3.3.0",
     "should": "^13.1.2",
-    "snyk": "^1.45.0",
     "supertest": "^3.0.0",
     "uuid4": "^1.0.0"
   },
@@ -61,6 +59,5 @@
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0"
-  },
-  "snyk": true
+  }
 }
