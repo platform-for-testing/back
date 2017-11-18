@@ -21,13 +21,13 @@ const interfaces = api.types
       const prop = props[propName];
       let type = prop.type[0];
       type = type === 'array'
-        ? `${prop.items}[]`
-        : type;
+	 ? `${prop.items}[]`
+	 : type;
 
       const propDefinition = `    ${propName}${prop.required ? '' : '?'}: ${type};`
       return propertiesLength === i + 1
-        ? propDefinition
-        : propDefinition + '\n';
+	 ? propDefinition
+	 : propDefinition + '\n';
     });
 
     return `export interface ${interfaceName} {

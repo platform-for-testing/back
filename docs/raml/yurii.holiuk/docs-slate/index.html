@@ -998,7 +998,7 @@ rgba(0,0,0,0.4)
      * https://developer.mozilla.org/en/DOM/event.initMouseEvent
      */
     var touch = e.changedTouches[0],
-        evt = document.createEvent('MouseEvents');
+	 evt = document.createEvent('MouseEvents');
     evt.initMouseEvent('click', true, true, window, 0, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
     evt.simulated = true;   // distinguish from a normal (nonsimulated) click
     e.target.dispatchEvent(evt);
@@ -1017,14 +1017,14 @@ rgba(0,0,0,0.4)
      * in the click event we fired (look for e.simulated)
      */
     var time = Date.now(),
-        timeDiff = time - lastClick.time,
-        x = e.clientX,
-        y = e.clientY,
-        xyDiff = [Math.abs(lastClick.x - x), Math.abs(lastClick.y - y)],
-        target = closest(e.target, 'A') || e.target,  // needed for standalone apps
-        nodeName = target.nodeName,
-        isLink = nodeName === 'A',
-        standAlone = window.navigator.standalone && isLink && e.target.getAttribute("href");
+	 timeDiff = time - lastClick.time,
+	 x = e.clientX,
+	 y = e.clientY,
+	 xyDiff = [Math.abs(lastClick.x - x), Math.abs(lastClick.y - y)],
+	 target = closest(e.target, 'A') || e.target,  // needed for standalone apps
+	 nodeName = target.nodeName,
+	 isLink = nodeName === 'A',
+	 standAlone = window.navigator.standalone && isLink && e.target.getAttribute("href");
 
     lastClick.time = time;
     lastClick.x = x;
@@ -1140,16 +1140,16 @@ rgba(0,0,0,0.4)
     return function( elems ) {
       var events, elem, i;
       for ( i = 0; (elem = elems[i]) != null; i++ ) {
-        try {
+	 try {
 
-          // Only trigger remove when necessary to save time
-          events = $._data( elem, "events" );
-          if ( events && events.remove ) {
-            $( elem ).triggerHandler( "remove" );
-          }
+	   // Only trigger remove when necessary to save time
+	   events = $._data( elem, "events" );
+	   if ( events && events.remove ) {
+	     $( elem ).triggerHandler( "remove" );
+	   }
 
-          // http://bugs.jquery.com/ticket/8235
-        } catch ( e ) {}
+	   // http://bugs.jquery.com/ticket/8235
+	 } catch ( e ) {}
       }
       orig( elems );
     };
@@ -1159,8 +1159,8 @@ rgba(0,0,0,0.4)
     var fullName, existingConstructor, constructor, basePrototype,
     // proxiedPrototype allows the provided prototype to remain unmodified
     // so that it can be used as a mixin for multiple widgets (#8876)
-        proxiedPrototype = {},
-        namespace = name.split( "." )[ 0 ];
+	 proxiedPrototype = {},
+	 namespace = name.split( "." )[ 0 ];
 
     name = name.split( "." )[ 1 ];
     fullName = namespace + "-" + name;
@@ -1180,13 +1180,13 @@ rgba(0,0,0,0.4)
     constructor = $[ namespace ][ name ] = function( options, element ) {
       // allow instantiation without "new" keyword
       if ( !this._createWidget ) {
-        return new constructor( options, element );
+	 return new constructor( options, element );
       }
 
       // allow instantiation without initializing for simple inheritance
       // must use "new" keyword (the code above always passes args)
       if ( arguments.length ) {
-        this._createWidget( options, element );
+	 this._createWidget( options, element );
       }
     };
     // extend with the existing constructor to carry over any static properties
@@ -1207,31 +1207,31 @@ rgba(0,0,0,0.4)
     basePrototype.options = $.widget.extend( {}, basePrototype.options );
     $.each( prototype, function( prop, value ) {
       if ( !$.isFunction( value ) ) {
-        proxiedPrototype[ prop ] = value;
-        return;
+	 proxiedPrototype[ prop ] = value;
+	 return;
       }
       proxiedPrototype[ prop ] = (function() {
-        var _super = function() {
-              return base.prototype[ prop ].apply( this, arguments );
-            },
-            _superApply = function( args ) {
-              return base.prototype[ prop ].apply( this, args );
-            };
-        return function() {
-          var __super = this._super,
-              __superApply = this._superApply,
-              returnValue;
+	 var _super = function() {
+		return base.prototype[ prop ].apply( this, arguments );
+	     },
+	     _superApply = function( args ) {
+		return base.prototype[ prop ].apply( this, args );
+	     };
+	 return function() {
+	   var __super = this._super,
+		__superApply = this._superApply,
+		returnValue;
 
-          this._super = _super;
-          this._superApply = _superApply;
+	   this._super = _super;
+	   this._superApply = _superApply;
 
-          returnValue = value.apply( this, arguments );
+	   returnValue = value.apply( this, arguments );
 
-          this._super = __super;
-          this._superApply = __superApply;
+	   this._super = __super;
+	   this._superApply = __superApply;
 
-          return returnValue;
-        };
+	   return returnValue;
+	 };
       })();
     });
     constructor.prototype = $.widget.extend( basePrototype, {
@@ -1252,11 +1252,11 @@ rgba(0,0,0,0.4)
     // level in the prototype chain.
     if ( existingConstructor ) {
       $.each( existingConstructor._childConstructors, function( i, child ) {
-        var childPrototype = child.prototype;
+	 var childPrototype = child.prototype;
 
-        // redefine the child widget using the same prototype that was
-        // originally used, but inherit from the new version of the base
-        $.widget( childPrototype.namespace + "." + childPrototype.widgetName, constructor, child._proto );
+	 // redefine the child widget using the same prototype that was
+	 // originally used, but inherit from the new version of the base
+	 $.widget( childPrototype.namespace + "." + childPrototype.widgetName, constructor, child._proto );
       });
       // remove the list of existing child constructors from the old constructor
       // so the old child constructors can be garbage collected
@@ -1272,25 +1272,25 @@ rgba(0,0,0,0.4)
 
   $.widget.extend = function( target ) {
     var input = widget_slice.call( arguments, 1 ),
-        inputIndex = 0,
-        inputLength = input.length,
-        key,
-        value;
+	 inputIndex = 0,
+	 inputLength = input.length,
+	 key,
+	 value;
     for ( ; inputIndex < inputLength; inputIndex++ ) {
       for ( key in input[ inputIndex ] ) {
-        value = input[ inputIndex ][ key ];
-        if ( input[ inputIndex ].hasOwnProperty( key ) && value !== undefined ) {
-          // Clone objects
-          if ( $.isPlainObject( value ) ) {
-            target[ key ] = $.isPlainObject( target[ key ] ) ?
-                $.widget.extend( {}, target[ key ], value ) :
-              // Don't extend strings, arrays, etc. with objects
-                $.widget.extend( {}, value );
-            // Copy everything else by reference
-          } else {
-            target[ key ] = value;
-          }
-        }
+	 value = input[ inputIndex ][ key ];
+	 if ( input[ inputIndex ].hasOwnProperty( key ) && value !== undefined ) {
+	   // Clone objects
+	   if ( $.isPlainObject( value ) ) {
+	     target[ key ] = $.isPlainObject( target[ key ] ) ?
+		  $.widget.extend( {}, target[ key ], value ) :
+		// Don't extend strings, arrays, etc. with objects
+		  $.widget.extend( {}, value );
+	     // Copy everything else by reference
+	   } else {
+	     target[ key ] = value;
+	   }
+	 }
       }
     }
     return target;
@@ -1300,50 +1300,50 @@ rgba(0,0,0,0.4)
     var fullName = object.prototype.widgetFullName || name;
     $.fn[ name ] = function( options ) {
       var isMethodCall = typeof options === "string",
-          args = widget_slice.call( arguments, 1 ),
-          returnValue = this;
+	   args = widget_slice.call( arguments, 1 ),
+	   returnValue = this;
 
       if ( isMethodCall ) {
-        this.each(function() {
-          var methodValue,
-              instance = $.data( this, fullName );
-          if ( options === "instance" ) {
-            returnValue = instance;
-            return false;
-          }
-          if ( !instance ) {
-            return $.error( "cannot call methods on " + name + " prior to initialization; " +
-            "attempted to call method '" + options + "'" );
-          }
-          if ( !$.isFunction( instance[options] ) || options.charAt( 0 ) === "_" ) {
-            return $.error( "no such method '" + options + "' for " + name + " widget instance" );
-          }
-          methodValue = instance[ options ].apply( instance, args );
-          if ( methodValue !== instance && methodValue !== undefined ) {
-            returnValue = methodValue && methodValue.jquery ?
-                returnValue.pushStack( methodValue.get() ) :
-                methodValue;
-            return false;
-          }
-        });
+	 this.each(function() {
+	   var methodValue,
+		instance = $.data( this, fullName );
+	   if ( options === "instance" ) {
+	     returnValue = instance;
+	     return false;
+	   }
+	   if ( !instance ) {
+	     return $.error( "cannot call methods on " + name + " prior to initialization; " +
+	     "attempted to call method '" + options + "'" );
+	   }
+	   if ( !$.isFunction( instance[options] ) || options.charAt( 0 ) === "_" ) {
+	     return $.error( "no such method '" + options + "' for " + name + " widget instance" );
+	   }
+	   methodValue = instance[ options ].apply( instance, args );
+	   if ( methodValue !== instance && methodValue !== undefined ) {
+	     returnValue = methodValue && methodValue.jquery ?
+		  returnValue.pushStack( methodValue.get() ) :
+		  methodValue;
+	     return false;
+	   }
+	 });
       } else {
 
-        // Allow multiple hashes to be passed on init
-        if ( args.length ) {
-          options = $.widget.extend.apply( null, [ options ].concat(args) );
-        }
+	 // Allow multiple hashes to be passed on init
+	 if ( args.length ) {
+	   options = $.widget.extend.apply( null, [ options ].concat(args) );
+	 }
 
-        this.each(function() {
-          var instance = $.data( this, fullName );
-          if ( instance ) {
-            instance.option( options || {} );
-            if ( instance._init ) {
-              instance._init();
-            }
-          } else {
-            $.data( this, fullName, new object( options, this ) );
-          }
-        });
+	 this.each(function() {
+	   var instance = $.data( this, fullName );
+	   if ( instance ) {
+	     instance.option( options || {} );
+	     if ( instance._init ) {
+		instance._init();
+	     }
+	   } else {
+	     $.data( this, fullName, new object( options, this ) );
+	   }
+	 });
       }
 
       return returnValue;
@@ -1374,26 +1374,26 @@ rgba(0,0,0,0.4)
       this.focusable = $();
 
       if ( element !== this ) {
-        $.data( element, this.widgetFullName, this );
-        this._on( true, this.element, {
-          remove: function( event ) {
-            if ( event.target === element ) {
-              this.destroy();
-            }
-          }
-        });
-        this.document = $( element.style ?
-          // element within the document
-            element.ownerDocument :
-          // element is window or document
-        element.document || element );
-        this.window = $( this.document[0].defaultView || this.document[0].parentWindow );
+	 $.data( element, this.widgetFullName, this );
+	 this._on( true, this.element, {
+	   remove: function( event ) {
+	     if ( event.target === element ) {
+		this.destroy();
+	     }
+	   }
+	 });
+	 this.document = $( element.style ?
+	   // element within the document
+	     element.ownerDocument :
+	   // element is window or document
+	 element.document || element );
+	 this.window = $( this.document[0].defaultView || this.document[0].parentWindow );
       }
 
       this.options = $.widget.extend( {},
-          this.options,
-          this._getCreateOptions(),
-          options );
+	   this.options,
+	   this._getCreateOptions(),
+	   options );
 
       this._create();
       this._trigger( "create", null, this._getCreateEventData() );
@@ -1409,17 +1409,17 @@ rgba(0,0,0,0.4)
       // we can probably remove the unbind calls in 2.0
       // all event bindings should go through this._on()
       this.element
-          .unbind( this.eventNamespace )
-          .removeData( this.widgetFullName )
-        // support: jquery <1.6.3
-        // http://bugs.jquery.com/ticket/9413
-          .removeData( $.camelCase( this.widgetFullName ) );
+	   .unbind( this.eventNamespace )
+	   .removeData( this.widgetFullName )
+	 // support: jquery <1.6.3
+	 // http://bugs.jquery.com/ticket/9413
+	   .removeData( $.camelCase( this.widgetFullName ) );
       this.widget()
-          .unbind( this.eventNamespace )
-          .removeAttr( "aria-disabled" )
-          .removeClass(
-          this.widgetFullName + "-disabled " +
-          "ui-state-disabled" );
+	   .unbind( this.eventNamespace )
+	   .removeAttr( "aria-disabled" )
+	   .removeClass(
+	   this.widgetFullName + "-disabled " +
+	   "ui-state-disabled" );
 
       // clean up events and states
       this.bindings.unbind( this.eventNamespace );
@@ -1434,37 +1434,37 @@ rgba(0,0,0,0.4)
 
     option: function( key, value ) {
       var options = key,
-          parts,
-          curOption,
-          i;
+	   parts,
+	   curOption,
+	   i;
 
       if ( arguments.length === 0 ) {
-        // don't return a reference to the internal hash
-        return $.widget.extend( {}, this.options );
+	 // don't return a reference to the internal hash
+	 return $.widget.extend( {}, this.options );
       }
 
       if ( typeof key === "string" ) {
-        // handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
-        options = {};
-        parts = key.split( "." );
-        key = parts.shift();
-        if ( parts.length ) {
-          curOption = options[ key ] = $.widget.extend( {}, this.options[ key ] );
-          for ( i = 0; i < parts.length - 1; i++ ) {
-            curOption[ parts[ i ] ] = curOption[ parts[ i ] ] || {};
-            curOption = curOption[ parts[ i ] ];
-          }
-          key = parts.pop();
-          if ( arguments.length === 1 ) {
-            return curOption[ key ] === undefined ? null : curOption[ key ];
-          }
-          curOption[ key ] = value;
-        } else {
-          if ( arguments.length === 1 ) {
-            return this.options[ key ] === undefined ? null : this.options[ key ];
-          }
-          options[ key ] = value;
-        }
+	 // handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
+	 options = {};
+	 parts = key.split( "." );
+	 key = parts.shift();
+	 if ( parts.length ) {
+	   curOption = options[ key ] = $.widget.extend( {}, this.options[ key ] );
+	   for ( i = 0; i < parts.length - 1; i++ ) {
+	     curOption[ parts[ i ] ] = curOption[ parts[ i ] ] || {};
+	     curOption = curOption[ parts[ i ] ];
+	   }
+	   key = parts.pop();
+	   if ( arguments.length === 1 ) {
+	     return curOption[ key ] === undefined ? null : curOption[ key ];
+	   }
+	   curOption[ key ] = value;
+	 } else {
+	   if ( arguments.length === 1 ) {
+	     return this.options[ key ] === undefined ? null : this.options[ key ];
+	   }
+	   options[ key ] = value;
+	 }
       }
 
       this._setOptions( options );
@@ -1475,7 +1475,7 @@ rgba(0,0,0,0.4)
       var key;
 
       for ( key in options ) {
-        this._setOption( key, options[ key ] );
+	 this._setOption( key, options[ key ] );
       }
 
       return this;
@@ -1484,14 +1484,14 @@ rgba(0,0,0,0.4)
       this.options[ key ] = value;
 
       if ( key === "disabled" ) {
-        this.widget()
-            .toggleClass( this.widgetFullName + "-disabled", !!value );
+	 this.widget()
+	     .toggleClass( this.widgetFullName + "-disabled", !!value );
 
-        // If the widget is becoming disabled, then nothing is interactive
-        if ( value ) {
-          this.hoverable.removeClass( "ui-state-hover" );
-          this.focusable.removeClass( "ui-state-focus" );
-        }
+	 // If the widget is becoming disabled, then nothing is interactive
+	 if ( value ) {
+	   this.hoverable.removeClass( "ui-state-hover" );
+	   this.focusable.removeClass( "ui-state-focus" );
+	 }
       }
 
       return this;
@@ -1506,53 +1506,53 @@ rgba(0,0,0,0.4)
 
     _on: function( suppressDisabledCheck, element, handlers ) {
       var delegateElement,
-          instance = this;
+	   instance = this;
 
       // no suppressDisabledCheck flag, shuffle arguments
       if ( typeof suppressDisabledCheck !== "boolean" ) {
-        handlers = element;
-        element = suppressDisabledCheck;
-        suppressDisabledCheck = false;
+	 handlers = element;
+	 element = suppressDisabledCheck;
+	 suppressDisabledCheck = false;
       }
 
       // no element argument, shuffle and use this.element
       if ( !handlers ) {
-        handlers = element;
-        element = this.element;
-        delegateElement = this.widget();
+	 handlers = element;
+	 element = this.element;
+	 delegateElement = this.widget();
       } else {
-        element = delegateElement = $( element );
-        this.bindings = this.bindings.add( element );
+	 element = delegateElement = $( element );
+	 this.bindings = this.bindings.add( element );
       }
 
       $.each( handlers, function( event, handler ) {
-        function handlerProxy() {
-          // allow widgets to customize the disabled handling
-          // - disabled as an array instead of boolean
-          // - disabled class as method for disabling individual parts
-          if ( !suppressDisabledCheck &&
-              ( instance.options.disabled === true ||
-              $( this ).hasClass( "ui-state-disabled" ) ) ) {
-            return;
-          }
-          return ( typeof handler === "string" ? instance[ handler ] : handler )
-              .apply( instance, arguments );
-        }
+	 function handlerProxy() {
+	   // allow widgets to customize the disabled handling
+	   // - disabled as an array instead of boolean
+	   // - disabled class as method for disabling individual parts
+	   if ( !suppressDisabledCheck &&
+		( instance.options.disabled === true ||
+		$( this ).hasClass( "ui-state-disabled" ) ) ) {
+	     return;
+	   }
+	   return ( typeof handler === "string" ? instance[ handler ] : handler )
+		.apply( instance, arguments );
+	 }
 
-        // copy the guid so direct unbinding works
-        if ( typeof handler !== "string" ) {
-          handlerProxy.guid = handler.guid =
-              handler.guid || handlerProxy.guid || $.guid++;
-        }
+	 // copy the guid so direct unbinding works
+	 if ( typeof handler !== "string" ) {
+	   handlerProxy.guid = handler.guid =
+		handler.guid || handlerProxy.guid || $.guid++;
+	 }
 
-        var match = event.match( /^([\w:-]*)\s*(.*)$/ ),
-            eventName = match[1] + instance.eventNamespace,
-            selector = match[2];
-        if ( selector ) {
-          delegateElement.delegate( selector, eventName, handlerProxy );
-        } else {
-          element.bind( eventName, handlerProxy );
-        }
+	 var match = event.match( /^([\w:-]*)\s*(.*)$/ ),
+	     eventName = match[1] + instance.eventNamespace,
+	     selector = match[2];
+	 if ( selector ) {
+	   delegateElement.delegate( selector, eventName, handlerProxy );
+	 } else {
+	   element.bind( eventName, handlerProxy );
+	 }
       });
     },
 
@@ -1569,8 +1569,8 @@ rgba(0,0,0,0.4)
 
     _delay: function( handler, delay ) {
       function handlerProxy() {
-        return ( typeof handler === "string" ? instance[ handler ] : handler )
-            .apply( instance, arguments );
+	 return ( typeof handler === "string" ? instance[ handler ] : handler )
+	     .apply( instance, arguments );
       }
       var instance = this;
       return setTimeout( handlerProxy, delay || 0 );
@@ -1579,35 +1579,35 @@ rgba(0,0,0,0.4)
     _hoverable: function( element ) {
       this.hoverable = this.hoverable.add( element );
       this._on( element, {
-        mouseenter: function( event ) {
-          $( event.currentTarget ).addClass( "ui-state-hover" );
-        },
-        mouseleave: function( event ) {
-          $( event.currentTarget ).removeClass( "ui-state-hover" );
-        }
+	 mouseenter: function( event ) {
+	   $( event.currentTarget ).addClass( "ui-state-hover" );
+	 },
+	 mouseleave: function( event ) {
+	   $( event.currentTarget ).removeClass( "ui-state-hover" );
+	 }
       });
     },
 
     _focusable: function( element ) {
       this.focusable = this.focusable.add( element );
       this._on( element, {
-        focusin: function( event ) {
-          $( event.currentTarget ).addClass( "ui-state-focus" );
-        },
-        focusout: function( event ) {
-          $( event.currentTarget ).removeClass( "ui-state-focus" );
-        }
+	 focusin: function( event ) {
+	   $( event.currentTarget ).addClass( "ui-state-focus" );
+	 },
+	 focusout: function( event ) {
+	   $( event.currentTarget ).removeClass( "ui-state-focus" );
+	 }
       });
     },
 
     _trigger: function( type, event, data ) {
       var prop, orig,
-          callback = this.options[ type ];
+	   callback = this.options[ type ];
 
       data = data || {};
       event = $.Event( event );
       event.type = ( type === this.widgetEventPrefix ?
-          type :
+	   type :
       this.widgetEventPrefix + type ).toLowerCase();
       // the original event may come from any element
       // so we need to reset the target on the new event
@@ -1616,11 +1616,11 @@ rgba(0,0,0,0.4)
       // copy original event properties over to the new event
       orig = event.originalEvent;
       if ( orig ) {
-        for ( prop in orig ) {
-          if ( !( prop in event ) ) {
-            event[ prop ] = orig[ prop ];
-          }
-        }
+	 for ( prop in orig ) {
+	   if ( !( prop in event ) ) {
+	     event[ prop ] = orig[ prop ];
+	   }
+	 }
       }
 
       this.element.trigger( event, data );
@@ -1633,35 +1633,35 @@ rgba(0,0,0,0.4)
   $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     $.Widget.prototype[ "_" + method ] = function( element, options, callback ) {
       if ( typeof options === "string" ) {
-        options = { effect: options };
+	 options = { effect: options };
       }
       var hasOptions,
-          effectName = !options ?
-              method :
-              options === true || typeof options === "number" ?
-                  defaultEffect :
-              options.effect || defaultEffect;
+	   effectName = !options ?
+		method :
+		options === true || typeof options === "number" ?
+		    defaultEffect :
+		options.effect || defaultEffect;
       options = options || {};
       if ( typeof options === "number" ) {
-        options = { duration: options };
+	 options = { duration: options };
       }
       hasOptions = !$.isEmptyObject( options );
       options.complete = callback;
       if ( options.delay ) {
-        element.delay( options.delay );
+	 element.delay( options.delay );
       }
       if ( hasOptions && $.effects && $.effects.effect[ effectName ] ) {
-        element[ method ]( options );
+	 element[ method ]( options );
       } else if ( effectName !== method && element[ effectName ] ) {
-        element[ effectName ]( options.duration, options.easing, callback );
+	 element[ effectName ]( options.duration, options.easing, callback );
       } else {
-        element.queue(function( next ) {
-          $( this )[ method ]();
-          if ( callback ) {
-            callback.call( element[ 0 ] );
-          }
-          next();
-        });
+	 element.queue(function( next ) {
+	   $( this )[ method ]();
+	   if ( callback ) {
+	     callback.call( element[ 0 ] );
+	   }
+	   next();
+	 });
       }
     };
   });
@@ -1719,26 +1719,26 @@ rgba(0,0,0,0.4)
 
 jQuery.extend({
     highlight: function (node, re, nodeName, className) {
-        if (node.nodeType === 3) {
-            var match = node.data.match(re);
-            if (match) {
-                var highlight = document.createElement(nodeName || 'span');
-                highlight.className = className || 'highlight';
-                var wordNode = node.splitText(match.index);
-                wordNode.splitText(match[0].length);
-                var wordClone = wordNode.cloneNode(true);
-                highlight.appendChild(wordClone);
-                wordNode.parentNode.replaceChild(highlight, wordNode);
-                return 1; //skip added node in parent
-            }
-        } else if ((node.nodeType === 1 && node.childNodes) && // only element nodes that have children
-                !/(script|style)/i.test(node.tagName) && // ignore script and style nodes
-                !(node.tagName === nodeName.toUpperCase() && node.className === className)) { // skip if already highlighted
-            for (var i = 0; i < node.childNodes.length; i++) {
-                i += jQuery.highlight(node.childNodes[i], re, nodeName, className);
-            }
-        }
-        return 0;
+	 if (node.nodeType === 3) {
+	     var match = node.data.match(re);
+	     if (match) {
+		  var highlight = document.createElement(nodeName || 'span');
+		  highlight.className = className || 'highlight';
+		  var wordNode = node.splitText(match.index);
+		  wordNode.splitText(match[0].length);
+		  var wordClone = wordNode.cloneNode(true);
+		  highlight.appendChild(wordClone);
+		  wordNode.parentNode.replaceChild(highlight, wordNode);
+		  return 1; //skip added node in parent
+	     }
+	 } else if ((node.nodeType === 1 && node.childNodes) && // only element nodes that have children
+		  !/(script|style)/i.test(node.tagName) && // ignore script and style nodes
+		  !(node.tagName === nodeName.toUpperCase() && node.className === className)) { // skip if already highlighted
+	     for (var i = 0; i < node.childNodes.length; i++) {
+		  i += jQuery.highlight(node.childNodes[i], re, nodeName, className);
+	     }
+	 }
+	 return 0;
     }
 });
 
@@ -1747,9 +1747,9 @@ jQuery.fn.unhighlight = function (options) {
     jQuery.extend(settings, options);
 
     return this.find(settings.element + "." + settings.className).each(function () {
-        var parent = this.parentNode;
-        parent.replaceChild(this.firstChild, this);
-        parent.normalize();
+	 var parent = this.parentNode;
+	 parent.replaceChild(this.firstChild, this);
+	 parent.normalize();
     }).end();
 };
 
@@ -1758,7 +1758,7 @@ jQuery.fn.highlight = function (words, options) {
     jQuery.extend(settings, options);
 
     if (words.constructor === String) {
-        words = [words];
+	 words = [words];
     }
     words = jQuery.grep(words, function(word, i){
       return word != '';
@@ -1771,12 +1771,12 @@ jQuery.fn.highlight = function (words, options) {
     var flag = settings.caseSensitive ? "" : "i";
     var pattern = "(" + words.join("|") + ")";
     if (settings.wordsOnly) {
-        pattern = "\\b" + pattern + "\\b";
+	 pattern = "\\b" + pattern + "\\b";
     }
     var re = new RegExp(pattern, flag);
 
     return this.each(function () {
-        jQuery.highlight(this, re, settings.element, settings.className);
+	 jQuery.highlight(this, re, settings.element, settings.className);
     });
 };
 </script><script>
@@ -1807,1017 +1807,1017 @@ jQuery.fn.highlight = function (words, options) {
     "use strict";
 
     var tocClassName = "tocify",
-        tocClass = "." + tocClassName,
-        tocFocusClassName = "tocify-focus",
-        tocHoverClassName = "tocify-hover",
-        hideTocClassName = "tocify-hide",
-        hideTocClass = "." + hideTocClassName,
-        headerClassName = "tocify-header",
-        headerClass = "." + headerClassName,
-        subheaderClassName = "tocify-subheader",
-        subheaderClass = "." + subheaderClassName,
-        itemClassName = "tocify-item",
-        itemClass = "." + itemClassName,
-        extendPageClassName = "tocify-extend-page",
-        extendPageClass = "." + extendPageClassName;
+	 tocClass = "." + tocClassName,
+	 tocFocusClassName = "tocify-focus",
+	 tocHoverClassName = "tocify-hover",
+	 hideTocClassName = "tocify-hide",
+	 hideTocClass = "." + hideTocClassName,
+	 headerClassName = "tocify-header",
+	 headerClass = "." + headerClassName,
+	 subheaderClassName = "tocify-subheader",
+	 subheaderClass = "." + subheaderClassName,
+	 itemClassName = "tocify-item",
+	 itemClass = "." + itemClassName,
+	 extendPageClassName = "tocify-extend-page",
+	 extendPageClass = "." + extendPageClassName;
 
     // Calling the jQueryUI Widget Factory Method
     $.widget("toc.tocify", {
 
-        //Plugin version
-        version: "1.8.0",
-
-        // These options will be used as defaults
-        options: {
-
-            // **context**: Accepts String: Any jQuery selector
-            // The container element that holds all of the elements used to generate the table of contents
-            context: "body",
-
-            // **ignoreSelector**: Accepts String: Any jQuery selector
-            // A selector to any element that would be matched by selectors that you wish to be ignored
-            ignoreSelector: null,
+	 //Plugin version
+	 version: "1.8.0",
+
+	 // These options will be used as defaults
+	 options: {
+
+	     // **context**: Accepts String: Any jQuery selector
+	     // The container element that holds all of the elements used to generate the table of contents
+	     context: "body",
+
+	     // **ignoreSelector**: Accepts String: Any jQuery selector
+	     // A selector to any element that would be matched by selectors that you wish to be ignored
+	     ignoreSelector: null,
 
-            // **selectors**: Accepts an Array of Strings: Any jQuery selectors
-            // The element's used to generate the table of contents.  The order is very important since it will determine the table of content's nesting structure
-            selectors: "h1, h2, h3",
+	     // **selectors**: Accepts an Array of Strings: Any jQuery selectors
+	     // The element's used to generate the table of contents.  The order is very important since it will determine the table of content's nesting structure
+	     selectors: "h1, h2, h3",
 
-            // **showAndHide**: Accepts a boolean: true or false
-            // Used to determine if elements should be shown and hidden
-            showAndHide: true,
+	     // **showAndHide**: Accepts a boolean: true or false
+	     // Used to determine if elements should be shown and hidden
+	     showAndHide: true,
 
-            // **showEffect**: Accepts String: "none", "fadeIn", "show", or "slideDown"
-            // Used to display any of the table of contents nested items
-            showEffect: "slideDown",
+	     // **showEffect**: Accepts String: "none", "fadeIn", "show", or "slideDown"
+	     // Used to display any of the table of contents nested items
+	     showEffect: "slideDown",
 
-            // **showEffectSpeed**: Accepts Number (milliseconds) or String: "slow", "medium", or "fast"
-            // The time duration of the show animation
-            showEffectSpeed: "medium",
+	     // **showEffectSpeed**: Accepts Number (milliseconds) or String: "slow", "medium", or "fast"
+	     // The time duration of the show animation
+	     showEffectSpeed: "medium",
 
-            // **hideEffect**: Accepts String: "none", "fadeOut", "hide", or "slideUp"
-            // Used to hide any of the table of contents nested items
-            hideEffect: "slideUp",
+	     // **hideEffect**: Accepts String: "none", "fadeOut", "hide", or "slideUp"
+	     // Used to hide any of the table of contents nested items
+	     hideEffect: "slideUp",
 
-            // **hideEffectSpeed**: Accepts Number (milliseconds) or String: "slow", "medium", or "fast"
-            // The time duration of the hide animation
-            hideEffectSpeed: "medium",
+	     // **hideEffectSpeed**: Accepts Number (milliseconds) or String: "slow", "medium", or "fast"
+	     // The time duration of the hide animation
+	     hideEffectSpeed: "medium",
 
-            // **smoothScroll**: Accepts a boolean: true or false
-            // Determines if a jQuery animation should be used to scroll to specific table of contents items on the page
-            smoothScroll: true,
+	     // **smoothScroll**: Accepts a boolean: true or false
+	     // Determines if a jQuery animation should be used to scroll to specific table of contents items on the page
+	     smoothScroll: true,
 
-            // **smoothScrollSpeed**: Accepts Number (milliseconds) or String: "slow", "medium", or "fast"
-            // The time duration of the smoothScroll animation
-            smoothScrollSpeed: "medium",
+	     // **smoothScrollSpeed**: Accepts Number (milliseconds) or String: "slow", "medium", or "fast"
+	     // The time duration of the smoothScroll animation
+	     smoothScrollSpeed: "medium",
 
-            // **scrollTo**: Accepts Number (pixels)
-            // The amount of space between the top of page and the selected table of contents item after the page has been scrolled
-            scrollTo: 0,
+	     // **scrollTo**: Accepts Number (pixels)
+	     // The amount of space between the top of page and the selected table of contents item after the page has been scrolled
+	     scrollTo: 0,
 
-            // **showAndHideOnScroll**: Accepts a boolean: true or false
-            // Determines if table of contents nested items should be shown and hidden while scrolling
-            showAndHideOnScroll: true,
+	     // **showAndHideOnScroll**: Accepts a boolean: true or false
+	     // Determines if table of contents nested items should be shown and hidden while scrolling
+	     showAndHideOnScroll: true,
 
-            // **highlightOnScroll**: Accepts a boolean: true or false
-            // Determines if table of contents nested items should be highlighted (set to a different color) while scrolling
-            highlightOnScroll: true,
+	     // **highlightOnScroll**: Accepts a boolean: true or false
+	     // Determines if table of contents nested items should be highlighted (set to a different color) while scrolling
+	     highlightOnScroll: true,
 
-            // **highlightOffset**: Accepts a number
-            // The offset distance in pixels to trigger the next active table of contents item
-            highlightOffset: 40,
+	     // **highlightOffset**: Accepts a number
+	     // The offset distance in pixels to trigger the next active table of contents item
+	     highlightOffset: 40,
 
-            // **theme**: Accepts a string: "bootstrap", "jqueryui", or "none"
-            // Determines if Twitter Bootstrap, jQueryUI, or Tocify classes should be added to the table of contents
-            theme: "bootstrap",
+	     // **theme**: Accepts a string: "bootstrap", "jqueryui", or "none"
+	     // Determines if Twitter Bootstrap, jQueryUI, or Tocify classes should be added to the table of contents
+	     theme: "bootstrap",
 
-            // **extendPage**: Accepts a boolean: true or false
-            // If a user scrolls to the bottom of the page and the page is not tall enough to scroll to the last table of contents item, then the page height is increased
-            extendPage: true,
+	     // **extendPage**: Accepts a boolean: true or false
+	     // If a user scrolls to the bottom of the page and the page is not tall enough to scroll to the last table of contents item, then the page height is increased
+	     extendPage: true,
 
-            // **extendPageOffset**: Accepts a number: pixels
-            // How close to the bottom of the page a user must scroll before the page is extended
-            extendPageOffset: 100,
+	     // **extendPageOffset**: Accepts a number: pixels
+	     // How close to the bottom of the page a user must scroll before the page is extended
+	     extendPageOffset: 100,
 
-            // **history**: Accepts a boolean: true or false
-            // Adds a hash to the page url to maintain history
-            history: true,
+	     // **history**: Accepts a boolean: true or false
+	     // Adds a hash to the page url to maintain history
+	     history: true,
 
-            // **scrollHistory**: Accepts a boolean: true or false
-            // Adds a hash to the page url, to maintain history, when scrolling to a TOC item
-            scrollHistory: false,
+	     // **scrollHistory**: Accepts a boolean: true or false
+	     // Adds a hash to the page url, to maintain history, when scrolling to a TOC item
+	     scrollHistory: false,
 
-            // **hashGenerator**: How the hash value (the anchor segment of the URL, following the
-            // # character) will be generated.
-            //
-            // "compact" (default) - #CompressesEverythingTogether
-            // "pretty" - #looks-like-a-nice-url-and-is-easily-readable
-            // function(text, element){} - Your own hash generation function that accepts the text as an
-            // argument, and returns the hash value.
-            hashGenerator: "compact",
+	     // **hashGenerator**: How the hash value (the anchor segment of the URL, following the
+	     // # character) will be generated.
+	     //
+	     // "compact" (default) - #CompressesEverythingTogether
+	     // "pretty" - #looks-like-a-nice-url-and-is-easily-readable
+	     // function(text, element){} - Your own hash generation function that accepts the text as an
+	     // argument, and returns the hash value.
+	     hashGenerator: "compact",
 
-            // **highlightDefault**: Accepts a boolean: true or false
-            // Set's the first TOC item as active if no other TOC item is active.
-            highlightDefault: true
+	     // **highlightDefault**: Accepts a boolean: true or false
+	     // Set's the first TOC item as active if no other TOC item is active.
+	     highlightDefault: true
 
-        },
+	 },
 
-        // _Create
-        // -------
-        //      Constructs the plugin.  Only called once.
-        _create: function() {
+	 // _Create
+	 // -------
+	 //      Constructs the plugin.  Only called once.
+	 _create: function() {
 
-            var self = this;
+	     var self = this;
 
-            self.tocifyWrapper = $('.tocify-wrapper');
-            self.extendPageScroll = true;
+	     self.tocifyWrapper = $('.tocify-wrapper');
+	     self.extendPageScroll = true;
 
-            // Internal array that keeps track of all TOC items (Helps to recognize if there are duplicate TOC item strings)
-            self.items = [];
+	     // Internal array that keeps track of all TOC items (Helps to recognize if there are duplicate TOC item strings)
+	     self.items = [];
 
-            // Generates the HTML for the dynamic table of contents
-            self._generateToc();
+	     // Generates the HTML for the dynamic table of contents
+	     self._generateToc();
 
-            // Caches heights and anchors
-            self.cachedHeights = [],
-            self.cachedAnchors = [];
+	     // Caches heights and anchors
+	     self.cachedHeights = [],
+	     self.cachedAnchors = [];
 
-            // Adds CSS classes to the newly generated table of contents HTML
-            self._addCSSClasses();
+	     // Adds CSS classes to the newly generated table of contents HTML
+	     self._addCSSClasses();
 
-            self.webkit = (function() {
+	     self.webkit = (function() {
 
-                for(var prop in window) {
+		  for(var prop in window) {
 
-                    if(prop) {
+		      if(prop) {
 
-                        if(prop.toLowerCase().indexOf("webkit") !== -1) {
+			   if(prop.toLowerCase().indexOf("webkit") !== -1) {
 
-                            return true;
+				return true;
 
-                        }
+			   }
 
-                    }
+		      }
 
-                }
+		  }
 
-                return false;
+		  return false;
 
-            }());
+	     }());
 
-            // Adds jQuery event handlers to the newly generated table of contents
-            self._setEventHandlers();
+	     // Adds jQuery event handlers to the newly generated table of contents
+	     self._setEventHandlers();
 
-            // Binding to the Window load event to make sure the correct scrollTop is calculated
-            $(window).load(function() {
+	     // Binding to the Window load event to make sure the correct scrollTop is calculated
+	     $(window).load(function() {
 
-                // Sets the active TOC item
-                self._setActiveElement(true);
+		  // Sets the active TOC item
+		  self._setActiveElement(true);
 
-                // Once all animations on the page are complete, this callback function will be called
-                $("html, body").promise().done(function() {
+		  // Once all animations on the page are complete, this callback function will be called
+		  $("html, body").promise().done(function() {
 
-                    setTimeout(function() {
+		      setTimeout(function() {
 
-                        self.extendPageScroll = false;
+			   self.extendPageScroll = false;
 
-                    },0);
+		      },0);
 
-                });
+		  });
 
-            });
+	     });
 
-        },
+	 },
 
-        // _generateToc
-        // ------------
-        //      Generates the HTML for the dynamic table of contents
-        _generateToc: function() {
+	 // _generateToc
+	 // ------------
+	 //      Generates the HTML for the dynamic table of contents
+	 _generateToc: function() {
 
-            // _Local variables_
+	     // _Local variables_
 
-            // Stores the plugin context in the self variable
-            var self = this,
+	     // Stores the plugin context in the self variable
+	     var self = this,
 
-                // All of the HTML tags found within the context provided (i.e. body) that match the top level jQuery selector above
-                firstElem,
+		  // All of the HTML tags found within the context provided (i.e. body) that match the top level jQuery selector above
+		  firstElem,
 
-                // Instantiated variable that will store the top level newly created unordered list DOM element
-                ul,
-                ignoreSelector = self.options.ignoreSelector;
+		  // Instantiated variable that will store the top level newly created unordered list DOM element
+		  ul,
+		  ignoreSelector = self.options.ignoreSelector;
 
-             // If the selectors option has a comma within the string
-             if(this.options.selectors.indexOf(",") !== -1) {
+	      // If the selectors option has a comma within the string
+	      if(this.options.selectors.indexOf(",") !== -1) {
 
-                 // Grabs the first selector from the string
-                 firstElem = $(this.options.context).find(this.options.selectors.replace(/ /g,"").substr(0, this.options.selectors.indexOf(",")));
+		   // Grabs the first selector from the string
+		   firstElem = $(this.options.context).find(this.options.selectors.replace(/ /g,"").substr(0, this.options.selectors.indexOf(",")));
 
-             }
+	      }
 
-             // If the selectors option does not have a comman within the string
-             else {
+	      // If the selectors option does not have a comman within the string
+	      else {
 
-                 // Grabs the first selector from the string and makes sure there are no spaces
-                 firstElem = $(this.options.context).find(this.options.selectors.replace(/ /g,""));
+		   // Grabs the first selector from the string and makes sure there are no spaces
+		   firstElem = $(this.options.context).find(this.options.selectors.replace(/ /g,""));
 
-             }
+	      }
 
-            if(!firstElem.length) {
+	     if(!firstElem.length) {
 
-                self.element.addClass(hideTocClassName);
+		  self.element.addClass(hideTocClassName);
 
-                return;
+		  return;
 
-            }
+	     }
 
-            self.element.addClass(tocClassName);
+	     self.element.addClass(tocClassName);
 
-            // Loops through each top level selector
-            firstElem.each(function(index) {
+	     // Loops through each top level selector
+	     firstElem.each(function(index) {
 
-                //If the element matches the ignoreSelector then we skip it
-                if($(this).is(ignoreSelector)) {
-                    return;
-                }
+		  //If the element matches the ignoreSelector then we skip it
+		  if($(this).is(ignoreSelector)) {
+		      return;
+		  }
 
-                // Creates an unordered list HTML element and adds a dynamic ID and standard class name
-                ul = $("<ul/>", {
-                    "id": headerClassName + index,
-                    "class": headerClassName
-                }).
+		  // Creates an unordered list HTML element and adds a dynamic ID and standard class name
+		  ul = $("<ul/>", {
+		      "id": headerClassName + index,
+		      "class": headerClassName
+		  }).
 
-                // Appends a top level list item HTML element to the previously created HTML header
-                append(self._nestElements($(this), index));
+		  // Appends a top level list item HTML element to the previously created HTML header
+		  append(self._nestElements($(this), index));
 
-                // Add the created unordered list element to the HTML element calling the plugin
-                self.element.append(ul);
+		  // Add the created unordered list element to the HTML element calling the plugin
+		  self.element.append(ul);
 
-                // Finds all of the HTML tags between the header and subheader elements
-                $(this).nextUntil(this.nodeName.toLowerCase()).each(function() {
+		  // Finds all of the HTML tags between the header and subheader elements
+		  $(this).nextUntil(this.nodeName.toLowerCase()).each(function() {
 
-                    // If there are no nested subheader elemements
-                    if($(this).find(self.options.selectors).length === 0) {
+		      // If there are no nested subheader elemements
+		      if($(this).find(self.options.selectors).length === 0) {
 
-                        // Loops through all of the subheader elements
-                        $(this).filter(self.options.selectors).each(function() {
+			   // Loops through all of the subheader elements
+			   $(this).filter(self.options.selectors).each(function() {
 
-                            //If the element matches the ignoreSelector then we skip it
-                            if($(this).is(ignoreSelector)) {
-                                return;
-                            }
+				//If the element matches the ignoreSelector then we skip it
+				if($(this).is(ignoreSelector)) {
+				    return;
+				}
 
-                            self._appendSubheaders.call(this, self, ul);
+				self._appendSubheaders.call(this, self, ul);
 
-                        });
+			   });
 
-                    }
+		      }
 
-                    // If there are nested subheader elements
-                    else {
+		      // If there are nested subheader elements
+		      else {
 
-                        // Loops through all of the subheader elements
-                        $(this).find(self.options.selectors).each(function() {
+			   // Loops through all of the subheader elements
+			   $(this).find(self.options.selectors).each(function() {
 
-                            //If the element matches the ignoreSelector then we skip it
-                            if($(this).is(ignoreSelector)) {
-                                return;
-                            }
+				//If the element matches the ignoreSelector then we skip it
+				if($(this).is(ignoreSelector)) {
+				    return;
+				}
 
-                            self._appendSubheaders.call(this, self, ul);
+				self._appendSubheaders.call(this, self, ul);
 
-                        });
+			   });
 
-                    }
+		      }
 
-                });
+		  });
 
-            });
+	     });
 
-        },
+	 },
 
-        _setActiveElement: function(pageload) {
+	 _setActiveElement: function(pageload) {
 
-            var self = this,
+	     var self = this,
 
-                hash = window.location.hash.substring(1),
+		  hash = window.location.hash.substring(1),
 
-                elem = self.element.find("li[data-unique='" + hash + "']");
+		  elem = self.element.find("li[data-unique='" + hash + "']");
 
-            if(hash.length) {
+	     if(hash.length) {
 
-                // Removes highlighting from all of the list item's
-                self.element.find("." + self.focusClass).removeClass(self.focusClass);
+		  // Removes highlighting from all of the list item's
+		  self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
-                // Highlights the current list item that was clicked
-                elem.addClass(self.focusClass);
+		  // Highlights the current list item that was clicked
+		  elem.addClass(self.focusClass);
 
-                // If the showAndHide option is true
-                if(self.options.showAndHide) {
+		  // If the showAndHide option is true
+		  if(self.options.showAndHide) {
 
-                    // Triggers the click event on the currently focused TOC item
-                    elem.click();
+		      // Triggers the click event on the currently focused TOC item
+		      elem.click();
 
-                }
+		  }
 
-            }
+	     }
 
-            else {
+	     else {
 
-                // Removes highlighting from all of the list item's
-                self.element.find("." + self.focusClass).removeClass(self.focusClass);
+		  // Removes highlighting from all of the list item's
+		  self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
-                if(!hash.length && pageload && self.options.highlightDefault) {
+		  if(!hash.length && pageload && self.options.highlightDefault) {
 
-                    // Highlights the first TOC item if no other items are highlighted
-                    self.element.find(itemClass).first().addClass(self.focusClass);
+		      // Highlights the first TOC item if no other items are highlighted
+		      self.element.find(itemClass).first().addClass(self.focusClass);
 
-                }
+		  }
 
-            }
+	     }
 
-            return self;
+	     return self;
 
-        },
+	 },
 
-        // _nestElements
-        // -------------
-        //      Helps create the table of contents list by appending nested list items
-        _nestElements: function(self, index) {
+	 // _nestElements
+	 // -------------
+	 //      Helps create the table of contents list by appending nested list items
+	 _nestElements: function(self, index) {
 
-            var arr, item, hashValue;
+	     var arr, item, hashValue;
 
-            arr = $.grep(this.items, function (item) {
+	     arr = $.grep(this.items, function (item) {
 
-                return item === self.text();
+		  return item === self.text();
 
-            });
+	     });
 
-            // If there is already a duplicate TOC item
-            if(arr.length) {
+	     // If there is already a duplicate TOC item
+	     if(arr.length) {
 
-                // Adds the current TOC item text and index (for slight randomization) to the internal array
-                this.items.push(self.text() + index);
+		  // Adds the current TOC item text and index (for slight randomization) to the internal array
+		  this.items.push(self.text() + index);
 
-            }
+	     }
 
-            // If there not a duplicate TOC item
-            else {
+	     // If there not a duplicate TOC item
+	     else {
 
-                // Adds the current TOC item text to the internal array
-                this.items.push(self.text());
+		  // Adds the current TOC item text to the internal array
+		  this.items.push(self.text());
 
-            }
+	     }
 
-            hashValue = this._generateHashValue(arr, self, index);
+	     hashValue = this._generateHashValue(arr, self, index);
 
-            // ADDED BY ROBERT
-            // actually add the hash value to the element's id
-            // self.attr("id", "link-" + hashValue);
+	     // ADDED BY ROBERT
+	     // actually add the hash value to the element's id
+	     // self.attr("id", "link-" + hashValue);
 
-            // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
-            item = $("<li/>", {
+	     // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
+	     item = $("<li/>", {
 
-                // Sets a common class name to the list item
-                "class": itemClassName,
+		  // Sets a common class name to the list item
+		  "class": itemClassName,
 
-                "data-unique": hashValue
+		  "data-unique": hashValue
 
-            }).append($("<a/>", {
+	     }).append($("<a/>", {
 
-                "text": self.text()
+		  "text": self.text()
 
-            }));
+	     }));
 
-            // Adds an HTML anchor tag before the currently traversed HTML element
-            self.before($("<div/>", {
+	     // Adds an HTML anchor tag before the currently traversed HTML element
+	     self.before($("<div/>", {
 
-                // Sets a name attribute on the anchor tag to the text of the currently traversed HTML element (also making sure that all whitespace is replaced with an underscore)
-                "name": hashValue,
+		  // Sets a name attribute on the anchor tag to the text of the currently traversed HTML element (also making sure that all whitespace is replaced with an underscore)
+		  "name": hashValue,
 
-                "data-unique": hashValue
+		  "data-unique": hashValue
 
-            }));
+	     }));
 
-            return item;
+	     return item;
 
-        },
+	 },
 
-        // _generateHashValue
-        // ------------------
-        //      Generates the hash value that will be used to refer to each item.
-        _generateHashValue: function(arr, self, index) {
+	 // _generateHashValue
+	 // ------------------
+	 //      Generates the hash value that will be used to refer to each item.
+	 _generateHashValue: function(arr, self, index) {
 
-            var hashValue = "",
-                hashGeneratorOption = this.options.hashGenerator;
+	     var hashValue = "",
+		  hashGeneratorOption = this.options.hashGenerator;
 
-            if (hashGeneratorOption === "pretty") {
-                // remove weird characters
+	     if (hashGeneratorOption === "pretty") {
+		  // remove weird characters
 
 
-                // prettify the text
-                hashValue = self.text().toLowerCase().replace(/\s/g, "-");
+		  // prettify the text
+		  hashValue = self.text().toLowerCase().replace(/\s/g, "-");
 
-                // ADDED BY ROBERT
-                // remove weird characters
-                hashValue = hashValue.replace(/[^\x00-\x7F]/g, "");
+		  // ADDED BY ROBERT
+		  // remove weird characters
+		  hashValue = hashValue.replace(/[^\x00-\x7F]/g, "");
 
-                // fix double hyphens
-                while (hashValue.indexOf("--") > -1) {
-                    hashValue = hashValue.replace(/--/g, "-");
-                }
+		  // fix double hyphens
+		  while (hashValue.indexOf("--") > -1) {
+		      hashValue = hashValue.replace(/--/g, "-");
+		  }
 
-                // fix colon-space instances
-                while (hashValue.indexOf(":-") > -1) {
-                    hashValue = hashValue.replace(/:-/g, "-");
-                }
+		  // fix colon-space instances
+		  while (hashValue.indexOf(":-") > -1) {
+		      hashValue = hashValue.replace(/:-/g, "-");
+		  }
 
-            } else if (typeof hashGeneratorOption === "function") {
+	     } else if (typeof hashGeneratorOption === "function") {
 
-                // call the function
-                hashValue = hashGeneratorOption(self.text(), self);
+		  // call the function
+		  hashValue = hashGeneratorOption(self.text(), self);
 
-            } else {
+	     } else {
 
-                // compact - the default
-                hashValue = self.text().replace(/\s/g, "");
+		  // compact - the default
+		  hashValue = self.text().replace(/\s/g, "");
 
-            }
+	     }
 
-            // add the index if we need to
-            if (arr.length) { hashValue += ""+index; }
+	     // add the index if we need to
+	     if (arr.length) { hashValue += ""+index; }
 
-            // return the value
-            return hashValue;
+	     // return the value
+	     return hashValue;
 
-        },
+	 },
 
-        // _appendElements
-        // ---------------
-        //      Helps create the table of contents list by appending subheader elements
+	 // _appendElements
+	 // ---------------
+	 //      Helps create the table of contents list by appending subheader elements
 
-        _appendSubheaders: function(self, ul) {
+	 _appendSubheaders: function(self, ul) {
 
-            // The current element index
-            var index = $(this).index(self.options.selectors),
+	     // The current element index
+	     var index = $(this).index(self.options.selectors),
 
-                // Finds the previous header DOM element
-                previousHeader = $(self.options.selectors).eq(index - 1),
+		  // Finds the previous header DOM element
+		  previousHeader = $(self.options.selectors).eq(index - 1),
 
-                currentTagName = +$(this).prop("tagName").charAt(1),
+		  currentTagName = +$(this).prop("tagName").charAt(1),
 
-                previousTagName = +previousHeader.prop("tagName").charAt(1),
+		  previousTagName = +previousHeader.prop("tagName").charAt(1),
 
-                lastSubheader;
+		  lastSubheader;
 
-            // If the current header DOM element is smaller than the previous header DOM element or the first subheader
-            if(currentTagName < previousTagName) {
+	     // If the current header DOM element is smaller than the previous header DOM element or the first subheader
+	     if(currentTagName < previousTagName) {
 
-                // Selects the last unordered list HTML found within the HTML element calling the plugin
-                self.element.find(subheaderClass + "[data-tag=" + currentTagName + "]").last().append(self._nestElements($(this), index));
+		  // Selects the last unordered list HTML found within the HTML element calling the plugin
+		  self.element.find(subheaderClass + "[data-tag=" + currentTagName + "]").last().append(self._nestElements($(this), index));
 
-            }
+	     }
 
-            // If the current header DOM element is the same type of header(eg. h4) as the previous header DOM element
-            else if(currentTagName === previousTagName) {
+	     // If the current header DOM element is the same type of header(eg. h4) as the previous header DOM element
+	     else if(currentTagName === previousTagName) {
 
-                ul.find(itemClass).last().after(self._nestElements($(this), index));
+		  ul.find(itemClass).last().after(self._nestElements($(this), index));
 
-            }
+	     }
 
-            else {
+	     else {
 
-                // Selects the last unordered list HTML found within the HTML element calling the plugin
-                ul.find(itemClass).last().
+		  // Selects the last unordered list HTML found within the HTML element calling the plugin
+		  ul.find(itemClass).last().
 
-                // Appends an unorderedList HTML element to the dynamic `unorderedList` variable and sets a common class name
-                after($("<ul/>", {
+		  // Appends an unorderedList HTML element to the dynamic `unorderedList` variable and sets a common class name
+		  after($("<ul/>", {
 
-                    "class": subheaderClassName,
+		      "class": subheaderClassName,
 
-                    "data-tag": currentTagName
+		      "data-tag": currentTagName
 
-                })).next(subheaderClass).
+		  })).next(subheaderClass).
 
-                // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
-                append(self._nestElements($(this), index));
-            }
+		  // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
+		  append(self._nestElements($(this), index));
+	     }
 
-        },
+	 },
 
-       // _setEventHandlers
-        // ----------------
-        //      Adds jQuery event handlers to the newly generated table of contents
-        _setEventHandlers: function() {
+	// _setEventHandlers
+	 // ----------------
+	 //      Adds jQuery event handlers to the newly generated table of contents
+	 _setEventHandlers: function() {
 
-            // _Local variables_
+	     // _Local variables_
 
-            // Stores the plugin context in the self variable
-            var self = this,
+	     // Stores the plugin context in the self variable
+	     var self = this,
 
-                // Instantiates a new variable that will be used to hold a specific element's context
-                $self,
+		  // Instantiates a new variable that will be used to hold a specific element's context
+		  $self,
 
-                // Instantiates a new variable that will be used to determine the smoothScroll animation time duration
-                duration;
+		  // Instantiates a new variable that will be used to determine the smoothScroll animation time duration
+		  duration;
 
-            // Event delegation that looks for any clicks on list item elements inside of the HTML element calling the plugin
-            this.element.on("click.tocify", "li", function(event) {
+	     // Event delegation that looks for any clicks on list item elements inside of the HTML element calling the plugin
+	     this.element.on("click.tocify", "li", function(event) {
 
-                if(self.options.history) {
+		  if(self.options.history) {
 
-                    window.location.hash = $(this).attr("data-unique");
+		      window.location.hash = $(this).attr("data-unique");
 
-                }
+		  }
 
-                // Removes highlighting from all of the list item's
-                self.element.find("." + self.focusClass).removeClass(self.focusClass);
+		  // Removes highlighting from all of the list item's
+		  self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
-                // Highlights the current list item that was clicked
-                $(this).addClass(self.focusClass);
+		  // Highlights the current list item that was clicked
+		  $(this).addClass(self.focusClass);
 
-                // If the showAndHide option is true
-                if(self.options.showAndHide) {
+		  // If the showAndHide option is true
+		  if(self.options.showAndHide) {
 
-                    var elem = $('li[data-unique="' + $(this).attr("data-unique") + '"]');
+		      var elem = $('li[data-unique="' + $(this).attr("data-unique") + '"]');
 
-                    self._triggerShow(elem);
+		      self._triggerShow(elem);
 
-                }
+		  }
 
-                self._scrollTo($(this));
+		  self._scrollTo($(this));
 
-            });
+	     });
 
-            // Mouseenter and Mouseleave event handlers for the list item's within the HTML element calling the plugin
-            this.element.find("li").on({
+	     // Mouseenter and Mouseleave event handlers for the list item's within the HTML element calling the plugin
+	     this.element.find("li").on({
 
-                // Mouseenter event handler
-                "mouseenter.tocify": function() {
+		  // Mouseenter event handler
+		  "mouseenter.tocify": function() {
 
-                    // Adds a hover CSS class to the current list item
-                    $(this).addClass(self.hoverClass);
+		      // Adds a hover CSS class to the current list item
+		      $(this).addClass(self.hoverClass);
 
-                    // Makes sure the cursor is set to the pointer icon
-                    $(this).css("cursor", "pointer");
+		      // Makes sure the cursor is set to the pointer icon
+		      $(this).css("cursor", "pointer");
 
-                },
+		  },
 
-                // Mouseleave event handler
-                "mouseleave.tocify": function() {
+		  // Mouseleave event handler
+		  "mouseleave.tocify": function() {
 
-                    if(self.options.theme !== "bootstrap") {
+		      if(self.options.theme !== "bootstrap") {
 
-                        // Removes the hover CSS class from the current list item
-                        $(this).removeClass(self.hoverClass);
+			   // Removes the hover CSS class from the current list item
+			   $(this).removeClass(self.hoverClass);
 
-                    }
+		      }
 
-                }
-            });
+		  }
+	     });
 
-            // Reset height cache on scroll
+	     // Reset height cache on scroll
 
-            $(window).on('resize', function() {
-                self.calculateHeights();
-            });
+	     $(window).on('resize', function() {
+		  self.calculateHeights();
+	     });
 
-            // Window scroll event handler
-            $(window).on("scroll.tocify", function() {
+	     // Window scroll event handler
+	     $(window).on("scroll.tocify", function() {
 
-                // Once all animations on the page are complete, this callback function will be called
-                $("html, body").promise().done(function() {
+		  // Once all animations on the page are complete, this callback function will be called
+		  $("html, body").promise().done(function() {
 
-                    // Local variables
+		      // Local variables
 
-                    // Stores how far the user has scrolled
-                    var winScrollTop = $(window).scrollTop(),
+		      // Stores how far the user has scrolled
+		      var winScrollTop = $(window).scrollTop(),
 
-                        // Stores the height of the window
-                        winHeight = $(window).height(),
+			   // Stores the height of the window
+			   winHeight = $(window).height(),
 
-                        // Stores the height of the document
-                        docHeight = $(document).height(),
+			   // Stores the height of the document
+			   docHeight = $(document).height(),
 
-                        scrollHeight = $("body")[0].scrollHeight,
+			   scrollHeight = $("body")[0].scrollHeight,
 
-                        // Instantiates a variable that will be used to hold a selected HTML element
-                        elem,
+			   // Instantiates a variable that will be used to hold a selected HTML element
+			   elem,
 
-                        lastElem,
+			   lastElem,
 
-                        lastElemOffset,
+			   lastElemOffset,
 
-                        currentElem;
+			   currentElem;
 
-                    if(self.options.extendPage) {
+		      if(self.options.extendPage) {
 
-                        // If the user has scrolled to the bottom of the page and the last toc item is not focused
-                        if((self.webkit && winScrollTop >= scrollHeight - winHeight - self.options.extendPageOffset) || (!self.webkit && winHeight + winScrollTop > docHeight - self.options.extendPageOffset)) {
+			   // If the user has scrolled to the bottom of the page and the last toc item is not focused
+			   if((self.webkit && winScrollTop >= scrollHeight - winHeight - self.options.extendPageOffset) || (!self.webkit && winHeight + winScrollTop > docHeight - self.options.extendPageOffset)) {
 
-                            if(!$(extendPageClass).length) {
+				if(!$(extendPageClass).length) {
 
-                                lastElem = $('div[data-unique="' + $(itemClass).last().attr("data-unique") + '"]');
+				    lastElem = $('div[data-unique="' + $(itemClass).last().attr("data-unique") + '"]');
 
-                                if(!lastElem.length) return;
+				    if(!lastElem.length) return;
 
-                                // Gets the top offset of the page header that is linked to the last toc item
-                                lastElemOffset = lastElem.offset().top;
+				    // Gets the top offset of the page header that is linked to the last toc item
+				    lastElemOffset = lastElem.offset().top;
 
-                                // Appends a div to the bottom of the page and sets the height to the difference of the window scrollTop and the last element's position top offset
-                                $(self.options.context).append($("<div />", {
+				    // Appends a div to the bottom of the page and sets the height to the difference of the window scrollTop and the last element's position top offset
+				    $(self.options.context).append($("<div />", {
 
-                                    "class": extendPageClassName,
+					 "class": extendPageClassName,
 
-                                    "height": Math.abs(lastElemOffset - winScrollTop) + "px",
+					 "height": Math.abs(lastElemOffset - winScrollTop) + "px",
 
-                                    "data-unique": extendPageClassName
+					 "data-unique": extendPageClassName
 
-                                }));
+				    }));
 
-                                if(self.extendPageScroll) {
+				    if(self.extendPageScroll) {
 
-                                    currentElem = self.element.find('li.active');
+					 currentElem = self.element.find('li.active');
 
-                                    self._scrollTo($("div[data-unique=" + currentElem.attr("data-unique") + "]"));
+					 self._scrollTo($("div[data-unique=" + currentElem.attr("data-unique") + "]"));
 
-                                }
+				    }
 
-                            }
+				}
 
-                        }
+			   }
 
-                    }
+		      }
 
-                    // The zero timeout ensures the following code is run after the scroll events
-                    setTimeout(function() {
+		      // The zero timeout ensures the following code is run after the scroll events
+		      setTimeout(function() {
 
-                        // _Local variables_
+			   // _Local variables_
 
-                        // Stores the distance to the closest anchor
-                        var // Stores the index of the closest anchor
-                            closestAnchorIdx = null,
-                            anchorText;
+			   // Stores the distance to the closest anchor
+			   var // Stores the index of the closest anchor
+				closestAnchorIdx = null,
+				anchorText;
 
-                        // if never calculated before, calculate and cache the heights
-                        if (self.cachedHeights.length == 0) {
-                            self.calculateHeights();
-                        }
+			   // if never calculated before, calculate and cache the heights
+			   if (self.cachedHeights.length == 0) {
+				self.calculateHeights();
+			   }
 
-                        var scrollTop = $(window).scrollTop();
+			   var scrollTop = $(window).scrollTop();
 
-                        // Determines the index of the closest anchor
-                        self.cachedAnchors.each(function(idx) {
-                            if (self.cachedHeights[idx] - scrollTop < 0) {
-                                closestAnchorIdx = idx;
-                            } else {
-                                return false;
-                            }
-                        });
+			   // Determines the index of the closest anchor
+			   self.cachedAnchors.each(function(idx) {
+				if (self.cachedHeights[idx] - scrollTop < 0) {
+				    closestAnchorIdx = idx;
+				} else {
+				    return false;
+				}
+			   });
 
-                        anchorText = $(self.cachedAnchors[closestAnchorIdx]).attr("data-unique");
+			   anchorText = $(self.cachedAnchors[closestAnchorIdx]).attr("data-unique");
 
-                        // Stores the list item HTML element that corresponds to the currently traversed anchor tag
-                        elem = $('li[data-unique="' + anchorText + '"]');
+			   // Stores the list item HTML element that corresponds to the currently traversed anchor tag
+			   elem = $('li[data-unique="' + anchorText + '"]');
 
-                        // If the `highlightOnScroll` option is true and a next element is found
-                        if(self.options.highlightOnScroll && elem.length && !elem.hasClass(self.focusClass)) {
+			   // If the `highlightOnScroll` option is true and a next element is found
+			   if(self.options.highlightOnScroll && elem.length && !elem.hasClass(self.focusClass)) {
 
-                            // Removes highlighting from all of the list item's
-                            self.element.find("." + self.focusClass).removeClass(self.focusClass);
+				// Removes highlighting from all of the list item's
+				self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
-                            // Highlights the corresponding list item
-                            elem.addClass(self.focusClass);
+				// Highlights the corresponding list item
+				elem.addClass(self.focusClass);
 
-                            // Scroll to highlighted element's header
-                            var tocifyWrapper = self.tocifyWrapper;
-                            var scrollToElem = $(elem).closest('.tocify-header');
+				// Scroll to highlighted element's header
+				var tocifyWrapper = self.tocifyWrapper;
+				var scrollToElem = $(elem).closest('.tocify-header');
 
-                            var elementOffset = scrollToElem.offset().top,
-                                wrapperOffset = tocifyWrapper.offset().top;
-                            var offset = elementOffset - wrapperOffset;
+				var elementOffset = scrollToElem.offset().top,
+				    wrapperOffset = tocifyWrapper.offset().top;
+				var offset = elementOffset - wrapperOffset;
 
-                            if (offset >= $(window).height()) {
-                              var scrollPosition = offset + tocifyWrapper.scrollTop();
-                              tocifyWrapper.scrollTop(scrollPosition);
-                            } else if (offset < 0) {
-                              tocifyWrapper.scrollTop(0);
-                            }
-                        }
+				if (offset >= $(window).height()) {
+				  var scrollPosition = offset + tocifyWrapper.scrollTop();
+				  tocifyWrapper.scrollTop(scrollPosition);
+				} else if (offset < 0) {
+				  tocifyWrapper.scrollTop(0);
+				}
+			   }
 
-                        if(self.options.scrollHistory) {
+			   if(self.options.scrollHistory) {
 
-                            // IF STATEMENT ADDED BY ROBERT
+				// IF STATEMENT ADDED BY ROBERT
 
-                            if(window.location.hash !== "#" + anchorText && anchorText !== undefined) {
+				if(window.location.hash !== "#" + anchorText && anchorText !== undefined) {
 
-                                if(history.replaceState) {
-                                    history.replaceState({}, "", "#" + anchorText);
-                                // provide a fallback
-                                } else {
-                                    scrollV = document.body.scrollTop;
-                                    scrollH = document.body.scrollLeft;
-                                    location.hash = "#" + anchorText;
-                                    document.body.scrollTop = scrollV;
-                                    document.body.scrollLeft = scrollH;
-                                }
+				    if(history.replaceState) {
+					 history.replaceState({}, "", "#" + anchorText);
+				    // provide a fallback
+				    } else {
+					 scrollV = document.body.scrollTop;
+					 scrollH = document.body.scrollLeft;
+					 location.hash = "#" + anchorText;
+					 document.body.scrollTop = scrollV;
+					 document.body.scrollLeft = scrollH;
+				    }
 
-                            }
+				}
 
-                        }
+			   }
 
-                        // If the `showAndHideOnScroll` option is true
-                        if(self.options.showAndHideOnScroll && self.options.showAndHide) {
+			   // If the `showAndHideOnScroll` option is true
+			   if(self.options.showAndHideOnScroll && self.options.showAndHide) {
 
-                            self._triggerShow(elem, true);
+				self._triggerShow(elem, true);
 
-                        }
+			   }
 
-                    }, 0);
+		      }, 0);
 
-                });
+		  });
 
-            });
+	     });
 
-        },
+	 },
 
-        // calculateHeights
-        // ----
-        //      ADDED BY ROBERT
-        calculateHeights: function() {
-            var self = this;
-            self.cachedHeights = [];
-            self.cachedAnchors = [];
-            var anchors = $(self.options.context).find("div[data-unique]");
-            anchors.each(function(idx) {
-                var distance = (($(this).next().length ? $(this).next() : $(this)).offset().top - self.options.highlightOffset);
-                self.cachedHeights[idx] = distance;
-            });
-            self.cachedAnchors = anchors;
-        },
+	 // calculateHeights
+	 // ----
+	 //      ADDED BY ROBERT
+	 calculateHeights: function() {
+	     var self = this;
+	     self.cachedHeights = [];
+	     self.cachedAnchors = [];
+	     var anchors = $(self.options.context).find("div[data-unique]");
+	     anchors.each(function(idx) {
+		  var distance = (($(this).next().length ? $(this).next() : $(this)).offset().top - self.options.highlightOffset);
+		  self.cachedHeights[idx] = distance;
+	     });
+	     self.cachedAnchors = anchors;
+	 },
 
-        // Show
-        // ----
-        //      Opens the current sub-header
-        show: function(elem, scroll) {
+	 // Show
+	 // ----
+	 //      Opens the current sub-header
+	 show: function(elem, scroll) {
 
-            // Stores the plugin context in the `self` variable
-            var self = this,
-                element = elem;
+	     // Stores the plugin context in the `self` variable
+	     var self = this,
+		  element = elem;
 
-            // If the sub-header is not already visible
-            if (!elem.is(":visible")) {
+	     // If the sub-header is not already visible
+	     if (!elem.is(":visible")) {
 
-                // If the current element does not have any nested subheaders, is not a header, and its parent is not visible
-                if(!elem.find(subheaderClass).length && !elem.parent().is(headerClass) && !elem.parent().is(":visible")) {
+		  // If the current element does not have any nested subheaders, is not a header, and its parent is not visible
+		  if(!elem.find(subheaderClass).length && !elem.parent().is(headerClass) && !elem.parent().is(":visible")) {
 
-                    // Sets the current element to all of the subheaders within the current header
-                    elem = elem.parents(subheaderClass).add(elem);
+		      // Sets the current element to all of the subheaders within the current header
+		      elem = elem.parents(subheaderClass).add(elem);
 
-                }
+		  }
 
-                // If the current element does not have any nested subheaders and is not a header
-                else if(!elem.children(subheaderClass).length && !elem.parent().is(headerClass)) {
+		  // If the current element does not have any nested subheaders and is not a header
+		  else if(!elem.children(subheaderClass).length && !elem.parent().is(headerClass)) {
 
-                    // Sets the current element to the closest subheader
-                    elem = elem.closest(subheaderClass);
+		      // Sets the current element to the closest subheader
+		      elem = elem.closest(subheaderClass);
 
-                }
+		  }
 
-                //Determines what jQuery effect to use
-                switch (self.options.showEffect) {
+		  //Determines what jQuery effect to use
+		  switch (self.options.showEffect) {
 
-                    //Uses `no effect`
-                    case "none":
+		      //Uses `no effect`
+		      case "none":
 
-                        elem.show();
+			   elem.show();
 
-                    break;
+		      break;
 
-                    //Uses the jQuery `show` special effect
-                    case "show":
+		      //Uses the jQuery `show` special effect
+		      case "show":
 
-                        elem.show(self.options.showEffectSpeed);
+			   elem.show(self.options.showEffectSpeed);
 
-                    break;
+		      break;
 
-                    //Uses the jQuery `slideDown` special effect
-                    case "slideDown":
+		      //Uses the jQuery `slideDown` special effect
+		      case "slideDown":
 
-                        elem.slideDown(self.options.showEffectSpeed);
+			   elem.slideDown(self.options.showEffectSpeed);
 
-                    break;
+		      break;
 
-                    //Uses the jQuery `fadeIn` special effect
-                    case "fadeIn":
+		      //Uses the jQuery `fadeIn` special effect
+		      case "fadeIn":
 
-                        elem.fadeIn(self.options.showEffectSpeed);
+			   elem.fadeIn(self.options.showEffectSpeed);
 
-                    break;
+		      break;
 
-                    //If none of the above options were passed, then a `jQueryUI show effect` is expected
-                    default:
+		      //If none of the above options were passed, then a `jQueryUI show effect` is expected
+		      default:
 
-                        elem.show();
+			   elem.show();
 
-                    break;
+		      break;
 
-                }
+		  }
 
-            }
+	     }
 
-            // If the current subheader parent element is a header
-            if(elem.parent().is(headerClass)) {
+	     // If the current subheader parent element is a header
+	     if(elem.parent().is(headerClass)) {
 
-                // Hides all non-active sub-headers
-                self.hide($(subheaderClass).not(elem));
+		  // Hides all non-active sub-headers
+		  self.hide($(subheaderClass).not(elem));
 
-            }
+	     }
 
-            // If the current subheader parent element is not a header
-            else {
+	     // If the current subheader parent element is not a header
+	     else {
 
-                // Hides all non-active sub-headers
-                self.hide($(subheaderClass).not(elem.closest(headerClass).find(subheaderClass).not(elem.siblings())));
+		  // Hides all non-active sub-headers
+		  self.hide($(subheaderClass).not(elem.closest(headerClass).find(subheaderClass).not(elem.siblings())));
 
-            }
+	     }
 
-            // Maintains chainablity
-            return self;
+	     // Maintains chainablity
+	     return self;
 
-        },
+	 },
 
-        // Hide
-        // ----
-        //      Closes the current sub-header
-        hide: function(elem) {
+	 // Hide
+	 // ----
+	 //      Closes the current sub-header
+	 hide: function(elem) {
 
-            // Stores the plugin context in the `self` variable
-            var self = this;
+	     // Stores the plugin context in the `self` variable
+	     var self = this;
 
-            //Determines what jQuery effect to use
-            switch (self.options.hideEffect) {
+	     //Determines what jQuery effect to use
+	     switch (self.options.hideEffect) {
 
-                // Uses `no effect`
-                case "none":
+		  // Uses `no effect`
+		  case "none":
 
-                    elem.hide();
+		      elem.hide();
 
-                break;
+		  break;
 
-                // Uses the jQuery `hide` special effect
-                case "hide":
+		  // Uses the jQuery `hide` special effect
+		  case "hide":
 
-                    elem.hide(self.options.hideEffectSpeed);
+		      elem.hide(self.options.hideEffectSpeed);
 
-                break;
+		  break;
 
-                // Uses the jQuery `slideUp` special effect
-                case "slideUp":
+		  // Uses the jQuery `slideUp` special effect
+		  case "slideUp":
 
-                    elem.slideUp(self.options.hideEffectSpeed);
+		      elem.slideUp(self.options.hideEffectSpeed);
 
-                break;
+		  break;
 
-                // Uses the jQuery `fadeOut` special effect
-                case "fadeOut":
+		  // Uses the jQuery `fadeOut` special effect
+		  case "fadeOut":
 
-                    elem.fadeOut(self.options.hideEffectSpeed);
+		      elem.fadeOut(self.options.hideEffectSpeed);
 
-                break;
+		  break;
 
-                // If none of the above options were passed, then a `jqueryUI hide effect` is expected
-                default:
+		  // If none of the above options were passed, then a `jqueryUI hide effect` is expected
+		  default:
 
-                    elem.hide();
+		      elem.hide();
 
-                break;
+		  break;
 
-            }
+	     }
 
-            // Maintains chainablity
-            return self;
-        },
+	     // Maintains chainablity
+	     return self;
+	 },
 
-        // _triggerShow
-        // ------------
-        //      Determines what elements get shown on scroll and click
-        _triggerShow: function(elem, scroll) {
+	 // _triggerShow
+	 // ------------
+	 //      Determines what elements get shown on scroll and click
+	 _triggerShow: function(elem, scroll) {
 
-            var self = this;
+	     var self = this;
 
-            // If the current element's parent is a header element or the next element is a nested subheader element
-            if(elem.parent().is(headerClass) || elem.next().is(subheaderClass)) {
+	     // If the current element's parent is a header element or the next element is a nested subheader element
+	     if(elem.parent().is(headerClass) || elem.next().is(subheaderClass)) {
 
-                // Shows the next sub-header element
-                self.show(elem.next(subheaderClass), scroll);
+		  // Shows the next sub-header element
+		  self.show(elem.next(subheaderClass), scroll);
 
-            }
+	     }
 
-            // If the current element's parent is a subheader element
-            else if(elem.parent().is(subheaderClass)) {
+	     // If the current element's parent is a subheader element
+	     else if(elem.parent().is(subheaderClass)) {
 
-                // Shows the parent sub-header element
-                self.show(elem.parent(), scroll);
+		  // Shows the parent sub-header element
+		  self.show(elem.parent(), scroll);
 
-            }
+	     }
 
-            // Maintains chainability
-            return self;
+	     // Maintains chainability
+	     return self;
 
-        },
+	 },
 
-        // _addCSSClasses
-        // --------------
-        //      Adds CSS classes to the newly generated table of contents HTML
-        _addCSSClasses: function() {
+	 // _addCSSClasses
+	 // --------------
+	 //      Adds CSS classes to the newly generated table of contents HTML
+	 _addCSSClasses: function() {
 
-            // If the user wants a jqueryUI theme
-            if(this.options.theme === "jqueryui") {
+	     // If the user wants a jqueryUI theme
+	     if(this.options.theme === "jqueryui") {
 
-                this.focusClass = "ui-state-default";
+		  this.focusClass = "ui-state-default";
 
-                this.hoverClass = "ui-state-hover";
+		  this.hoverClass = "ui-state-hover";
 
-                //Adds the default styling to the dropdown list
-                this.element.addClass("ui-widget").find(".toc-title").addClass("ui-widget-header").end().find("li").addClass("ui-widget-content");
+		  //Adds the default styling to the dropdown list
+		  this.element.addClass("ui-widget").find(".toc-title").addClass("ui-widget-header").end().find("li").addClass("ui-widget-content");
 
-            }
+	     }
 
-            // If the user wants a twitterBootstrap theme
-            else if(this.options.theme === "bootstrap") {
+	     // If the user wants a twitterBootstrap theme
+	     else if(this.options.theme === "bootstrap") {
 
-                this.element.find(headerClass + "," + subheaderClass).addClass("nav nav-list");
+		  this.element.find(headerClass + "," + subheaderClass).addClass("nav nav-list");
 
-                this.focusClass = "active";
+		  this.focusClass = "active";
 
-            }
+	     }
 
-            // If a user does not want a prebuilt theme
-            else {
+	     // If a user does not want a prebuilt theme
+	     else {
 
-                // Adds more neutral classes (instead of jqueryui)
+		  // Adds more neutral classes (instead of jqueryui)
 
-                this.focusClass = tocFocusClassName;
+		  this.focusClass = tocFocusClassName;
 
-                this.hoverClass = tocHoverClassName;
+		  this.hoverClass = tocHoverClassName;
 
-            }
+	     }
 
-            //Maintains chainability
-            return this;
+	     //Maintains chainability
+	     return this;
 
-        },
+	 },
 
-        // setOption
-        // ---------
-        //      Sets a single Tocify option after the plugin is invoked
-        setOption: function() {
+	 // setOption
+	 // ---------
+	 //      Sets a single Tocify option after the plugin is invoked
+	 setOption: function() {
 
-            // Calls the jQueryUI Widget Factory setOption method
-            $.Widget.prototype._setOption.apply(this, arguments);
+	     // Calls the jQueryUI Widget Factory setOption method
+	     $.Widget.prototype._setOption.apply(this, arguments);
 
-        },
+	 },
 
-        // setOptions
-        // ----------
-        //      Sets a single or multiple Tocify options after the plugin is invoked
-        setOptions: function() {
+	 // setOptions
+	 // ----------
+	 //      Sets a single or multiple Tocify options after the plugin is invoked
+	 setOptions: function() {
 
-            // Calls the jQueryUI Widget Factory setOptions method
-            $.Widget.prototype._setOptions.apply(this, arguments);
+	     // Calls the jQueryUI Widget Factory setOptions method
+	     $.Widget.prototype._setOptions.apply(this, arguments);
 
-        },
+	 },
 
-        // _scrollTo
-        // ---------
-        //      Scrolls to a specific element
-        _scrollTo: function(elem) {
+	 // _scrollTo
+	 // ---------
+	 //      Scrolls to a specific element
+	 _scrollTo: function(elem) {
 
-            var self = this,
-                duration = self.options.smoothScroll || 0,
-                scrollTo = self.options.scrollTo;
+	     var self = this,
+		  duration = self.options.smoothScroll || 0,
+		  scrollTo = self.options.scrollTo;
 
-            // Once all animations on the page are complete, this callback function will be called
-            $("html, body").promise().done(function() {
+	     // Once all animations on the page are complete, this callback function will be called
+	     $("html, body").promise().done(function() {
 
-                // Animates the html and body element scrolltops
-                $("html, body").animate({
+		  // Animates the html and body element scrolltops
+		  $("html, body").animate({
 
-                    // Sets the jQuery `scrollTop` to the top offset of the HTML div tag that matches the current list item's `data-unique` tag
-                    "scrollTop": $('div[data-unique="' + elem.attr("data-unique") + '"]').next().offset().top - ($.isFunction(scrollTo) ? scrollTo.call() : scrollTo) + "px"
+		      // Sets the jQuery `scrollTop` to the top offset of the HTML div tag that matches the current list item's `data-unique` tag
+		      "scrollTop": $('div[data-unique="' + elem.attr("data-unique") + '"]').next().offset().top - ($.isFunction(scrollTo) ? scrollTo.call() : scrollTo) + "px"
 
-                }, {
+		  }, {
 
-                    // Sets the smoothScroll animation time duration to the smoothScrollSpeed option
-                    "duration": duration
+		      // Sets the smoothScroll animation time duration to the smoothScrollSpeed option
+		      "duration": duration
 
-                });
+		  });
 
-            });
+	     });
 
-            // Maintains chainability
-            return self;
+	     // Maintains chainability
+	     return self;
 
-        }
+	 }
 
     });
 
@@ -2847,15 +2847,15 @@ jQuery.fn.highlight = function (words, options) {
    * Example:
    *
    *     var idx = lunr(function () {
- *       this.field('title', 10)
- *       this.field('tags', 100)
- *       this.field('body')
+ *	this.field('title', 10)
+ *	this.field('tags', 100)
+ *	this.field('body')
  *
- *       this.ref('cid')
+ *	this.ref('cid')
  *
- *       this.pipeline.add(function () {
- *         // some custom pipeline function
- *       })
+ *	this.pipeline.add(function () {
+ *	  // some custom pipeline function
+ *	})
  *
  *     })
    *
@@ -2871,9 +2871,9 @@ jQuery.fn.highlight = function (words, options) {
     var idx = new lunr.Index
 
     idx.pipeline.add(
-        lunr.trimmer,
-        lunr.stopWordFilter,
-        lunr.stemmer
+	 lunr.trimmer,
+	 lunr.stopWordFilter,
+	 lunr.stemmer
     )
 
     if (config) config.call(idx, idx)
@@ -2901,7 +2901,7 @@ jQuery.fn.highlight = function (words, options) {
   lunr.utils.warn = (function (global) {
     return function (message) {
       if (global.console && console.warn) {
-        console.warn(message)
+	 console.warn(message)
       }
     }
   })(this)
@@ -2931,8 +2931,8 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.EventEmitter.prototype.addListener = function () {
     var args = Array.prototype.slice.call(arguments),
-        fn = args.pop(),
-        names = args
+	 fn = args.pop(),
+	 names = args
 
     if (typeof fn !== "function") throw new TypeError ("last argument must be a function")
 
@@ -3009,19 +3009,19 @@ jQuery.fn.highlight = function (words, options) {
 
     for (var i = str.length - 1; i >= 0; i--) {
       if (/\S/.test(str.charAt(i))) {
-        str = str.substring(0, i + 1)
-        break
+	 str = str.substring(0, i + 1)
+	 break
       }
     }
 
     return str
-        .split(/(?:\s+|\-)/)
-        .filter(function (token) {
-          return !!token
-        })
-        .map(function (token) {
-          return token.toLowerCase()
-        })
+	 .split(/(?:\s+|\-)/)
+	 .filter(function (token) {
+	   return !!token
+	 })
+	 .map(function (token) {
+	   return token.toLowerCase()
+	 })
   }
   /*!
    * lunr.Pipeline
@@ -3118,9 +3118,9 @@ jQuery.fn.highlight = function (words, options) {
       var fn = lunr.Pipeline.registeredFunctions[fnName]
 
       if (fn) {
-        pipeline.add(fn)
+	 pipeline.add(fn)
       } else {
-        throw new Error ('Cannot load un-registered function: ' + fnName)
+	 throw new Error ('Cannot load un-registered function: ' + fnName)
       }
     })
 
@@ -3199,15 +3199,15 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.Pipeline.prototype.run = function (tokens) {
     var out = [],
-        tokenLength = tokens.length,
-        stackLength = this._stack.length
+	 tokenLength = tokens.length,
+	 stackLength = this._stack.length
 
     for (var i = 0; i < tokenLength; i++) {
       var token = tokens[i]
 
       for (var j = 0; j < stackLength; j++) {
-        token = this._stack[j](token, i, tokens)
-        if (token === void 0) break
+	 token = this._stack[j](token, i, tokens)
+	 if (token === void 0) break
       };
 
       if (token !== void 0) out.push(token)
@@ -3290,12 +3290,12 @@ jQuery.fn.highlight = function (words, options) {
     }
 
     var prev = list,
-        next = list.next
+	 next = list.next
 
     while (next != undefined) {
       if (idx < next.idx) {
-        prev.next = new lunr.Vector.Node (idx, val, next)
-        return this.length++
+	 prev.next = new lunr.Vector.Node (idx, val, next)
+	 return this.length++
       }
 
       prev = next, next = next.next
@@ -3314,8 +3314,8 @@ jQuery.fn.highlight = function (words, options) {
   lunr.Vector.prototype.magnitude = function () {
     if (this._magniture) return this._magnitude
     var node = this.list,
-        sumOfSquares = 0,
-        val
+	 sumOfSquares = 0,
+	 val
 
     while (node) {
       val = node.val
@@ -3335,18 +3335,18 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.Vector.prototype.dot = function (otherVector) {
     var node = this.list,
-        otherNode = otherVector.list,
-        dotProduct = 0
+	 otherNode = otherVector.list,
+	 dotProduct = 0
 
     while (node && otherNode) {
       if (node.idx < otherNode.idx) {
-        node = node.next
+	 node = node.next
       } else if (node.idx > otherNode.idx) {
-        otherNode = otherNode.next
+	 otherNode = otherNode.next
       } else {
-        dotProduct += node.val * otherNode.val
-        node = node.next
-        otherNode = otherNode.next
+	 dotProduct += node.val * otherNode.val
+	 node = node.next
+	 otherNode = otherNode.next
       }
     }
 
@@ -3469,16 +3469,16 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.SortedSet.prototype.indexOf = function (elem, start, end) {
     var start = start || 0,
-        end = end || this.elements.length,
-        sectionLength = end - start,
-        pivot = start + Math.floor(sectionLength / 2),
-        pivotElem = this.elements[pivot]
+	 end = end || this.elements.length,
+	 sectionLength = end - start,
+	 pivot = start + Math.floor(sectionLength / 2),
+	 pivotElem = this.elements[pivot]
 
     if (sectionLength <= 1) {
       if (pivotElem === elem) {
-        return pivot
+	 return pivot
       } else {
-        return -1
+	 return -1
       }
     }
 
@@ -3504,10 +3504,10 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.SortedSet.prototype.locationFor = function (elem, start, end) {
     var start = start || 0,
-        end = end || this.elements.length,
-        sectionLength = end - start,
-        pivot = start + Math.floor(sectionLength / 2),
-        pivotElem = this.elements[pivot]
+	 end = end || this.elements.length,
+	 sectionLength = end - start,
+	 pivot = start + Math.floor(sectionLength / 2),
+	 pivotElem = this.elements[pivot]
 
     if (sectionLength <= 1) {
       if (pivotElem > elem) return pivot
@@ -3528,27 +3528,27 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.SortedSet.prototype.intersect = function (otherSet) {
     var intersectSet = new lunr.SortedSet,
-        i = 0, j = 0,
-        a_len = this.length, b_len = otherSet.length,
-        a = this.elements, b = otherSet.elements
+	 i = 0, j = 0,
+	 a_len = this.length, b_len = otherSet.length,
+	 a = this.elements, b = otherSet.elements
 
     while (true) {
       if (i > a_len - 1 || j > b_len - 1) break
 
       if (a[i] === b[j]) {
-        intersectSet.add(a[i])
-        i++, j++
-        continue
+	 intersectSet.add(a[i])
+	 i++, j++
+	 continue
       }
 
       if (a[i] < b[j]) {
-        i++
-        continue
+	 i++
+	 continue
       }
 
       if (a[i] > b[j]) {
-        j++
-        continue
+	 j++
+	 continue
       }
     };
 
@@ -3704,7 +3704,7 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.Index.prototype.field = function (fieldName, opts) {
     var opts = opts || {},
-        field = { name: fieldName, boost: opts.boost || 1 }
+	 field = { name: fieldName, boost: opts.boost || 1 }
 
     this._fields.push(field)
     return this
@@ -3745,9 +3745,9 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.Index.prototype.add = function (doc, emitEvent) {
     var docTokens = {},
-        allDocumentTokens = new lunr.SortedSet,
-        docRef = doc[this._ref],
-        emitEvent = emitEvent === undefined ? true : emitEvent
+	 allDocumentTokens = new lunr.SortedSet,
+	 docRef = doc[this._ref],
+	 emitEvent = emitEvent === undefined ? true : emitEvent
 
     this._fields.forEach(function (field) {
       var fieldTokens = this.pipeline.run(lunr.tokenizer(doc[field.name]))
@@ -3762,13 +3762,13 @@ jQuery.fn.highlight = function (words, options) {
     for (var i = 0; i < allDocumentTokens.length; i++) {
       var token = allDocumentTokens.elements[i]
       var tf = this._fields.reduce(function (memo, field) {
-        var fieldLength = docTokens[field.name].length
+	 var fieldLength = docTokens[field.name].length
 
-        if (!fieldLength) return memo
+	 if (!fieldLength) return memo
 
-        var tokenCount = docTokens[field.name].filter(function (t) { return t === token }).length
+	 var tokenCount = docTokens[field.name].filter(function (t) { return t === token }).length
 
-        return memo + (tokenCount / fieldLength * field.boost)
+	 return memo + (tokenCount / fieldLength * field.boost)
       }, 0)
 
       this.tokenStore.add(token, { ref: docRef, tf: tf })
@@ -3797,7 +3797,7 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.Index.prototype.remove = function (doc, emitEvent) {
     var docRef = doc[this._ref],
-        emitEvent = emitEvent === undefined ? true : emitEvent
+	 emitEvent = emitEvent === undefined ? true : emitEvent
 
     if (!this.documentStore.has(docRef)) return
 
@@ -3854,7 +3854,7 @@ jQuery.fn.highlight = function (words, options) {
     if (Object.prototype.hasOwnProperty.call(this._idfCache, cacheKey)) return this._idfCache[cacheKey]
 
     var documentFrequency = this.tokenStore.count(term),
-        idf = 1
+	 idf = 1
 
     if (documentFrequency > 0) {
       idf = 1 + Math.log(this.tokenStore.length / documentFrequency)
@@ -3889,9 +3889,9 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.Index.prototype.search = function (query) {
     var queryTokens = this.pipeline.run(lunr.tokenizer(query)),
-        queryVector = new lunr.Vector,
-        documentSets = [],
-        fieldBoosts = this._fields.reduce(function (memo, f) { return memo + f.boost }, 0)
+	 queryVector = new lunr.Vector,
+	 documentSets = [],
+	 fieldBoosts = this._fields.reduce(function (memo, f) { return memo + f.boost }, 0)
 
     var hasSomeToken = queryTokens.some(function (token) {
       return this.tokenStore.has(token)
@@ -3900,49 +3900,49 @@ jQuery.fn.highlight = function (words, options) {
     if (!hasSomeToken) return []
 
     queryTokens
-        .forEach(function (token, i, tokens) {
-          var tf = 1 / tokens.length * this._fields.length * fieldBoosts,
-              self = this
+	 .forEach(function (token, i, tokens) {
+	   var tf = 1 / tokens.length * this._fields.length * fieldBoosts,
+		self = this
 
-          var set = this.tokenStore.expand(token).reduce(function (memo, key) {
-            var pos = self.corpusTokens.indexOf(key),
-                idf = self.idf(key),
-                similarityBoost = 1,
-                set = new lunr.SortedSet
+	   var set = this.tokenStore.expand(token).reduce(function (memo, key) {
+	     var pos = self.corpusTokens.indexOf(key),
+		  idf = self.idf(key),
+		  similarityBoost = 1,
+		  set = new lunr.SortedSet
 
-            // if the expanded key is not an exact match to the token then
-            // penalise the score for this key by how different the key is
-            // to the token.
-            if (key !== token) {
-              var diff = Math.max(3, key.length - token.length)
-              similarityBoost = 1 / Math.log(diff)
-            }
+	     // if the expanded key is not an exact match to the token then
+	     // penalise the score for this key by how different the key is
+	     // to the token.
+	     if (key !== token) {
+		var diff = Math.max(3, key.length - token.length)
+		similarityBoost = 1 / Math.log(diff)
+	     }
 
-            // calculate the query tf-idf score for this token
-            // applying an similarityBoost to ensure exact matches
-            // these rank higher than expanded terms
-            if (pos > -1) queryVector.insert(pos, tf * idf * similarityBoost)
+	     // calculate the query tf-idf score for this token
+	     // applying an similarityBoost to ensure exact matches
+	     // these rank higher than expanded terms
+	     if (pos > -1) queryVector.insert(pos, tf * idf * similarityBoost)
 
-            // add all the documents that have this key into a set
-            Object.keys(self.tokenStore.get(key)).forEach(function (ref) { set.add(ref) })
+	     // add all the documents that have this key into a set
+	     Object.keys(self.tokenStore.get(key)).forEach(function (ref) { set.add(ref) })
 
-            return memo.union(set)
-          }, new lunr.SortedSet)
+	     return memo.union(set)
+	   }, new lunr.SortedSet)
 
-          documentSets.push(set)
-        }, this)
+	   documentSets.push(set)
+	 }, this)
 
     var documentSet = documentSets.reduce(function (memo, set) {
       return memo.intersect(set)
     })
 
     return documentSet
-        .map(function (ref) {
-          return { ref: ref, score: queryVector.similarity(this.documentVector(ref)) }
-        }, this)
-        .sort(function (a, b) {
-          return b.score - a.score
-        })
+	 .map(function (ref) {
+	   return { ref: ref, score: queryVector.similarity(this.documentVector(ref)) }
+	 }, this)
+	 .sort(function (a, b) {
+	   return b.score - a.score
+	 })
   }
 
   /**
@@ -3961,13 +3961,13 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.Index.prototype.documentVector = function (documentRef) {
     var documentTokens = this.documentStore.get(documentRef),
-        documentTokensLength = documentTokens.length,
-        documentVector = new lunr.Vector
+	 documentTokensLength = documentTokens.length,
+	 documentVector = new lunr.Vector
 
     for (var i = 0; i < documentTokensLength; i++) {
       var token = documentTokens.elements[i],
-          tf = this.tokenStore.get(token)[documentRef].tf,
-          idf = this.idf(token)
+	   tf = this.tokenStore.get(token)[documentRef].tf,
+	   idf = this.idf(token)
 
       documentVector.insert(this.corpusTokens.indexOf(token), tf * idf)
     };
@@ -4008,12 +4008,12 @@ jQuery.fn.highlight = function (words, options) {
    * Example:
    *
    *     var myPlugin = function (idx, arg1, arg2) {
- *       // `this` is the index to be extended
- *       // apply any extensions etc here.
+ *	// `this` is the index to be extended
+ *	// apply any extensions etc here.
  *     }
    *
    *     var idx = lunr(function () {
- *       this.use(myPlugin, 'arg1', 'arg2')
+ *	this.use(myPlugin, 'arg1', 'arg2')
  *     })
    *
    * @param {Function} plugin The plugin to apply.
@@ -4137,48 +4137,48 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.stemmer = (function(){
     var step2list = {
-          "ational" : "ate",
-          "tional" : "tion",
-          "enci" : "ence",
-          "anci" : "ance",
-          "izer" : "ize",
-          "bli" : "ble",
-          "alli" : "al",
-          "entli" : "ent",
-          "eli" : "e",
-          "ousli" : "ous",
-          "ization" : "ize",
-          "ation" : "ate",
-          "ator" : "ate",
-          "alism" : "al",
-          "iveness" : "ive",
-          "fulness" : "ful",
-          "ousness" : "ous",
-          "aliti" : "al",
-          "iviti" : "ive",
-          "biliti" : "ble",
-          "logi" : "log"
-        },
+	   "ational" : "ate",
+	   "tional" : "tion",
+	   "enci" : "ence",
+	   "anci" : "ance",
+	   "izer" : "ize",
+	   "bli" : "ble",
+	   "alli" : "al",
+	   "entli" : "ent",
+	   "eli" : "e",
+	   "ousli" : "ous",
+	   "ization" : "ize",
+	   "ation" : "ate",
+	   "ator" : "ate",
+	   "alism" : "al",
+	   "iveness" : "ive",
+	   "fulness" : "ful",
+	   "ousness" : "ous",
+	   "aliti" : "al",
+	   "iviti" : "ive",
+	   "biliti" : "ble",
+	   "logi" : "log"
+	 },
 
-        step3list = {
-          "icate" : "ic",
-          "ative" : "",
-          "alize" : "al",
-          "iciti" : "ic",
-          "ical" : "ic",
-          "ful" : "",
-          "ness" : ""
-        },
+	 step3list = {
+	   "icate" : "ic",
+	   "ative" : "",
+	   "alize" : "al",
+	   "iciti" : "ic",
+	   "ical" : "ic",
+	   "ful" : "",
+	   "ness" : ""
+	 },
 
-        c = "[^aeiou]",          // consonant
-        v = "[aeiouy]",          // vowel
-        C = c + "[^aeiouy]*",    // consonant sequence
-        V = v + "[aeiou]*",      // vowel sequence
+	 c = "[^aeiou]",	   // consonant
+	 v = "[aeiouy]",	   // vowel
+	 C = c + "[^aeiouy]*",    // consonant sequence
+	 V = v + "[aeiou]*",      // vowel sequence
 
-        mgr0 = "^(" + C + ")?" + V + C,               // [C]VC... is m>0
-        meq1 = "^(" + C + ")?" + V + C + "(" + V + ")?$",  // [C]VC[V] is m=1
-        mgr1 = "^(" + C + ")?" + V + C + V + C,       // [C]VCVC... is m>1
-        s_v = "^(" + C + ")?" + v;                   // vowel in stem
+	 mgr0 = "^(" + C + ")?" + V + C,		 // [C]VC... is m>0
+	 meq1 = "^(" + C + ")?" + V + C + "(" + V + ")?$",  // [C]VC[V] is m=1
+	 mgr1 = "^(" + C + ")?" + V + C + V + C,	// [C]VCVC... is m>1
+	 s_v = "^(" + C + ")?" + v;		     // vowel in stem
 
     var re_mgr0 = new RegExp(mgr0);
     var re_mgr1 = new RegExp(mgr1);
@@ -4208,18 +4208,18 @@ jQuery.fn.highlight = function (words, options) {
 
     var porterStemmer = function porterStemmer(w) {
       var   stem,
-          suffix,
-          firstch,
-          re,
-          re2,
-          re3,
-          re4;
+	   suffix,
+	   firstch,
+	   re,
+	   re2,
+	   re3,
+	   re4;
 
       if (w.length < 3) { return w; }
 
       firstch = w.substr(0,1);
       if (firstch == "y") {
-        w = firstch.toUpperCase() + w.substr(1);
+	 w = firstch.toUpperCase() + w.substr(1);
       }
 
       // Step 1a
@@ -4233,102 +4233,102 @@ jQuery.fn.highlight = function (words, options) {
       re = re_1b;
       re2 = re2_1b;
       if (re.test(w)) {
-        var fp = re.exec(w);
-        re = re_mgr0;
-        if (re.test(fp[1])) {
-          re = re_1b_2;
-          w = w.replace(re,"");
-        }
+	 var fp = re.exec(w);
+	 re = re_mgr0;
+	 if (re.test(fp[1])) {
+	   re = re_1b_2;
+	   w = w.replace(re,"");
+	 }
       } else if (re2.test(w)) {
-        var fp = re2.exec(w);
-        stem = fp[1];
-        re2 = re_s_v;
-        if (re2.test(stem)) {
-          w = stem;
-          re2 = re2_1b_2;
-          re3 = re3_1b_2;
-          re4 = re4_1b_2;
-          if (re2.test(w)) {  w = w + "e"; }
-          else if (re3.test(w)) { re = re_1b_2; w = w.replace(re,""); }
-          else if (re4.test(w)) { w = w + "e"; }
-        }
+	 var fp = re2.exec(w);
+	 stem = fp[1];
+	 re2 = re_s_v;
+	 if (re2.test(stem)) {
+	   w = stem;
+	   re2 = re2_1b_2;
+	   re3 = re3_1b_2;
+	   re4 = re4_1b_2;
+	   if (re2.test(w)) {  w = w + "e"; }
+	   else if (re3.test(w)) { re = re_1b_2; w = w.replace(re,""); }
+	   else if (re4.test(w)) { w = w + "e"; }
+	 }
       }
 
       // Step 1c - replace suffix y or Y by i if preceded by a non-vowel which is not the first letter of the word (so cry -> cri, by -> by, say -> say)
       re = re_1c;
       if (re.test(w)) {
-        var fp = re.exec(w);
-        stem = fp[1];
-        w = stem + "i";
+	 var fp = re.exec(w);
+	 stem = fp[1];
+	 w = stem + "i";
       }
 
       // Step 2
       re = re_2;
       if (re.test(w)) {
-        var fp = re.exec(w);
-        stem = fp[1];
-        suffix = fp[2];
-        re = re_mgr0;
-        if (re.test(stem)) {
-          w = stem + step2list[suffix];
-        }
+	 var fp = re.exec(w);
+	 stem = fp[1];
+	 suffix = fp[2];
+	 re = re_mgr0;
+	 if (re.test(stem)) {
+	   w = stem + step2list[suffix];
+	 }
       }
 
       // Step 3
       re = re_3;
       if (re.test(w)) {
-        var fp = re.exec(w);
-        stem = fp[1];
-        suffix = fp[2];
-        re = re_mgr0;
-        if (re.test(stem)) {
-          w = stem + step3list[suffix];
-        }
+	 var fp = re.exec(w);
+	 stem = fp[1];
+	 suffix = fp[2];
+	 re = re_mgr0;
+	 if (re.test(stem)) {
+	   w = stem + step3list[suffix];
+	 }
       }
 
       // Step 4
       re = re_4;
       re2 = re2_4;
       if (re.test(w)) {
-        var fp = re.exec(w);
-        stem = fp[1];
-        re = re_mgr1;
-        if (re.test(stem)) {
-          w = stem;
-        }
+	 var fp = re.exec(w);
+	 stem = fp[1];
+	 re = re_mgr1;
+	 if (re.test(stem)) {
+	   w = stem;
+	 }
       } else if (re2.test(w)) {
-        var fp = re2.exec(w);
-        stem = fp[1] + fp[2];
-        re2 = re_mgr1;
-        if (re2.test(stem)) {
-          w = stem;
-        }
+	 var fp = re2.exec(w);
+	 stem = fp[1] + fp[2];
+	 re2 = re_mgr1;
+	 if (re2.test(stem)) {
+	   w = stem;
+	 }
       }
 
       // Step 5
       re = re_5;
       if (re.test(w)) {
-        var fp = re.exec(w);
-        stem = fp[1];
-        re = re_mgr1;
-        re2 = re_meq1;
-        re3 = re3_5;
-        if (re.test(stem) || (re2.test(stem) && !(re3.test(stem)))) {
-          w = stem;
-        }
+	 var fp = re.exec(w);
+	 stem = fp[1];
+	 re = re_mgr1;
+	 re2 = re_meq1;
+	 re3 = re3_5;
+	 if (re.test(stem) || (re2.test(stem) && !(re3.test(stem)))) {
+	   w = stem;
+	 }
       }
 
       re = re_5_1;
       re2 = re_mgr1;
       if (re.test(w) && re2.test(w)) {
-        re = re_1b_2;
-        w = w.replace(re,"");
+	 re = re_1b_2;
+	 w = w.replace(re,"");
       }
 
       // and turn initial Y back to y
 
       if (firstch == "y") {
-        w = firstch.toLowerCase() + w.substr(1);
+	 w = firstch.toLowerCase() + w.substr(1);
       }
 
       return w;
@@ -4506,8 +4506,8 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.trimmer = function (token) {
     return token
-        .replace(/^\W+/, '')
-        .replace(/\W+$/, '')
+	 .replace(/^\W+/, '')
+	 .replace(/\W+$/, '')
   }
 
   lunr.Pipeline.registerFunction(lunr.trimmer, 'trimmer')
@@ -4559,8 +4559,8 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.TokenStore.prototype.add = function (token, doc, root) {
     var root = root || this.root,
-        key = token[0],
-        rest = token.slice(1)
+	 key = token[0],
+	 rest = token.slice(1)
 
     if (!(key in root)) root[key] = {docs: {}}
 
@@ -4676,17 +4676,17 @@ jQuery.fn.highlight = function (words, options) {
    */
   lunr.TokenStore.prototype.expand = function (token, memo) {
     var root = this.getNode(token),
-        docs = root.docs || {},
-        memo = memo || []
+	 docs = root.docs || {},
+	 memo = memo || []
 
     if (Object.keys(docs).length) memo.push(token)
 
     Object.keys(root)
-        .forEach(function (key) {
-          if (key === 'docs') return
+	 .forEach(function (key) {
+	   if (key === 'docs') return
 
-          memo.concat(this.expand(token + key, memo))
-        }, this)
+	   memo.concat(this.expand(token + key, memo))
+	 }, this)
 
     return memo
   }
@@ -4715,10 +4715,10 @@ jQuery.fn.highlight = function (words, options) {
       define(factory)
     } else if (typeof exports === 'object') {
       /**
-       * Node. Does not work with strict CommonJS, but
-       * only CommonJS-like enviroments that support module.exports,
-       * like Node.
-       */
+	* Node. Does not work with strict CommonJS, but
+	* only CommonJS-like enviroments that support module.exports,
+	* like Node.
+	*/
       module.exports = factory()
     } else {
       // Browser globals (root is window)
@@ -4797,11 +4797,11 @@ under the License.
       val = val === undefined ? null : decodeURIComponent(val);
 
       if (!ret.hasOwnProperty(key)) {
-        ret[key] = val;
+	 ret[key] = val;
       } else if (Array.isArray(ret[key])) {
-        ret[key].push(val);
+	 ret[key].push(val);
       } else {
-        ret[key] = [ret[key], val];
+	 ret[key] = [ret[key], val];
       }
 
       return ret;
@@ -4813,9 +4813,9 @@ under the License.
       var val = obj[key];
 
       if (Array.isArray(val)) {
-        return val.sort().map(function (val2) {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
-        }).join('&');
+	 return val.sort().map(function (val2) {
+	   return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
+	 }).join('&');
       }
 
       return encodeURIComponent(key) + '=' + encodeURIComponent(val);
@@ -4827,9 +4827,9 @@ under the License.
     if (location.search.length >= 1) {
       var language = parseURL(location.search).language
       if (language) {
-        return language;
+	 return language;
       } else if (jQuery.inArray(location.search.substr(1), languages) != -1) {
-        return location.search.substr(1);
+	 return location.search.substr(1);
       }
     }
 
@@ -4918,7 +4918,7 @@ under the License.
       scrollTo: -1,
       scrollHistory: true,
       hashGenerator: function (text, element) {
-        return element.prop('id');
+	 return element.prop('id');
       }
     }).data('toc-tocify');
 
@@ -4973,9 +4973,9 @@ under the License.
       var title = $(this);
       var body = title.nextUntil('h1, h2 , h3 , h4 , h5 , h6');
       index.add({
-        id: title.prop('id'),
-        title: title.text(),
-        body: body.text()
+	 id: title.prop('id'),
+	 title: title.text(),
+	 body: body.text()
       });
     });
   }
@@ -4996,19 +4996,19 @@ under the License.
 
     if (this.value) {
       var results = index.search(this.value).filter(function(r) {
-        return r.score > 0.0001;
+	 return r.score > 0.0001;
       });
 
       if (results.length) {
-        searchResults.empty();
-        $.each(results, function (index, result) {
-          var elem = document.getElementById(result.ref);
-          searchResults.append("<li><a href='#" + result.ref + "'>" + $(elem).text() + "</a></li>");
-        });
-        highlight.call(this);
+	 searchResults.empty();
+	 $.each(results, function (index, result) {
+	   var elem = document.getElementById(result.ref);
+	   searchResults.append("<li><a href='#" + result.ref + "'>" + $(elem).text() + "</a></li>");
+	 });
+	 highlight.call(this);
       } else {
-        searchResults.html('<li></li>');
-        $('.search-results li').text('No Results Found for "' + this.value + '"');
+	 searchResults.html('<li></li>');
+	 $('.search-results li').text('No Results Found for "' + this.value + '"');
       }
     } else {
       unhighlight();
@@ -5057,106 +5057,106 @@ under the License.
       &quot;type&quot;: &quot;array&quot;,
       &quot;required&quot;: true,
       &quot;items&quot;: {
-        &quot;name&quot;: &quot;Question&quot;,
-        &quot;displayName&quot;: &quot;Question&quot;,
-        &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-        &quot;type&quot;: &quot;object&quot;,
-        &quot;properties&quot;: [
-          {
-            &quot;name&quot;: &quot;id&quot;,
-            &quot;displayName&quot;: &quot;id&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;type&quot;: &quot;number&quot;,
-            &quot;required&quot;: true,
-            &quot;key&quot;: &quot;id&quot;
-          },
-          {
-            &quot;name&quot;: &quot;questionType&quot;,
-            &quot;displayName&quot;: &quot;questionType&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;type&quot;: &quot;string&quot;,
-            &quot;required&quot;: true,
-            &quot;enum&quot;: [
-              &quot;text&quot;,
-              &quot;image&quot;,
-              &quot;video&quot;
-            ],
-            &quot;key&quot;: &quot;questionType&quot;
-          },
-          {
-            &quot;name&quot;: &quot;answerType&quot;,
-            &quot;displayName&quot;: &quot;answerType&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;type&quot;: &quot;string&quot;,
-            &quot;required&quot;: true,
-            &quot;enum&quot;: [
-              &quot;oneChoice&quot;,
-              &quot;multiplyChoice&quot;,
-              &quot;openAnswer&quot;,
-              &quot;yesNo&quot;
-            ],
-            &quot;key&quot;: &quot;answerType&quot;
-          },
-          {
-            &quot;name&quot;: &quot;question&quot;,
-            &quot;displayName&quot;: &quot;question&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;type&quot;: &quot;string&quot;,
-            &quot;required&quot;: true,
-            &quot;key&quot;: &quot;question&quot;
-          },
-          {
-            &quot;name&quot;: &quot;required&quot;,
-            &quot;displayName&quot;: &quot;required&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;type&quot;: &quot;boolean&quot;,
-            &quot;required&quot;: true,
-            &quot;key&quot;: &quot;required&quot;
-          },
-          {
-            &quot;name&quot;: &quot;answers&quot;,
-            &quot;displayName&quot;: &quot;answers&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;type&quot;: &quot;array&quot;,
-            &quot;required&quot;: true,
-            &quot;items&quot;: {
-              &quot;additionalProperties&quot;: true,
-              &quot;type&quot;: &quot;object&quot;,
-              &quot;displayName&quot;: &quot;Answer&quot;,
-              &quot;name&quot;: &quot;Answer&quot;,
-              &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-              &quot;properties&quot;: [
-                {
-                  &quot;type&quot;: &quot;number&quot;,
-                  &quot;displayName&quot;: &quot;id&quot;,
-                  &quot;name&quot;: &quot;id&quot;,
-                  &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-                  &quot;required&quot;: true,
-                  &quot;key&quot;: &quot;id&quot;
-                },
-                {
-                  &quot;type&quot;: &quot;string&quot;,
-                  &quot;displayName&quot;: &quot;answer&quot;,
-                  &quot;name&quot;: &quot;answer&quot;,
-                  &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-                  &quot;required&quot;: true,
-                  &quot;key&quot;: &quot;answer&quot;
-                }
-              ],
-              &quot;examples&quot;: [
-                {
-                  &quot;value&quot;: &quot;{\n  \&quot;id\&quot;: 5,\n  \&quot;answer\&quot;: \&quot;Colorado state\&quot;\n}&quot;,
-                  &quot;strict&quot;: true,
-                  &quot;structuredValue&quot;: {
-                    &quot;id&quot;: 5,
-                    &quot;answer&quot;: &quot;Colorado state&quot;
-                  }
-                }
-              ]
-            },
-            &quot;key&quot;: &quot;answers&quot;
-          }
-        ]
+	 &quot;name&quot;: &quot;Question&quot;,
+	 &quot;displayName&quot;: &quot;Question&quot;,
+	 &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	 &quot;type&quot;: &quot;object&quot;,
+	 &quot;properties&quot;: [
+	   {
+	     &quot;name&quot;: &quot;id&quot;,
+	     &quot;displayName&quot;: &quot;id&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;type&quot;: &quot;number&quot;,
+	     &quot;required&quot;: true,
+	     &quot;key&quot;: &quot;id&quot;
+	   },
+	   {
+	     &quot;name&quot;: &quot;questionType&quot;,
+	     &quot;displayName&quot;: &quot;questionType&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;type&quot;: &quot;string&quot;,
+	     &quot;required&quot;: true,
+	     &quot;enum&quot;: [
+		&quot;text&quot;,
+		&quot;image&quot;,
+		&quot;video&quot;
+	     ],
+	     &quot;key&quot;: &quot;questionType&quot;
+	   },
+	   {
+	     &quot;name&quot;: &quot;answerType&quot;,
+	     &quot;displayName&quot;: &quot;answerType&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;type&quot;: &quot;string&quot;,
+	     &quot;required&quot;: true,
+	     &quot;enum&quot;: [
+		&quot;oneChoice&quot;,
+		&quot;multiplyChoice&quot;,
+		&quot;openAnswer&quot;,
+		&quot;yesNo&quot;
+	     ],
+	     &quot;key&quot;: &quot;answerType&quot;
+	   },
+	   {
+	     &quot;name&quot;: &quot;question&quot;,
+	     &quot;displayName&quot;: &quot;question&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;type&quot;: &quot;string&quot;,
+	     &quot;required&quot;: true,
+	     &quot;key&quot;: &quot;question&quot;
+	   },
+	   {
+	     &quot;name&quot;: &quot;required&quot;,
+	     &quot;displayName&quot;: &quot;required&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;type&quot;: &quot;boolean&quot;,
+	     &quot;required&quot;: true,
+	     &quot;key&quot;: &quot;required&quot;
+	   },
+	   {
+	     &quot;name&quot;: &quot;answers&quot;,
+	     &quot;displayName&quot;: &quot;answers&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;type&quot;: &quot;array&quot;,
+	     &quot;required&quot;: true,
+	     &quot;items&quot;: {
+		&quot;additionalProperties&quot;: true,
+		&quot;type&quot;: &quot;object&quot;,
+		&quot;displayName&quot;: &quot;Answer&quot;,
+		&quot;name&quot;: &quot;Answer&quot;,
+		&quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+		&quot;properties&quot;: [
+		  {
+		    &quot;type&quot;: &quot;number&quot;,
+		    &quot;displayName&quot;: &quot;id&quot;,
+		    &quot;name&quot;: &quot;id&quot;,
+		    &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+		    &quot;required&quot;: true,
+		    &quot;key&quot;: &quot;id&quot;
+		  },
+		  {
+		    &quot;type&quot;: &quot;string&quot;,
+		    &quot;displayName&quot;: &quot;answer&quot;,
+		    &quot;name&quot;: &quot;answer&quot;,
+		    &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+		    &quot;required&quot;: true,
+		    &quot;key&quot;: &quot;answer&quot;
+		  }
+		],
+		&quot;examples&quot;: [
+		  {
+		    &quot;value&quot;: &quot;{\n  \&quot;id\&quot;: 5,\n  \&quot;answer\&quot;: \&quot;Colorado state\&quot;\n}&quot;,
+		    &quot;strict&quot;: true,
+		    &quot;structuredValue&quot;: {
+		      &quot;id&quot;: 5,
+		      &quot;answer&quot;: &quot;Colorado state&quot;
+		    }
+		  }
+		]
+	     },
+	     &quot;key&quot;: &quot;answers&quot;
+	   }
+	 ]
       },
       &quot;key&quot;: &quot;questions&quot;
     }
@@ -5172,14 +5172,14 @@ under the License.
       &quot;required&quot;: true,
       &quot;answerType&quot;: &quot;oneChoice&quot;,
       &quot;answers&quot;: [
-        {
-          &quot;id&quot;: 12,
-          &quot;answer&quot;: &quot;Less then 20&quot;
-        },
-        {
-          &quot;id&quot;: 13,
-          &quot;answer&quot;: &quot;More then 20&quot;
-        }
+	 {
+	   &quot;id&quot;: 12,
+	   &quot;answer&quot;: &quot;Less then 20&quot;
+	 },
+	 {
+	   &quot;id&quot;: 13,
+	   &quot;answer&quot;: &quot;More then 20&quot;
+	 }
       ]
     }
   ]
@@ -5203,9 +5203,9 @@ under the License.
       &quot;type&quot;: &quot;string&quot;,
       &quot;required&quot;: true,
       &quot;enum&quot;: [
-        &quot;text&quot;,
-        &quot;image&quot;,
-        &quot;video&quot;
+	 &quot;text&quot;,
+	 &quot;image&quot;,
+	 &quot;video&quot;
       ],
       &quot;key&quot;: &quot;questionType&quot;
     },
@@ -5216,10 +5216,10 @@ under the License.
       &quot;type&quot;: &quot;string&quot;,
       &quot;required&quot;: true,
       &quot;enum&quot;: [
-        &quot;oneChoice&quot;,
-        &quot;multiplyChoice&quot;,
-        &quot;openAnswer&quot;,
-        &quot;yesNo&quot;
+	 &quot;oneChoice&quot;,
+	 &quot;multiplyChoice&quot;,
+	 &quot;openAnswer&quot;,
+	 &quot;yesNo&quot;
       ],
       &quot;key&quot;: &quot;answerType&quot;
     },
@@ -5246,39 +5246,39 @@ under the License.
       &quot;type&quot;: &quot;array&quot;,
       &quot;required&quot;: true,
       &quot;items&quot;: {
-        &quot;additionalProperties&quot;: true,
-        &quot;type&quot;: &quot;object&quot;,
-        &quot;displayName&quot;: &quot;Answer&quot;,
-        &quot;name&quot;: &quot;Answer&quot;,
-        &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-        &quot;properties&quot;: [
-          {
-            &quot;type&quot;: &quot;number&quot;,
-            &quot;displayName&quot;: &quot;id&quot;,
-            &quot;name&quot;: &quot;id&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;required&quot;: true,
-            &quot;key&quot;: &quot;id&quot;
-          },
-          {
-            &quot;type&quot;: &quot;string&quot;,
-            &quot;displayName&quot;: &quot;answer&quot;,
-            &quot;name&quot;: &quot;answer&quot;,
-            &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-            &quot;required&quot;: true,
-            &quot;key&quot;: &quot;answer&quot;
-          }
-        ],
-        &quot;examples&quot;: [
-          {
-            &quot;value&quot;: &quot;{\n  \&quot;id\&quot;: 5,\n  \&quot;answer\&quot;: \&quot;Colorado state\&quot;\n}&quot;,
-            &quot;strict&quot;: true,
-            &quot;structuredValue&quot;: {
-              &quot;id&quot;: 5,
-              &quot;answer&quot;: &quot;Colorado state&quot;
-            }
-          }
-        ]
+	 &quot;additionalProperties&quot;: true,
+	 &quot;type&quot;: &quot;object&quot;,
+	 &quot;displayName&quot;: &quot;Answer&quot;,
+	 &quot;name&quot;: &quot;Answer&quot;,
+	 &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	 &quot;properties&quot;: [
+	   {
+	     &quot;type&quot;: &quot;number&quot;,
+	     &quot;displayName&quot;: &quot;id&quot;,
+	     &quot;name&quot;: &quot;id&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;required&quot;: true,
+	     &quot;key&quot;: &quot;id&quot;
+	   },
+	   {
+	     &quot;type&quot;: &quot;string&quot;,
+	     &quot;displayName&quot;: &quot;answer&quot;,
+	     &quot;name&quot;: &quot;answer&quot;,
+	     &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	     &quot;required&quot;: true,
+	     &quot;key&quot;: &quot;answer&quot;
+	   }
+	 ],
+	 &quot;examples&quot;: [
+	   {
+	     &quot;value&quot;: &quot;{\n  \&quot;id\&quot;: 5,\n  \&quot;answer\&quot;: \&quot;Colorado state\&quot;\n}&quot;,
+	     &quot;strict&quot;: true,
+	     &quot;structuredValue&quot;: {
+		&quot;id&quot;: 5,
+		&quot;answer&quot;: &quot;Colorado state&quot;
+	     }
+	   }
+	 ]
       },
       &quot;key&quot;: &quot;answers&quot;
     }
@@ -5473,14 +5473,14 @@ under the License.
       &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
       &quot;required&quot;: true,
       &quot;properties&quot;: [
-        {
-          &quot;type&quot;: &quot;string&quot;,
-          &quot;displayName&quot;: &quot;message&quot;,
-          &quot;name&quot;: &quot;message&quot;,
-          &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
-          &quot;required&quot;: true,
-          &quot;key&quot;: &quot;message&quot;
-        }
+	 {
+	   &quot;type&quot;: &quot;string&quot;,
+	   &quot;displayName&quot;: &quot;message&quot;,
+	   &quot;name&quot;: &quot;message&quot;,
+	   &quot;typePropertyKind&quot;: &quot;TYPE_EXPRESSION&quot;,
+	   &quot;required&quot;: true,
+	   &quot;key&quot;: &quot;message&quot;
+	 }
       ],
       &quot;key&quot;: &quot;error&quot;
     }
@@ -5497,14 +5497,14 @@ under the License.
       &quot;required&quot;: true,
       &quot;answerType&quot;: &quot;oneChoice&quot;,
       &quot;answers&quot;: [
-        {
-          &quot;id&quot;: 12,
-          &quot;answer&quot;: &quot;Less then 20&quot;
-        },
-        {
-          &quot;id&quot;: 13,
-          &quot;answer&quot;: &quot;More then 20&quot;
-        }
+	 {
+	   &quot;id&quot;: 12,
+	   &quot;answer&quot;: &quot;Less then 20&quot;
+	 },
+	 {
+	   &quot;id&quot;: 13,
+	   &quot;answer&quot;: &quot;More then 20&quot;
+	 }
       ]
     }
   ]
