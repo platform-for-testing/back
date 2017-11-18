@@ -3,8 +3,7 @@ language: node_js
 node_js:
 - 8.5.0
 before_deploy:
-- openssl aes-256-cbc -K $encrypted_e4348d6134f0_key -iv $encrypted_e4348d6134f0_iv
-  -in development.json.enc -out config/development.json -d
+- openssl aes-256-cbc -K $encrypted_5597e6a91612_key -iv $encrypted_5597e6a91612_iv -in development.json.enc -out ./development.json -d
 - echo -e "Host 95.85.54.211\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - mkdir build
 - rsync -av $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/build --exclude=build --exclude=scripts
