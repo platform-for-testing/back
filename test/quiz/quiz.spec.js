@@ -1,10 +1,10 @@
 const superTest = require('supertest');
 const assert = require('assert');
+const uuidv4 = require('uuid4');
 require('should');
 
 const PftServer = require('../../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
-const deleteIdSample = "59f597d73aa21a10ac0ddcbd";
 
 describe('Quiz', () => {
 	let request;
@@ -45,8 +45,11 @@ describe('Quiz', () => {
 				.then((response) => {
 					const quiz = Object.assign({}, response.body);
 					delete quiz._id;
-					// assert
-
+					delete quiz.id;
+					delete quiz.__v;
+					quiz.questions.forEach(q => uuidv4.valid(q));
+					delete quiz.questions;
+					delete quizTwo.questions;
 					assert.deepEqual(quiz, quizTwo);
 				});
 		});
@@ -68,11 +71,16 @@ describe('Quiz', () => {
 
 			// assert
 			await request
-				.get(`/tests/${created._id}`)
+				.get(`/tests/${created.id}`)
 				.set('Accept', 'application/json')
 				.then((response) => {
 					const quiz = Object.assign({}, response.body);
+					delete quiz.id;
 					delete quiz._id;
+					delete quiz.__v;
+					quiz.questions.forEach(q => uuidv4.valid(q));
+					delete quiz.questions;
+					delete quizOne.questions;
 					assert.deepEqual(quiz, quizOne);
 				});
 		});
@@ -90,8 +98,4 @@ describe('Quiz', () => {
 		});
 	});
 });
-
-
-
-
 
