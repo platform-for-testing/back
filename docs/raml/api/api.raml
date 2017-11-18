@@ -5,35 +5,35 @@ baseUri: https://platform-for-testing-back.herokuapp.com/
 
 types:
   Test:
-    title: string
-    properties:
-      questions: Question[]
-    example: |
-      {
-        "title": "JS basic test",
-        "questions": [
-          {
-            "question": "How old are you?",
-            "type": 1,
-            "answers": ["10", "20"]
-          }
-        ]
-      }
+	title: string
+	properties:
+	  questions: Question[]
+	example: |
+	  {
+		"title": "JS basic test",
+		"questions": [
+		  {
+			"question": "How old are you?",
+			"type": 1,
+			"answers": ["10", "20"]
+		  }
+		]
+	  }
   Question:
-    properties:
-      type: number
-      points: number
-      question: string
-      answers: string[]
+	properties:
+	  type: number
+	  points: number
+	  question: string
+	  answers: string[]
 
 
 /tests:
-    post:
-        200:
-            body:
-                application/json:
-                    type: Test
-        400:
-            body:
-                application/json:
-                    type: string
+	post:
+		200:
+			body:
+				application/json:
+					type: Test
+		400:
+			body:
+				application/json:
+					type: string

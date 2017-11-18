@@ -4,15 +4,15 @@
   "description": "Before generate docs you need to execute: 'npm i -g raml2html raml2html-slate-theme'",
   "main": "generate-docs.js",
   "directories": {
-    "doc": "docs"
+	"doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "raml-1-parser": "^1.1.30"
+	"raml-1-parser": "^1.1.30"
   }
 }
