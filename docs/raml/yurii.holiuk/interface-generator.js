@@ -11,26 +11,26 @@ var api = raml.loadApiSync(fileName).toJSON();
 const interfaces = api.types
   .filter(type => !!type[Object.keys(type)[0]].properties)
   .map(_type => {
-    const typeName = Object.keys(_type)[0];
-    const type = _type[typeName];
-    const interfaceName = `${typeName}`;
-    const props = type.properties;
+	const typeName = Object.keys(_type)[0];
+	const type = _type[typeName];
+	const interfaceName = `${typeName}`;
+	const props = type.properties;
 
-    const propertiesLength = Object.keys(props).length;
-    const properties = Object.keys(props).map((propName, i) => {
-      const prop = props[propName];
-      let type = prop.type[0];
-      type = type === 'array'
-        ? `${prop.items}[]`
-        : type;
+	const propertiesLength = Object.keys(props).length;
+	const properties = Object.keys(props).map((propName, i) => {
+	  const prop = props[propName];
+	  let type = prop.type[0];
+	  type = type === 'array'
+	 ? `${prop.items}[]`
+	 : type;
 
-      const propDefinition = `    ${propName}${prop.required ? '' : '?'}: ${type};`
-      return propertiesLength === i + 1
-        ? propDefinition
-        : propDefinition + '\n';
-    });
+	  const propDefinition = `	${propName}${prop.required ? '' : '?'}: ${type};`
+	  return propertiesLength === i + 1
+	 ? propDefinition
+	 : propDefinition + '\n';
+	});
 
-    return `export interface ${interfaceName} {
+	return `export interface ${interfaceName} {
 ${properties.join('')}
 }`
 });

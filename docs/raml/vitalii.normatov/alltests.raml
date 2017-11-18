@@ -5,71 +5,71 @@ version: v1
 mediaType: application/json
 types:
   Test:
-    properties:
-      id:
-        type: number
-        minimum: 0
-      name:
-        type: string
-      author:
-        type: string
-      date:
-        type: datetime
+	properties:
+	  id:
+		type: number
+		minimum: 0
+	  name:
+		type: string
+	  author:
+		type: string
+	  date:
+		type: datetime
 protocols: [https]
 documentation:
-    - title: All tests
-      content: |
-                  API Test Documentation
+	- title: All tests
+	  content: |
+				  API Test Documentation
 securedBy: [ oauth_2_0 ]
 securitySchemes:
-      oauth_2_0:
-               type: OAuth 2.0
-               describedBy:
-                headers:
-                 Authorization:
-                         type: string
-                 queryParameters:
-                 access_token:
-                         type: string
-                responses:
-                   401:
-                     description: |
-                        Bad or expired token.                 
-                   403:
-                     description: |
-                        Bad OAuth request.
-               
+	  oauth_2_0:
+			   type: OAuth 2.0
+			   describedBy:
+				headers:
+				 Authorization:
+						 type: string
+				 queryParameters:
+				 access_token:
+						 type: string
+				responses:
+				   401:
+					 description: |
+						Bad or expired token.
+				   403:
+					 description: |
+						Bad OAuth request.
+
 /alltests:
   get:
-        description: Retrieve a list of tests
-        queryParameters:
-                     author:
-                             displayName: Author
-                             type: string
-                             description: The author's full name
-                             example: Ivan Petrov
-                             required: false
-                     name:
-                             displayName: Document Name
-                             type: string
-                             description: The name of the test
-                             example: Java script test(2)
-                             required: false
-        responses:
-           200:
-        body:
-          type: Test
-          properties:
-            id: number
-            name: string
-            author: string
-            date: datetime
+		description: Retrieve a list of tests
+		queryParameters:
+					 author:
+							 displayName: Author
+							 type: string
+							 description: The author's full name
+							 example: Ivan Petrov
+							 required: false
+					 name:
+							 displayName: Document Name
+							 type: string
+							 description: The name of the test
+							 example: Java script test(2)
+							 required: false
+		responses:
+		   200:
+		body:
+		  type: Test
+		  properties:
+			id: number
+			name: string
+			author: string
+			date: datetime
   post:
-        description: Add a new tests
-        body: 
-           type: Test
-           properties:
-            name: string
-            author: string
+		description: Add a new tests
+		body:
+		   type: Test
+		   properties:
+			name: string
+			author: string
 
 
