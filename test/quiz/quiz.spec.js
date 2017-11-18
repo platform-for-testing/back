@@ -45,6 +45,7 @@ describe('Quiz', () => {
 				.then((response) => {
 					const quiz = Object.assign({}, response.body);
 					delete quiz._id;
+					delete quiz.id;
 					delete quiz.__v;
 					quiz.questions.forEach(q => uuidv4.valid(q));
 					delete quiz.questions;
@@ -70,10 +71,11 @@ describe('Quiz', () => {
 
 			// assert
 			await request
-				.get(`/tests/${created._id}`)
+				.get(`/tests/${created.id}`)
 				.set('Accept', 'application/json')
 				.then((response) => {
 					const quiz = Object.assign({}, response.body);
+					delete quiz.id;
 					delete quiz._id;
 					delete quiz.__v;
 					quiz.questions.forEach(q => uuidv4.valid(q));
