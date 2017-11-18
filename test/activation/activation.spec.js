@@ -1,29 +1,23 @@
 const PftServer = require('../../lib/index');
-const Helper = require('./helper');
 const assert = require('assert');
 const superTest = require('supertest');
-const fs = require('fs');
-
-const activationSample = JSON.parse(fs.readFileSync('test/activation/activation-test-data.json', 'utf8'));
+const { activationOne } = require('./activation-test-data');
 
 require('should');
 
-xdescribe('Activations', () => {
+describe('Activations', () => {
 	let request;
 	let pftInstance;
-	let helper;
 
 
 	before(async () => {
 		pftInstance = new PftServer();
 		await pftInstance.start();
-		helper = new Helper(pftInstance.db, pftInstance.logger);
-		await helper.initHelper();
 		request = superTest(pftInstance.server);
 	});
 
 	after(async () => {
-		await helper.cleanHelper();
+		await pftInstance.db.removeCollection('activations');
 		await pftInstance.stop();
 	});
 
@@ -35,24 +29,40 @@ xdescribe('Activations', () => {
 					.set('Accept', 'application/json')
 					.expect(200);
 			});
-			it('should send 3 objects of activations', async () => {
+			it('should send 1 object of activations', async () => {
+				await request
+					.post('/activations')
+					.send(activationOne)
+					.expect(200);
+
 				await request
 					.get('/activations')
 					.set('Accept', 'application/json')
 					.expect(200)
 					.then((response) => {
-						assert.equal(response.body.length, 3);
+						assert.equal(response.body.length, 1);
 					});
+				await pftInstance.db.removeCollection('activations');
 			});
-			it('should get activation which equal sample', async () => request
-				.get('/activations')
-				.set('Accept', 'application/json')
-				.expect(200)
-				.then((response) => {
-					const activation = (response.body.slice(0, 1))[0];
-					delete activation._id;
-					assert.deepEqual(activation, activationSample);
-				}));
+			it('should get activation which equal sample', async () => {
+				await request
+					.post('/activations')
+					.send(activationOne)
+					.expect(200);
+
+				await request
+					.get('/activations')
+					.set('Accept', 'application/json')
+					.expect(200)
+					.then((response) => {
+						const activation = (response.body.slice(0, 1))[0];
+						delete activation._id;
+						delete activation.id;
+						delete activation.__v;
+						assert.deepEqual(activation, activationOne);
+					});
+				await pftInstance.db.removeCollection('activations');
+			});
 		});
 		describe('/activations post', () => {
 			it('should return status code 400 if object not valid', async () => request
@@ -64,16 +74,8 @@ xdescribe('Activations', () => {
 
 			it('should return status code 200 if object valid', async () => request
 				.post('/activations')
-				.send(activationSample)
+				.send(activationOne)
 				.expect(200));
-
-			it('should send 4 objects of activations', async () => request
-				.get('/activations')
-				.expect('Content-Type', /json/)
-				.expect(200)
-				.then((response) => {
-					assert.equal(response.body.length, 4);
-				}));
 		});
 	});
 });
