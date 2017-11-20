@@ -33,7 +33,7 @@ describe('Activations', () => {
 					.send({ userId })
 					.set('Accept', 'application/json')
 					.expect(200)
-					.then((res) => token = res.body.token);
+					.then(res => token = res.body.token);
 			});
 
 			it('should send code 200', async () => {
