@@ -18,12 +18,12 @@ describe('Quiz', () => {
 	});
 
 	before(async () => {
-		const userId = '3000';
+		// const userId = '3000';
 
 		await request
 			.post('/admin/createuser')
 			.set('Accept', 'application/json')
-			.send({ userId })
+			// .send({ userId })
 			.then(response => token = response.body.token);
 	});
 

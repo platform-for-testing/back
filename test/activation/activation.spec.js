@@ -2,7 +2,6 @@ const PftServer = require('../../lib/index');
 const assert = require('assert');
 const superTest = require('supertest');
 const { activationOne } = require('./activation-test-data');
-const uuidv4 = require('uuid4');
 
 require('should');
 
@@ -10,12 +9,18 @@ describe('Activations', () => {
 	let request;
 	let pftInstance;
 	let token;
-	let userId;
 
 	before(async () => {
 		pftInstance = new PftServer();
 		await pftInstance.start();
 		request = superTest(pftInstance.server);
+	});
+
+	before(async () => {
+		await request
+			.post('/admin/createuser')
+			.set('Accept', 'application/json')
+			.then(response => token = response.body.token);
 	});
 
 	after(async () => {
@@ -25,17 +30,6 @@ describe('Activations', () => {
 
 	describe('/activations tests', () => {
 		describe('/activations get', () => {
-			it('should create user 200', async () => {
-				userId = uuidv4();
-
-				await request
-					.post('/admin/createuser')
-					.send({ userId })
-					.set('Accept', 'application/json')
-					.expect(200)
-					.then(res => token = res.body.token);
-			});
-
 			it('should send code 200', async () => {
 				await request
 					.get('/admin/activations')
