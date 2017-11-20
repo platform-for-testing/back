@@ -25,6 +25,7 @@ describe('Respondents', () => {
 
 	after(async () => {
 		await pftInstance.db.removeCollection('respondent');
+		await pftInstance.db.removeCollection('users');
 		await pftInstance.stop();
 	});
 
