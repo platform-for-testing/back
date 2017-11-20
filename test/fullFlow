@@ -1,0 +1,9 @@
+
+describe.skip('full quize flow', () => {
+	it('create user', () => {});
+	it('create quize', () => {});
+	it('create activation', () => {});
+	it('create respondent', () => {});
+	it('send quize result', () => {});
+	it('check results', () => {});
+});
