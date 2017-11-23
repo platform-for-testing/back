@@ -27,9 +27,12 @@ describe('Quiz', () => {
 			.then(response => token = response.body.token);
 	});
 
-	after(async () => {
+	afterEach(async () => {
 		await pftServer.db.removeCollection('quizes');
 		await pftServer.db.removeCollection('users');
+	});
+
+	after(async () => {
 		await pftServer.stop();
 	});
 
@@ -45,7 +48,6 @@ describe('Quiz', () => {
 				.send(quizTwo)
 				// assert
 				.expect(200);
-			await pftServer.db.removeCollection('quizes');
 		});
 
 		it('should return created object', async () => {
@@ -68,7 +70,6 @@ describe('Quiz', () => {
 					delete quizTwo.questions;
 					assert.deepEqual(quiz, quizTwo);
 				});
-			await pftServer.db.removeCollection('quizes');
 		});
 
 		it('should create object in collection', async () => {
@@ -99,7 +100,6 @@ describe('Quiz', () => {
 					delete quizOne.questions;
 					assert.deepEqual(quiz, quizOne);
 				});
-			await pftServer.db.removeCollection('quizes');
 		});
 
 		it('should return code 400 if data is invalid', async () => {
@@ -113,7 +113,6 @@ describe('Quiz', () => {
 				.send({ questions: [questionTwo] })
 				// assert
 				.expect(400);
-			await pftServer.db.removeCollection('quizes');
 		});
 	});
 });
