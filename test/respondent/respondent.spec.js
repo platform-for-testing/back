@@ -23,8 +23,12 @@ describe('Respondents', () => {
 			.then(response => token = response.body.token);
 	});
 
-	after(async () => {
+	afterEach(async () => {
 		await pftInstance.db.removeCollection('respondent');
+		await pftInstance.db.removeCollection('users');
+	});
+
+	after(async () => {
 		await pftInstance.stop();
 	});
 
@@ -52,8 +56,6 @@ describe('Respondents', () => {
 					.then((response) => {
 						assert.equal(response.body.length, 1);
 					});
-
-				await pftInstance.db.removeCollection('respondent');
 			});
 			it('should get respondents which equal sample', async () => {
 				await request
@@ -74,7 +76,6 @@ describe('Respondents', () => {
 						delete respondent.__v;
 						assert.deepEqual(respondent, respondentOne);
 					});
-				await pftInstance.db.removeCollection('respondent');
 			});
 
 			it('should get respondent by id', async () => {
@@ -100,7 +101,6 @@ describe('Respondents', () => {
 						delete respondent.__v;
 						assert.deepEqual(respondent, respondentOne);
 					});
-				await pftInstance.db.removeCollection('respondent');
 			});
 
 			it('should return 500 if id is wrong', async () => request
