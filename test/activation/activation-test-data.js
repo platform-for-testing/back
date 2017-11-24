@@ -1,82 +1,12 @@
-const questionOne = {
-	type: 2,
-	points: 20,
-	title: 'What is life?',
-	description: 'Short description for this question',
-	answers: [
-		{ title: 'life', isCorrect: true },
-		{ title: 'Who nows', isCorrect: false },
-		{ title: 'death', isCorrect: false },
-	],
-};
-
-const questionTwo = {
-	type: 3,
-	points: 10,
-	title: 'Where is Canada?',
-	description: 'tricky question',
-	answers: [
-		{ title: 'in the Africa', isCorrect: true },
-		{ title: 'in London', isCorrect: false },
-		{ title: 'pass', isCorrect: false },
-	],
-};
-
-const questionTree = {
-	type: 0,
-	points: 1,
-	title: 'What is your name?',
-	answers: [
-		{ title: 'Alex', isCorrect: true },
-		{ title: 'Bob', isCorrect: true },
-		{ title: 'Blob', isCorrect: false },
-	],
-};
-
-const questionFour = {
-	type: 2,
-	points: 15,
-	title: 'How old are you?',
-	answers: [
-		{ title: '< 20', isCorrect: true },
-		{ title: '20 - 40', isCorrect: true },
-		{ title: '40 - 60', isCorrect: false },
-		{ title: '>60', isCorrect: false },
-	],
-};
-
-const quizOne = {
-	title: 'Simple quiz',
-	description: 'Short description for this quiz',
-	questions: [questionTree, questionFour],
-};
-
-const quizTwo = {
-	title: 'Hard quiz',
-	description: 'Short description for this quiz',
-	questions: [questionOne, questionTwo, questionFour],
-};
-
-
 const activationOne = {
 	respondentsIds: 'c2bsab3c-f83d-4870-a351-429198c4ead1',
 	shareLink: 'http://link',
 	name: 'quizName',
-	quiz: quizOne,
+	quizId: 'b4936360-1cb6-419e-82d0-f06096490d7d',
 	activationOptions: 'c2bsab3c-f83d-4870-a351-429198c4ead2',
 };
 
-
-const activationTwo = {
-	respondentsIds: 'c2bsab3c-f83d-4870-a351-429198c4ead1',
-	shareLink: 'http://link',
-	name: 'quizName',
-	quiz: quizTwo,
-	activationOptions: 'c2bsab3c-f83d-4870-a351-429198c4ead2',
-};
 
 module.exports = {
 	activationOne,
-	activationTwo,
 };
-

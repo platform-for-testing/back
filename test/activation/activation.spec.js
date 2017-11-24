@@ -23,7 +23,7 @@ describe('Activations', () => {
 			.then(response => token = response.body.token);
 	});
 
-	after(async () => {
+	afterEach(async () => {
 		await pftInstance.db.removeCollection('activations');
 		await pftInstance.stop();
 	});
@@ -52,7 +52,6 @@ describe('Activations', () => {
 					.then((response) => {
 						assert.equal(response.body.length, 1);
 					});
-				await pftInstance.db.removeCollection('activations');
 			});
 			it('should get activation which equal sample', async () => {
 				await request
@@ -73,7 +72,6 @@ describe('Activations', () => {
 						delete activation.__v;
 						assert.deepEqual(activation, activationOne);
 					});
-				await pftInstance.db.removeCollection('activations');
 			});
 		});
 		describe('/activations post', () => {
