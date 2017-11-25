@@ -64,18 +64,27 @@ describe('Activations', () => {
 					.send(activationOne)
 					.expect(200);
 
-				await request
+				const response = await request
 					.get('/admin/activations')
 					.set('Accept', 'application/json')
 					.set('Authorization', `Bearer ${token}`)
-					.expect(200)
-					.then((response) => {
-						const activation = (response.body.slice(0, 1))[0];
-						delete activation._id;
-						delete activation.id;
-						delete activation.__v;
-						assert.deepEqual(activation, activationOne);
+					.expect(200);
+
+				const activation = response.body.slice(0, 1)[0];
+				delete activation.quiz.id;
+				delete activation.quiz._id;
+				activation.quiz.questions.forEach((question) => {
+					delete question.id;
+					delete question._id;
+					question.answers.forEach((answer) => {
+						delete answer.id;
+						delete answer._id;
 					});
+				});
+				delete activation._id;
+				delete activation.id;
+				delete activation.__v;
+				assert.deepEqual(activation, activationOne);
 			});
 		});
 		describe('/activations post', () => {
