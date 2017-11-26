@@ -50,7 +50,7 @@ describe('Respondents', () => {
 					.send(respondentOne)
 					.expect(200);
 
-				await request
+				const response = await request
 					.get('/admin/respondents')
 					.set('Accept', 'application/json')
 					.set('Authorization', `Bearer ${token}`)
@@ -105,7 +105,7 @@ describe('Respondents', () => {
 				assert.deepEqual(respondent, respondentOne);
 			});
 
-			it('should return 500 if id is wrong', async () => {
+			it('should return 404 if id is wrong', async () => {
 				request
 					.get('/admin/respondents/123')
 					.set('Accept', 'application/json')
