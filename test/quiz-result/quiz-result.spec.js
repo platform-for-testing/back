@@ -6,7 +6,7 @@ const { successResult, invalidResultOne, invalidResultTwo } = require('./user-re
 
 require('should');
 
-describe.only('QuizResult', () => {
+describe('QuizResult', () => {
 	let request;
 	let pftInstance;
 	let token;
@@ -31,7 +31,6 @@ describe.only('QuizResult', () => {
 			.send(activationOne);
 
 		activationId = activationResponse.body.id;
-		console.log(activationId);
 	});
 
 	afterEach(async () => {
@@ -39,7 +38,7 @@ describe.only('QuizResult', () => {
 	});
 
 	after(async () => {
-		// await pftInstance.db.removeCollection('activations');
+		await pftInstance.db.removeCollection('activations');
 		await pftInstance.db.removeCollection('users');
 		await pftInstance.stop();
 	});
@@ -76,25 +75,6 @@ describe.only('QuizResult', () => {
 				.set('Accept', 'application/json')
 				.send(invalidResultTwo)
 				.expect(400);
-		});
-
-		it('should create QuizResult with score 100', async () => {
-			await request
-				.post(`/respondent/test/${activationId}`)
-				// .set('Authorization', `Bearer ${token}`)
-				.set('Accept', 'application/json')
-				.send(successResult)
-				.expect(200);
-
-			const response = await request
-				.get('/admin/results')
-				.set('Authorization', `Bearer ${token}`)
-				.set('Accept', 'application/json')
-				.expect(200);
-
-			const result = response.body[0];
-
-			assert.equal(result.meta.score, 100);
 		});
 	});
 });
