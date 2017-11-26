@@ -17,10 +17,11 @@ describe('Respondents', () => {
 	});
 
 	before(async () => {
-		await request
+		const response = await request
 			.post('/admin/createuser')
-			.set('Accept', 'application/json')
-			.then(response => token = response.body.token);
+			.set('Accept', 'application/json');
+
+		token = response.body.token;
 	});
 
 	afterEach(async () => {
@@ -41,6 +42,7 @@ describe('Respondents', () => {
 					.set('Authorization', `Bearer ${token}`)
 					.expect(200);
 			});
+
 			it('should send 1 object of respondents', async () => {
 				await request
 					.post('/admin/respondents')
@@ -52,11 +54,11 @@ describe('Respondents', () => {
 					.get('/admin/respondents')
 					.set('Accept', 'application/json')
 					.set('Authorization', `Bearer ${token}`)
-					.expect(200)
-					.then((response) => {
-						assert.equal(response.body.length, 1);
-					});
+					.expect(200);
+
+				assert.equal(response.body.length, 1);
 			});
+
 			it('should get respondents which equal sample', async () => {
 				await request
 					.post('/admin/respondents')
@@ -64,51 +66,54 @@ describe('Respondents', () => {
 					.send(respondentOne)
 					.expect(200);
 
-				await request
+				const response = await request
 					.get('/admin/respondents')
 					.set('Accept', 'application/json')
 					.set('Authorization', `Bearer ${token}`)
-					.expect(200)
-					.then((response) => {
-						const respondent = (response.body.slice(0, 1))[0];
-						delete respondent._id;
-						delete respondent.id;
-						delete respondent.__v;
-						assert.deepEqual(respondent, respondentOne);
-					});
+					.expect(200);
+
+				const respondent = (response.body.slice(0, 1))[0];
+
+				delete respondent._id;
+				delete respondent.id;
+				delete respondent.__v;
+
+				assert.deepEqual(respondent, respondentOne);
 			});
 
 			it('should get respondent by id', async () => {
-				let idObject;
-				await request
+				const response = await request
 					.post('/admin/respondents')
 					.set('Authorization', `Bearer ${token}`)
 					.send(respondentOne)
-					.expect(200)
-					.then((response) => {
-						const respondent = response.body;
-						idObject = respondent.id;
-					});
-				await request
+					.expect(200);
+
+				const idObject = response.body.id;
+
+				const byIdResponse = await request
 					.get(`/admin/respondents/${idObject}`)
 					.set('Accept', 'application/json')
 					.set('Authorization', `Bearer ${token}`)
-					.expect(200)
-					.then((response) => {
-						const respondent = Object.assign({}, response.body[0]);
-						delete respondent._id;
-						delete respondent.id;
-						delete respondent.__v;
-						assert.deepEqual(respondent, respondentOne);
-					});
+					.expect(200);
+
+				const respondent = Object.assign({}, byIdResponse.body[0]);
+
+				delete respondent._id;
+				delete respondent.id;
+				delete respondent.__v;
+
+				assert.deepEqual(respondent, respondentOne);
 			});
 
-			it('should return 500 if id is wrong', async () => request
-				.get('/admin/respondents/123')
-				.set('Accept', 'application/json')
-				.set('Authorization', `Bearer ${token}`)
-				.expect(404));
+			it('should return 500 if id is wrong', async () => {
+				request
+					.get('/admin/respondents/123')
+					.set('Accept', 'application/json')
+					.set('Authorization', `Bearer ${token}`)
+					.expect(404);
+			});
 		});
+
 		describe('Respondents post', () => {
 			it('should return status code 400 if object not valid', async () => request
 				.post('/admin/respondents')
@@ -117,7 +122,6 @@ describe('Respondents', () => {
 					name: 'qwe',
 				})
 				.expect(400));
-
 
 			it('should return status code 200 if object valid', async () => request
 				.post('/admin/respondents')
