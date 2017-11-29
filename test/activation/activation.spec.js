@@ -1,9 +1,8 @@
 const PftServer = require('../../lib/index');
 const assert = require('assert');
 const superTest = require('supertest');
+const { quizTwo } = require('../quiz/quiz-test-data');
 const { activationOne } = require('./activation-test-data');
-
-require('should');
 
 describe('Activations', () => {
 	let request;
@@ -21,6 +20,13 @@ describe('Activations', () => {
 			.post('/admin/createuser')
 			.set('Accept', 'application/json')
 			.then(response => token = response.body.token);
+		// send valid quiz to bd
+		const response = await request
+			.post('/admin/tests')
+			.set('Accept', 'application/json')
+			.set('Authorization', `Bearer ${token}`)
+			.send(quizTwo);
+		activationOne.quizId = response.body.id;
 	});
 
 	afterEach(async () => {
@@ -29,11 +35,12 @@ describe('Activations', () => {
 	});
 
 	after(async () => {
+		// await pftInstance.db.removeCollection('quizes');
 		await pftInstance.stop();
 	});
 
 	describe('/activations tests', () => {
-		describe('/activations get', () => {
+		describe.only('/activations get', () => {
 			it('should send code 200', async () => {
 				await request
 					.get('/admin/activations')
