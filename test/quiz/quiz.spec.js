@@ -6,6 +6,20 @@ require('should');
 const PftServer = require('../../lib/index');
 const { quizOne, quizTwo, questionTwo } = require('./quiz-test-data');
 
+const prepareQuiz = (response) => {
+	const quiz = Object.assign({}, response.body);
+
+	delete quiz._id;
+	delete quiz.id;
+	delete quiz.__v;
+
+	quiz.questions.forEach(q => uuidv4.valid(q));
+
+	delete quiz.questions;
+
+	return quiz;
+};
+
 describe('Quiz', () => {
 	let request;
 	let pftServer;
@@ -18,13 +32,11 @@ describe('Quiz', () => {
 	});
 
 	before(async () => {
-		// const userId = '3000';
-
-		await request
+		const response = await request
 			.post('/admin/createuser')
-			.set('Accept', 'application/json')
-			// .send({ userId })
-			.then(response => token = response.body.token);
+			.set('Accept', 'application/json');
+
+		token = response.body.token;
 	});
 
 	afterEach(async () => {
@@ -54,22 +66,18 @@ describe('Quiz', () => {
 			// arrange
 
 			// act
-			await request
+			const response = await request
 				.post('/admin/tests')
 				.set('Accept', 'application/json')
 				.set('Authorization', `Bearer ${token}`)
 				.send(quizTwo)
-				.expect(200)
-				.then((response) => {
-					const quiz = Object.assign({}, response.body);
-					delete quiz._id;
-					delete quiz.id;
-					delete quiz.__v;
-					quiz.questions.forEach(q => uuidv4.valid(q));
-					delete quiz.questions;
-					delete quizTwo.questions;
-					assert.deepEqual(quiz, quizTwo);
-				});
+				.expect(200);
+
+			const quiz = prepareQuiz(response);
+			delete quizTwo.questions;
+
+			// assert
+			assert.deepEqual(quiz, quizTwo);
 		});
 
 		it('should create object in collection', async () => {
@@ -85,21 +93,16 @@ describe('Quiz', () => {
 
 			const created = _response.body;
 
-			// assert
-			await request
+			const response = await request
 				.get(`/admin/tests/${created.id}`)
 				.set('Accept', 'application/json')
-				.set('Authorization', `Bearer ${token}`)
-				.then((response) => {
-					const quiz = Object.assign({}, response.body);
-					delete quiz.id;
-					delete quiz._id;
-					delete quiz.__v;
-					quiz.questions.forEach(q => uuidv4.valid(q));
-					delete quiz.questions;
-					delete quizOne.questions;
-					assert.deepEqual(quiz, quizOne);
-				});
+				.set('Authorization', `Bearer ${token}`);
+
+			const quiz = prepareQuiz(response);
+			delete quizOne.questions;
+
+			// assert
+			assert.deepEqual(quiz, quizOne);
 		});
 
 		it('should return code 400 if data is invalid', async () => {
