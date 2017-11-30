@@ -17,6 +17,6 @@ before_deploy:
 - scp scripts/deploy.sh deploy@95.85.54.211:/home/deploy/back-dev/package/
 deploy:
 - provider: script
-  script: scripts/startDeploy.sh
+  script: scripts/start-deploy.sh
   on:
     branch: develop

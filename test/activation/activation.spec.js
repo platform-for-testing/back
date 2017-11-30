@@ -17,10 +17,11 @@ describe('Activations', () => {
 	});
 
 	before(async () => {
-		await request
+		const response = await request
 			.post('/admin/createuser')
-			.set('Accept', 'application/json')
-			.then(response => token = response.body.token);
+			.set('Accept', 'application/json');
+
+		token = response.body.token;
 	});
 
 	afterEach(async () => {
@@ -41,6 +42,7 @@ describe('Activations', () => {
 					.set('Accept', 'application/json')
 					.expect(200);
 			});
+
 			it('should send 1 object of activations', async () => {
 				await request
 					.post('/admin/activations')
@@ -48,15 +50,15 @@ describe('Activations', () => {
 					.send(activationOne)
 					.expect(200);
 
-				await request
+				const response = await request
 					.get('/admin/activations')
 					.set('Accept', 'application/json')
 					.set('Authorization', `Bearer ${token}`)
-					.expect(200)
-					.then((response) => {
-						assert.equal(response.body.length, 1);
-					});
+					.expect(200);
+
+				assert.equal(response.body.length, 1);
 			});
+
 			it('should get activation which equal sample', async () => {
 				await request
 					.post('/admin/activations')
@@ -73,20 +75,25 @@ describe('Activations', () => {
 				const activation = response.body.slice(0, 1)[0];
 				delete activation.quiz.id;
 				delete activation.quiz._id;
+
 				activation.quiz.questions.forEach((question) => {
 					delete question.id;
 					delete question._id;
+
 					question.answers.forEach((answer) => {
 						delete answer.id;
 						delete answer._id;
 					});
 				});
+
 				delete activation._id;
 				delete activation.id;
 				delete activation.__v;
+
 				assert.deepEqual(activation, activationOne);
 			});
 		});
+
 		describe('/activations post', () => {
 			it('should return status code 400 if object not valid', async () => request
 				.post('/admin/activations')
