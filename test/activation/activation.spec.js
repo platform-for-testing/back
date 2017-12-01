@@ -2,7 +2,7 @@ const PftServer = require('../../lib/index');
 const assert = require('assert');
 const superTest = require('supertest');
 const { quizTwo } = require('../quiz/quiz-test-data');
-const { activationOne, expectedActivation} = require('./activation-test-data');
+const { activationOne, expectedActivation } = require('./activation-test-data');
 
 require('should');
 
@@ -97,7 +97,6 @@ describe('Activations', () => {
 				delete activation._id;
 				delete activation.id;
 				delete activation.__v;
-
 
 
 				assert.deepEqual(activation, expectedActivation);
