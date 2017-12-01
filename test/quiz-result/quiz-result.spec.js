@@ -7,6 +7,7 @@ const { successResult, invalidResultOne, invalidResultTwo } = require('./user-re
 require('should');
 
 describe('QuizResult', () => {
+	this.timeout(5000);
 	let request;
 	let pftInstance;
 	let token;

@@ -21,6 +21,7 @@ const prepareQuiz = (response) => {
 };
 
 describe('Quiz', () => {
+	this.timeout(5000);
 	let request;
 	let pftServer;
 	let token;

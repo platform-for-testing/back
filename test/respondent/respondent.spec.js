@@ -6,6 +6,7 @@ const { respondentOne } = require('./respondent-test-data');
 require('should');
 
 describe('Respondents', () => {
+	this.timeout(5000);
 	let request;
 	let pftInstance;
 	let token;
