@@ -39,12 +39,10 @@ describe('Quiz', () => {
 		token = response.body.token;
 	});
 
-	afterEach(async () => {
+	after(async () => {
 		await pftServer.db.removeCollection('quizes');
 		await pftServer.db.removeCollection('users');
-	});
 
-	after(async () => {
 		await pftServer.stop();
 	});
 

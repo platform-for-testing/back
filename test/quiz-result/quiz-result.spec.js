@@ -1,8 +1,7 @@
-const { quizTwo } = require('../quiz/quiz-test-data');
 const PftServer = require('../../lib/index');
 const assert = require('assert');
 const superTest = require('supertest');
-const { activationOne } = require('../activation/activation-test-data');
+const { activationOne, quizForActivation } = require('../activation/activation-test-data');
 const { successResult, invalidResultOne, invalidResultTwo } = require('./user-result.mock');
 
 require('should');
@@ -28,8 +27,8 @@ describe('QuizResult', () => {
 		const responseQuiz = await request
 			.post('/admin/tests')
 			.set('Accept', 'application/json')
-			// .set('Authorization', `Bearer ${token}`)
-			.send(quizTwo);
+			.set('Authorization', `Bearer ${token}`)
+			.send(quizForActivation);
 		activationOne.quizId = responseQuiz.body.id;
 
 		const activationResponse = await request
@@ -47,6 +46,7 @@ describe('QuizResult', () => {
 	after(async () => {
 		await pftInstance.db.removeCollection('activations');
 		await pftInstance.db.removeCollection('users');
+		await pftInstance.db.removeCollection('quizes');
 		await pftInstance.stop();
 	});
 
