@@ -6,7 +6,6 @@ const { activationOne, expectedActivation, quizForActivation } = require('./acti
 require('should');
 
 describe('Activations', () => {
-	this.timeout(5000);
 	let request;
 	let pftInstance;
 	let token;
