@@ -1,3 +1,4 @@
+const { quizTwo } = require('../quiz/quiz-test-data');
 const PftServer = require('../../lib/index');
 const assert = require('assert');
 const superTest = require('supertest');
@@ -19,11 +20,17 @@ describe('QuizResult', () => {
 	});
 
 	before(async () => {
-		const response = await request
+		await request
 			.post('/admin/createuser')
-			.set('Accept', 'application/json');
-
-		token = response.body.token;
+			.set('Accept', 'application/json')
+			.then(response => token = response.body.token);
+		// send valid quiz to bd
+		const responseQuiz = await request
+			.post('/admin/tests')
+			.set('Accept', 'application/json')
+			// .set('Authorization', `Bearer ${token}`)
+			.send(quizTwo);
+		activationOne.quizId = responseQuiz.body.id;
 
 		const activationResponse = await request
 			.post('/admin/activations')
