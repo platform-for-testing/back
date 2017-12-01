@@ -10,7 +10,7 @@ const expectedActivation = {
 		__v: 0,
 		questions:
             [{
-            	type: 2,
+				type: 2,
             	points: 20,
             	title: 'What is life?',
             	description: 'Short description for this question',
@@ -33,11 +33,10 @@ const expectedActivation = {
             	type: 2,
             	points: 15,
             	title: 'How old are you?',
-            	answers:
-                        [{ title: '< 20', isCorrect: true },
-                        	{ title: '20 - 40', isCorrect: true },
-                        	{ title: '40 - 60', isCorrect: false },
-                        	{ title: '>60', isCorrect: false }],
+            	answers: [{ title: '< 20', isCorrect: true },
+            		{ title: '20 - 40', isCorrect: true },
+            		{ title: '40 - 60', isCorrect: false },
+            		{ title: '>60', isCorrect: false }],
             }],
 	},
 	shareLink: 'http://some-url.com',
