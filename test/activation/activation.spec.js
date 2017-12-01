@@ -4,6 +4,8 @@ const superTest = require('supertest');
 const { quizTwo } = require('../quiz/quiz-test-data');
 const { activationOne } = require('./activation-test-data');
 
+require('should');
+
 describe('Activations', () => {
 	let request;
 	let pftInstance;
@@ -40,7 +42,7 @@ describe('Activations', () => {
 	});
 
 	describe('/activations tests', () => {
-		describe.only('/activations get', () => {
+		describe('/activations get', () => {
 			it('should send code 200', async () => {
 				await request
 					.get('/admin/activations')
@@ -48,6 +50,7 @@ describe('Activations', () => {
 					.set('Accept', 'application/json')
 					.expect(200);
 			});
+
 			it('should send 1 object of activations', async () => {
 				await request
 					.post('/admin/activations')
@@ -55,15 +58,15 @@ describe('Activations', () => {
 					.send(activationOne)
 					.expect(200);
 
-				await request
+				const response = await request
 					.get('/admin/activations')
 					.set('Accept', 'application/json')
 					.set('Authorization', `Bearer ${token}`)
-					.expect(200)
-					.then((response) => {
-						assert.equal(response.body.length, 1);
-					});
+					.expect(200);
+
+				assert.equal(response.body.length, 1);
 			});
+
 			it('should get activation which equal sample', async () => {
 				await request
 					.post('/admin/activations')
@@ -80,20 +83,25 @@ describe('Activations', () => {
 				const activation = response.body.slice(0, 1)[0];
 				delete activation.quiz.id;
 				delete activation.quiz._id;
+
 				activation.quiz.questions.forEach((question) => {
 					delete question.id;
 					delete question._id;
+
 					question.answers.forEach((answer) => {
 						delete answer.id;
 						delete answer._id;
 					});
 				});
+
 				delete activation._id;
 				delete activation.id;
 				delete activation.__v;
+
 				assert.deepEqual(activation, activationOne);
 			});
 		});
+
 		describe('/activations post', () => {
 			it('should return status code 400 if object not valid', async () => request
 				.post('/admin/activations')
